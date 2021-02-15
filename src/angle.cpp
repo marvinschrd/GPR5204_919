@@ -25,6 +25,8 @@ SOFTWARE.
 
 #include "maths/angle.h"
 
+#include <cmath>
+
 namespace maths
 {
 float sin(radian_t angle)
@@ -40,5 +42,17 @@ float cos(radian_t angle)
 float tan(radian_t angle)
 {
     return std::tan(angle.value());
+}
+radian_t asin(float ratio)
+{
+    return radian_t(std::asin(ratio));
+}
+radian_t acos(float ratio)
+{
+    return radian_t(std::acos(ratio));
+}
+radian_t atan(float ratio)
+{
+    return radian_t(std::atan(ratio));
 }
 }

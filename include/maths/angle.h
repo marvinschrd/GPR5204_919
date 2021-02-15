@@ -35,4 +35,8 @@ using degree_t = units::unit_t<units::angle::degree, float>;
 float sin(radian_t angle);
 float cos(radian_t angle);
 float tan(radian_t angle);
+
+radian_t asin(float ratio);
+radian_t acos(float ratio);
+radian_t atan(float ratio);
 }

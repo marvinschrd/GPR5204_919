@@ -18,4 +18,5 @@ TEST(Maths, Angle)
 
     EXPECT_FLOAT_EQ(maths::tan(angle1), 0.0f);
     
+    EXPECT_FLOAT_EQ(maths::atan(maths::tan(angle1)).value(), 0.0f);
 }
