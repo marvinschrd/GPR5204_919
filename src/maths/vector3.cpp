@@ -23,6 +23,8 @@ SOFTWARE.
 */
 
 #include <maths/vector3.h>
+#include <maths/angle.h>
+#include <cmath>
 
 namespace maths
 {
@@ -57,4 +59,21 @@ namespace maths
 		y /= scalar;
 		z /= scalar;
 	}
+
+	radian_t Vec3f::AngleBetween(const Vec3f v2) const
+	{
+		float dot = Dot(v2);
+		float magnitude = Magnitude();
+		float otherMagnitude = v2.Magnitude();
+		return { maths::acos(dot / (otherMagnitude * magnitude)) };
+	}
+
+	radian_t Vec3f::AngleBetween(const Vec3f v1, const Vec3f v2)
+	{
+		float dot = Dot(v1, v2);
+		float otherMagnitude1 = v1.Magnitude();
+		float otherMagnitude2 = v2.Magnitude();
+		return { maths::acos(dot / (otherMagnitude1 * otherMagnitude2)) };
+	}
+	
 }

@@ -105,3 +105,55 @@ TEST(Maths, Vec3f_DivisionByScalar)
 	ASSERT_EQ(e.y, d.y / b);
 	ASSERT_EQ(e.z, d.z / b);
 }
+
+TEST(Maths, Vec3f_Magnitude)
+{
+	const maths::Vec3f a{ 2.0f, 3.0f, 1.0f };
+	const float b = 4;
+
+	//Test .SqrMagnitude()
+	ASSERT_EQ(a.Magnitude(), sqrt((a.x * a.x) + (a.y * a.y) + (a.z * a.z)));
+}
+
+TEST(Maths, Vec3f_SqrMagnitude)
+{
+	const maths::Vec3f a{ 2.0f, 3.0f, 1.0f };
+	const float b = 4;
+
+	//Test .SqrMagnitude()
+	ASSERT_EQ(a.SqrMagnitude(), (a.x * a.x) + (a.y * a.y) + (a.z * a.z));
+}
+
+TEST(Maths, Vec3f_DotProduct)
+{
+	const maths::Vec3f a{ 0.0f, 3.0f, 2.0f};
+	const maths::Vec3f b{ 1.0f, 0.0f, 2.0f };
+
+	//Test .Dot()
+	ASSERT_EQ(a.Dot(b), a.x * b.x + a.y * b.y + a.z * b.z);
+
+	//Test static Dot()
+	ASSERT_EQ(maths::Vec3f::Dot(a, b), a.x * b.x + a.y * b.y + a.z * b.z);
+
+
+	const maths::Vec3f c{ 2.0f, 3.0f, 1.0f };
+	const maths::Vec3f d{ 1.0f, 1.0f, 1.0f };
+
+	//Test .Dot()
+	ASSERT_EQ(c.Dot(d), c.x * d.x + c.y * d.y + c.z * d.z);
+
+	//Test static Dot()
+	ASSERT_EQ(maths::Vec3f::Dot(c, d), c.x * d.x + c.y * d.y + c.z * d.z);
+}
+
+TEST(Maths, Vec3f_AngleBetween)
+{
+	const maths::Vec3f a{ 0.0f, 3.0f, 2.0f };
+	const maths::Vec3f b{ 1.0f, 0.0f, 2.0f };
+
+	//Test .AngleBetween()
+	ASSERT_EQ(maths::Vec3f::AngleBetween(a, b), maths::acos(a.Dot(b) / (a.Magnitude() * b.Magnitude())));
+
+	//Test static AngleBetween()
+	ASSERT_EQ(maths::Vec3f::AngleBetween(a, b), maths::acos(maths::Vec3f::Dot(a, b) / (a.Magnitude() * b.Magnitude())));
+}

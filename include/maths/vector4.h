@@ -63,5 +63,13 @@ namespace maths
 		Vec4f operator/(const float scalar) const { return { x / scalar, y / scalar, z / scalar, w / scalar }; }
 
 		void operator/=(float scalar);
+
+		float Dot(const Vec4f v2) const { return { x * v2.x + y * v2.y + z * v2.z + w * v2.w }; }
+
+		static float Dot(const Vec4f v1, const Vec4f v2) { return { v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w }; }
+
+		float Magnitude() const { return std::sqrt(x * x + y * y + z * z + w * w); }
+
+		float SqrMagnitude() const { return { x * x + y * y + z * z + w * w }; }
 	};
 }

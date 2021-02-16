@@ -113,3 +113,43 @@ TEST(Maths, Vec4f_DivisionByScalar)
 	ASSERT_EQ(e.z, d.z / b);
 	ASSERT_EQ(e.w, d.w / b);
 }
+
+TEST(Maths, Vec4f_Magnitude)
+{
+	const maths::Vec4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
+	const float b = 4;
+
+	//Test .SqrMagnitude()
+	ASSERT_EQ(a.Magnitude(), sqrt((a.x * a.x) + (a.y * a.y) + (a.z * a.z) + (a.w * a.w)));
+}
+
+TEST(Maths, Vec4f_SqrMagnitude)
+{
+	const maths::Vec4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
+	const float b = 4;
+
+	//Test .SqrMagnitude()
+	ASSERT_EQ(a.SqrMagnitude(), (a.x * a.x) + (a.y * a.y) + (a.z * a.z) + (a.w * a.w));
+}
+
+TEST(Maths, Vec4f_DotProduct)
+{
+	const maths::Vec4f a{ 0.0f, 3.0f, 2.0f, 1.0f };
+	const maths::Vec4f b{ 1.0f, 0.0f, 2.0f, 3.0f };
+
+	//Test .Dot()
+	ASSERT_EQ(a.Dot(b), a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w);
+
+	//Test static Dot()
+	ASSERT_EQ(maths::Vec4f::Dot(a, b), a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w);
+
+
+	const maths::Vec4f c{ 2.0f, 3.0f, 1.0f, 0.0f };
+	const maths::Vec4f d{ 1.0f, 1.0f, 1.0f, 1.0f };
+
+	//Test .Dot()
+	ASSERT_EQ(c.Dot(d), c.x * d.x + c.y * d.y + c.z * d.z + c.w * d.w);
+
+	//Test static Dot()
+	ASSERT_EQ(maths::Vec4f::Dot(c, d), c.x * d.x + c.y * d.y + c.z * d.z + c.w * d.w);
+}

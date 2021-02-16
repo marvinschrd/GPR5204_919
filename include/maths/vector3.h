@@ -62,5 +62,21 @@ namespace maths
 		Vec3f operator/(const float scalar) const { return {x / scalar, y / scalar, z / scalar}; }
 
 		void operator/=(float scalar);
+
+		float Dot(const Vec3f v2) const { return { x * v2.x + y * v2.y + z * v2.z }; }
+
+		static float Dot(const Vec3f v1, const Vec3f v2) { return { v1.x * v2.x + v1.y * v2.y + v1.z * v2.z }; }
+
+		/*Vec3f Cross(const Vec3f v2) const { return { y * v2.z – z * v2.y, z * v2.x – x * v2.z, x * v2.y - y * v2.x }; }
+
+		static Vec3f Cross(const Vec3f v1, const Vec3f v2) { return { v1.y * v2.z – v1.z * v2.y, v1.z * v2.x – v1.x * v2.z, v1.x * v2.y - v1.y * v2.x }; }*/
+
+		float Magnitude() const { return std::sqrt(x * x + y * y + z * z); }
+
+		float SqrMagnitude() const { return { x * x + y * y + z * z }; }
+
+		radian_t AngleBetween(const Vec3f v2) const;
+
+		static radian_t AngleBetween(const Vec3f v1, const Vec3f v2);
 	};
 }
