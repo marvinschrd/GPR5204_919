@@ -23,6 +23,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+#include <cmath>
+#include "maths/vector3.h"
+#include "maths/angle.h"
 
 namespace maths
 {
@@ -65,5 +68,21 @@ namespace maths
 		bool operator==(const Vec2f rhs) const { return x == rhs.x && y == rhs.y; }
 
 		bool operator!=(const Vec2f rhs) const { return x != rhs.x || y != rhs.y; }
+
+		float Magnitude() const { return float(std::sqrt(x * x + y * y)); }
+
+		float SqrMagnitude() const { return float((x * x + y * y)); }
+
+		float Dot(const Vec2f v2) const { return float(x * v2.x + y * v2.y); }
+
+		static float Dot(const Vec2f v1, const Vec2f v2) { return float(v1.x * v2.x + v1.y * v2.y); }
+
+		Vec3f Cross(const Vec2f v2) const;
+
+		static Vec3f Cross(const Vec2f v1, const Vec2f v2);
+
+		radian_t AngleBetween(const Vec2f v2) const;
+
+		static radian_t AngleBetween(const Vec2f v1, const Vec2f v2);
 	};
 };

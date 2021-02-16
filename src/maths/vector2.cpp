@@ -23,7 +23,6 @@ SOFTWARE.
 */
 
 #include "maths/vector2.h"
-#include "maths/vector3.h"
 
 namespace maths
 {
@@ -52,4 +51,39 @@ namespace maths
         x /= scalar;
         y /= scalar;
     }
+
+    Vec3f Vec2f::Cross(Vec2f vec2) const
+    {
+        Vec3f v1 = Vec3f(x, y, 0);
+        Vec3f v2 = Vec3f(vec2.x, vec2.y, 0);
+        return Vec3f(0, 0, v1.x * v2.y - v1.y * v2.x);
+    }
+
+    Vec3f Vec2f::Cross(Vec2f vec1, Vec2f vec2)
+    {
+        Vec3f v1 = Vec3f(vec1.x, vec1.y, 0);
+        Vec3f v2 = Vec3f(vec2.x, vec2.y, 0);
+        return Vec3f(0, 0, v1.x * v2.y - v1.y * v2.x);
+    }
+
+    radian_t Vec2f::AngleBetween(const Vec2f v2) const
+    {
+        float dot = Dot(v2);
+        float thisMagnitude = this->Magnitude();
+        float otherMagnitude = v2.Magnitude();
+        radian_t angle = maths::acos(dot / (thisMagnitude * otherMagnitude));
+
+        return angle;
+    }
+
+    radian_t Vec2f::AngleBetween(const Vec2f v1, const Vec2f v2)
+    {
+        float dot = Dot(v1, v2);
+        float v1Magnitude = v1.Magnitude();
+        float v2Magnitude = v2.Magnitude();
+        radian_t angle = maths::acos(dot / (v1Magnitude * v2Magnitude));
+
+        return angle;
+    }
+	
 }
