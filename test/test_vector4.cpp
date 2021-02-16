@@ -24,84 +24,92 @@ SOFTWARE.
 
 #include <gtest/gtest.h>
 
-#include <maths/vector3.h>
+#include <maths/vector4.h>
 
-TEST(Maths, Vec3f_Addition)
+TEST(Maths, Vec4f_Addition)
 {
-	const maths::Vec3f a{2.0f, 3.0f, 1.0f};
-	const maths::Vec3f b{1.0f, 4.0f, 3.0f};
+	const maths::Vec4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
+	const maths::Vec4f b{ 1.0f, 4.0f, 3.0f, 2.0f };
 
 	//Test operator +
-	maths::Vec3f c = a + b;
+	maths::Vec4f c = a + b;
 	ASSERT_EQ(c.x, a.x + b.x);
 	ASSERT_EQ(c.y, a.y + b.y);
 	ASSERT_EQ(c.z, a.z + b.z);
+	ASSERT_EQ(c.w, a.w + b.w);
 
 	//Test operator +=
-	const maths::Vec3f d{3.0f, 4.0f, 2.0f};
-	maths::Vec3f e = d;
+	const maths::Vec4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
+	maths::Vec4f e = d;
 	e += a;
 	ASSERT_EQ(e.x, d.x + a.x);
 	ASSERT_EQ(e.y, d.y + a.y);
 	ASSERT_EQ(e.z, d.z + a.z);
+	ASSERT_EQ(e.w, d.w + a.w);
 }
 
-TEST(Maths, Vec3f_Substraction)
+TEST(Maths, Vec4f_Substraction)
 {
-	const maths::Vec3f a{2.0f, 3.0f, 1.0f};
-	const maths::Vec3f b{1.0f, 4.0f, 3.0f};
+	const maths::Vec4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
+	const maths::Vec4f b{ 1.0f, 4.0f, 3.0f, 2.0f };
 
 	//Test operator -
-	maths::Vec3f c = a - b;
+	maths::Vec4f c = a - b;
 	ASSERT_EQ(c.x, a.x - b.x);
 	ASSERT_EQ(c.y, a.y - b.y);
 	ASSERT_EQ(c.z, a.z - b.z);
+	ASSERT_EQ(c.w, a.w - b.w);
 
 	//Test operator -=
-	const maths::Vec3f d{3.0f, 4.0f, 2.0f};
-	maths::Vec3f e = d;
+	const maths::Vec4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
+	maths::Vec4f e = d;
 	e -= a;
 	ASSERT_EQ(e.x, d.x - a.x);
 	ASSERT_EQ(e.y, d.y - a.y);
 	ASSERT_EQ(e.z, d.z - a.z);
+	ASSERT_EQ(e.w, d.w - a.w);
 }
 
-TEST(Maths, Vec3f_MultiplicationByScalar)
+TEST(Maths, Vec4f_MultiplicationByScalar)
 {
-	const maths::Vec3f a{2.0f, 3.0f, 1.0f};
+	const maths::Vec4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
 	const float b = 4.0f;
 
 	//Test operator *
-	maths::Vec3f c = a * b;
+	maths::Vec4f c = a * b;
 	ASSERT_EQ(c.x, a.x * b);
 	ASSERT_EQ(c.y, a.y * b);
 	ASSERT_EQ(c.z, a.z * b);
+	ASSERT_EQ(c.w, a.w * b);
 
 	//Test operator *=
-	const maths::Vec3f d{3.0f, 4.0f, 2.0f};
-	maths::Vec3f e = d;
+	const maths::Vec4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
+	maths::Vec4f e = d;
 	e *= b;
 	ASSERT_EQ(e.x, d.x * b);
 	ASSERT_EQ(e.y, d.y * b);
 	ASSERT_EQ(e.z, d.z * b);
+	ASSERT_EQ(e.w, d.w * b);
 }
 
-TEST(Maths, Vec3f_DivisionByScalar)
+TEST(Maths, Vec4f_DivisionByScalar)
 {
-	const maths::Vec3f a{2.0f, 3.0f, 1.0f};
+	const maths::Vec4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
 	const float b = 4.0f;
 
 	//Test operator /
-	maths::Vec3f c = a / b;
+	maths::Vec4f c = a / b;
 	ASSERT_EQ(c.x, a.x / b);
 	ASSERT_EQ(c.y, a.y / b);
 	ASSERT_EQ(c.z, a.z / b);
+	ASSERT_EQ(c.w, a.w / b);
 
 	//Test operator /=
-	const maths::Vec3f d{3.0f, 4.0f, 2.0f};
-	maths::Vec3f e = d;
+	const maths::Vec4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
+	maths::Vec4f e = d;
 	e /= b;
 	ASSERT_EQ(e.x, d.x / b);
 	ASSERT_EQ(e.y, d.y / b);
 	ASSERT_EQ(e.z, d.z / b);
+	ASSERT_EQ(e.w, d.w / b);
 }
