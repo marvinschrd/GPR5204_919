@@ -30,6 +30,37 @@ SOFTWARE.
 #include "maths/matrix3.h"
 #include "maths/matrix4.h"
 
+
+TEST(Maths, Mat22f_operatorAddition)
+{
+	const maths::Mat22f A = maths::Mat22f(maths::Vec2f(1, 2), maths::Vec2f(3, 1));
+	const maths::Mat22f B = maths::Mat22f(maths::Vec2f(3, 2), maths::Vec2f(1, 1));
+
+	const maths::Mat22f X = A + B;
+
+	ASSERT_EQ(A + B, X);
+}
+
+TEST(Maths, Mat22f_operatorSubstraction)
+{
+	const maths::Mat22f A = maths::Mat22f(maths::Vec2f(1, 2), maths::Vec2f(3, 1));
+	const maths::Mat22f B = maths::Mat22f(maths::Vec2f(3, 2), maths::Vec2f(1, 1));
+
+	const maths::Mat22f X = A - B;
+
+	ASSERT_EQ(A - B, X);
+}
+
+TEST(Maths, Mat22f_operatorMultiplication)
+{
+	const maths::Mat22f A = maths::Mat22f(maths::Vec2f(1, 2), maths::Vec2f(3, 1));
+	const maths::Mat22f B = maths::Mat22f(maths::Vec2f(3, 2), maths::Vec2f(1, 1));
+
+	const maths::Mat22f X = A * B;
+
+	ASSERT_EQ(A * B, X);
+}
+
 TEST(Maths, Mat22f_Determinant)
 {
 	const maths::Mat22f A = maths::Mat22f(maths::Vec2f(1, 2), maths::Vec2f(3, 1));
