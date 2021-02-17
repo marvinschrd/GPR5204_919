@@ -64,15 +64,19 @@ namespace maths
 
         void operator*=(const Vec3f& rhs);
 
-        float Determinant();
+        void operator*=(const float& scalar);
 
-        Mat33f Inverse();
+        float GetCofactor(const int row, const int column) const;
 
-        Mat33f Transpose();
+        float Determinant() const;
 
-        Mat33f Adjoint();
+        Mat33f Inverse() const;
 
-        bool IsOrthogonal();
+        Mat33f Transpose() const;
+
+        Mat33f Adjoint() const;
+
+        bool IsOrthogonal() const;
 
         static Mat33f Identity33();
 
