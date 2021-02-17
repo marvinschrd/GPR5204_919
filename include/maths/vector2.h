@@ -35,16 +35,18 @@ namespace maths
 	struct Vec2f
 	{
 	public:
-
-		struct
+		union
 		{
-			float x;
-			float y;
+			struct
+			{
+				float x;
+				float y;
+			};
+			float coord[2]{};
 		};
 
-		Vec2f() : x(0), y(0)
-		{
-		}
+		Vec2f() : x(0), y(0) {}
+		
 
 		Vec2f(float x, float y);
 
@@ -68,6 +70,10 @@ namespace maths
 		bool operator==(const Vec2f rhs) const { return x == rhs.x && y == rhs.y; }
 
 		bool operator!=(const Vec2f rhs) const { return x != rhs.x || y != rhs.y; }
+
+		const float& operator[](size_t component) const { return coord[component]; }
+
+		float& operator[](size_t component) { return coord[component]; }
 
 		float Magnitude() const { return float(std::sqrt(x * x + y * y)); }
 
