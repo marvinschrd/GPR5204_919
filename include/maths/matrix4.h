@@ -29,18 +29,25 @@ namespace maths
 {
     struct Mat44f
     {
-        struct
+        union
         {
-            Vec4f v1;
-            Vec4f v2;
-            Vec4f v3;
-            Vec4f v4;
+            struct
+            {
+                Vec4f v1;
+                Vec4f v2;
+                Vec4f v3;
+                Vec4f v4;
+            };
+
+            Vec4f matrix[4]{};
         };
 
         Mat44f() {}
 
         Mat44f(const Vec4f v1, const Vec4f v2, const Vec4f v3, const Vec4f v4) : v1(v1), v2(v2), v3(v3), v4(v4) {}
 
+        Vec4f& operator[](size_t index) { return matrix[index]; }
+    	
         Mat44f operator+(const Mat44f& rhs) const;
 
         void operator+=(const Mat44f& rhs);

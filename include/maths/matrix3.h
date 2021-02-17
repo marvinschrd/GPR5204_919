@@ -30,17 +30,24 @@ namespace maths
 	
     struct Mat33f
     {
-        struct
+        union
         {
-            Vec3f v1;
-            Vec3f v2;
-            Vec3f v3;
+            struct
+            {
+                Vec3f v1;
+                Vec3f v2;
+                Vec3f v3;
+            };
+
+            Vec3f matrix[3]{};
         };
 
         Mat33f() {}
 
         Mat33f(const Vec3f v1, const Vec3f v2, const Vec3f v3) : v1(v1), v2(v2), v3(v3) {}
 
+        Vec3f& operator[](size_t index) { return matrix[index]; }
+    	
         Mat33f operator+(const Mat33f& rhs) const;
 
         void operator+=(const Mat33f& rhs);

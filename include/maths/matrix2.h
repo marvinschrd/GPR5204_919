@@ -28,15 +28,22 @@ namespace maths
 {
     struct Mat22f
     {
-    	struct
-    	{
-            Vec2f v1;
-    		Vec2f v2;
-    	};
+	    union 
+	    {
+            struct
+            {
+                Vec2f v1;
+                Vec2f v2;
+            };
+
+            Vec2f matrix[2]{};
+	    };
     	
         Mat22f() {}
 
         Mat22f(const Vec2f v1, const Vec2f v2) : v1(v1), v2(v2) {}
+
+        Vec2f& operator[](size_t index) { return matrix[index]; }
 
         Mat22f operator+(const Mat22f& rhs) const;
 
@@ -50,15 +57,17 @@ namespace maths
 
         void operator*=(const Mat22f& rhs);
 
+        void operator*=(const float& scalar);
+
         Vec2f operator*(const Vec2f& rhs) const;
 
         void operator*=(const Vec2f& rhs);
 
-        float Determinant();
+        float Determinant() const;
 
-        Mat22f Inverse();
+        Mat22f Inverse() const;
 
-        Mat22f Transpose();
+        Mat22f Transpose() const;
 
         static Mat22f Identity22();
     };

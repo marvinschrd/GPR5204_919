@@ -45,6 +45,13 @@ namespace maths
 	void Mat22f::operator*=(const Mat22f& rhs)
 	{
 	}
+	void Mat22f::operator*=(const float& scalar)
+	{
+		matrix[0][0] *= scalar;
+		matrix[0][1] *= scalar;
+		matrix[1][0] *= scalar;
+		matrix[1][1] *= scalar;
+	}
 	Vec2f Mat22f::operator*(const Vec2f& rhs) const
 	{
 		return Vec2f();
@@ -52,20 +59,28 @@ namespace maths
 	void Mat22f::operator*=(const Vec2f& rhs)
 	{
 	}
-	float Mat22f::Determinant()
+	float Mat22f::Determinant() const
 	{
-		return 0.0f;
+		return (matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0]);
 	}
-	Mat22f Mat22f::Inverse()
+	Mat22f Mat22f::Inverse() const
 	{
-		return Mat22f();
+		Mat22f inverse;
+		inverse[0][0] = matrix[1][1];
+		inverse[0][1] = - matrix[1][0];
+		inverse[1][0] = - matrix[0][1];
+		inverse[1][1] = matrix[0][0];
+
+		inverse *= 1/Determinant();
+		
+		return inverse;
 	}
-	Mat22f Mat22f::Transpose()
+	Mat22f Mat22f::Transpose() const
 	{
 		return Mat22f();
 	}
 	Mat22f Mat22f::Identity22()
 	{
-		return Mat22f();
+		return Mat22f(Vec2f(1, 0), Vec2f(0, 1));
 	}
 }
