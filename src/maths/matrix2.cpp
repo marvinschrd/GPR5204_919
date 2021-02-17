@@ -26,24 +26,55 @@ namespace maths
 {
 	Mat22f Mat22f::operator+(const Mat22f& rhs) const
 	{
-		return Mat22f();
+		float m00 = matrix[0][0] + rhs.matrix[0][0];
+		float m01 = matrix[0][1] + rhs.matrix[0][1];
+		float m10 = matrix[1][0] + rhs.matrix[1][0];
+		float m11 = matrix[1][1] + rhs.matrix[1][1];
+
+
+		return Mat22f(Vec2f(m00,m01),Vec2f(m10,m11));
 	}
 	void Mat22f::operator+=(const Mat22f& rhs)
 	{
+		 matrix[0][0] += rhs.matrix[0][0];
+		 matrix[0][1] += rhs.matrix[0][1];
+		 matrix[1][0] += rhs.matrix[1][0];
+		 matrix[1][1] += rhs.matrix[1][1];
+
 	}
 	Mat22f Mat22f::operator-(const Mat22f& rhs) const
 	{
-		return Mat22f();
+		float m00 = matrix[0][0] - rhs.matrix[0][0];
+		float m01 = matrix[0][1] - rhs.matrix[0][1];
+		float m10 = matrix[1][0] - rhs.matrix[1][0];
+		float m11 = matrix[1][1] - rhs.matrix[1][1];
+		
+		return Mat22f(Vec2f(m00, m01), Vec2f(m10, m11));
 	}
 	void Mat22f::operator-=(const Mat22f& rhs)
 	{
+		matrix[0][0] -= rhs.matrix[0][0];
+		matrix[0][1] -= rhs.matrix[0][1];
+		matrix[1][0] -= rhs.matrix[1][0];
+		matrix[1][1] -= rhs.matrix[1][1];
 	}
 	Mat22f Mat22f::operator*(const Mat22f& rhs) const
 	{
-		return Mat22f();
+		float m00 = (matrix[0][0] * rhs.matrix[0][0]) + (matrix[0][1] * rhs.matrix[1][0]);
+		float m01 = (matrix[0][0] * rhs.matrix[0][1]) + (matrix[0][1] * rhs.matrix[1][1]);
+		float m10 = (matrix[1][0] * rhs.matrix[0][0]) + (matrix[1][1] * rhs.matrix[1][0]);
+		float m11 = (matrix[1][0] * rhs.matrix[0][1]) + (matrix[1][1] * rhs.matrix[1][1]);
+
+		
+		return Mat22f(Vec2f(m00, m01), Vec2f(m10, m11));
 	}
 	void Mat22f::operator*=(const Mat22f& rhs)
 	{
+		 matrix[0][0] = (matrix[0][0] * rhs.matrix[0][0]) + (matrix[0][1] * rhs.matrix[1][0]);
+		 matrix[0][1] = (matrix[0][0] * rhs.matrix[0][1]) + (matrix[0][1] * rhs.matrix[1][1]);
+		 matrix[1][0] = (matrix[1][0] * rhs.matrix[0][0]) + (matrix[1][1] * rhs.matrix[1][0]);
+		 matrix[1][1] = (matrix[1][0] * rhs.matrix[0][1]) + (matrix[1][1] * rhs.matrix[1][1]);
+
 	}
 	void Mat22f::operator*=(const float& scalar)
 	{
