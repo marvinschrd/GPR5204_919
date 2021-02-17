@@ -36,11 +36,15 @@ namespace maths
 	struct Vec3f
 	{
 	public:
-		struct
+		union
 		{
-			float x;
-			float y;
-			float z;
+			struct
+			{
+				float x;
+				float y;
+				float z;
+			};
+			float coord[3]{};
 		};
 
 		Vec3f() : x(0), y(0), z(0){};
@@ -78,5 +82,9 @@ namespace maths
 		radian_t AngleBetween(const Vec3f v2) const;
 
 		static radian_t AngleBetween(const Vec3f v1, const Vec3f v2);
+
+		const float& operator[](size_t component) const { return coord[component]; }
+
+		float& operator[](size_t component) { return coord[component]; }
 	};
 }

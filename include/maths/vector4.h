@@ -36,12 +36,16 @@ namespace maths
 	struct Vec4f
 	{
 	public:
-		struct
+		union
 		{
-			float x;
-			float y;
-			float z;
-			float w;
+			struct
+			{
+				float x;
+				float y;
+				float z;
+				float w;
+			};
+			float coord[4]{};
 		};
 
 		Vec4f() : x(0), y(0), z(0), w(0) {};
@@ -71,5 +75,9 @@ namespace maths
 		float Magnitude() const { return std::sqrt(x * x + y * y + z * z + w * w); }
 
 		float SqrMagnitude() const { return { x * x + y * y + z * z + w * w }; }
+
+		const float& operator[](size_t component) const { return coord[component]; }
+
+		float& operator[](size_t component) { return coord[component]; }
 	};
 }
