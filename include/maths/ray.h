@@ -26,8 +26,9 @@ SOFTWARE.
 #include <maths/vector3.h>
 #include <maths/circle.h>
 #include <maths/sphere.h>
-#include <aabb2.h>
-#include <aabb3.h>
+#include <maths/aabb2.h>
+#include <maths/aabb3.h>
+
 namespace physics
 {
 	class Ray2
