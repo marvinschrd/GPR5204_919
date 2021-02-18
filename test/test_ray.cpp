@@ -37,7 +37,6 @@ TEST(Maths, Ray_PointInRay)
 	
 	maths::Vec2f c = r.PointInRay(v);
 	maths::Vec2f d = a + (b * v);
-	//ASSERT_EQ(c,d); TEST NOT WORKING (GTEST ERROR) NEED TO TRY AGAIN
-	
+	ASSERT_EQ(r.PointInRay(v), d);
 	
 }

@@ -23,7 +23,7 @@ SOFTWARE.
 */
 #include "..\include\maths\ray.h"
 
-bool physics::Ray2::Raycast(HitInfo &info, Circle &circle, float castDistance)
+bool physics::Ray2::IntersectCircle(HitInfo &info, Circle &circle, float castDistance)
 {
 	maths::Vec2f v = circle.center_ - origin;
 	float d = v.Dot(direction);
@@ -108,7 +108,7 @@ bool physics::Ray2::IntersectAABB(HitInfo &info, maths::AABB2D aabb)
 	return true;
 }
 
-bool physics::Ray3::Raycast(HitInfo& info, Sphere& sphere, float castDistance)
+bool physics::Ray3::IntersectSphere(HitInfo& info, Sphere& sphere, float castDistance)
 {
 	maths::Vec3f v = sphere.center_ - origin;
 	float d = v.Dot(direction);

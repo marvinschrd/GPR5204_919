@@ -66,7 +66,7 @@ namespace physics
 			
 		};
 
-		bool Raycast(HitInfo &info, Circle &circle, float castDistance);
+		bool IntersectCircle(HitInfo &info, Circle &circle, float castDistance);
 		bool IntersectAABB(HitInfo &info, maths::AABB2D aabb);
 	private:
 		maths::Vec2f origin;
@@ -111,7 +111,7 @@ namespace physics
 
 		};
 
-		bool Raycast(HitInfo& info, Sphere& sphere, float castDistance);
+		bool IntersectSphere(HitInfo& info, Sphere& sphere, float castDistance);
 		bool IntersectAABB3(HitInfo& info, maths::AABB3D aabb);
 	private:
 		maths::Vec3f unitDirection;
