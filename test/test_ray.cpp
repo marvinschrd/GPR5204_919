@@ -24,9 +24,10 @@ SOFTWARE.
 
 #include <gtest/gtest.h>
 
-#include <maths/ray.h>
-#include <aabb2.h>
-#include <aabb3.h>
+#include "maths/ray2.h"
+#include "maths/ray3.h"
+#include "maths/aabb2.h"
+#include "maths/aabb3.h"
 
 TEST(Maths, Ray_PointInRay)
 {
