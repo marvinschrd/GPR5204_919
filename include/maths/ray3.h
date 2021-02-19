@@ -31,7 +31,7 @@ namespace maths {
 class Ray3 {
 public:
 	Ray3() = default;
-	Ray3(Vec3f& origin, maths::Vec3f& direction) : origin_(origin), direction_(direction) {}
+	Ray3(Vector3f& origin, maths::Vector3f& direction) : origin_(origin), direction_(direction) {}
 
 	struct HitInfo
 	{
@@ -46,29 +46,29 @@ public:
 			hit = false;
 		}
 
-		Vec3f hitPoint;
-		Vec3f hitNormal;
+		Vector3f hitPoint;
+		Vector3f hitNormal;
 		float distance;
 		bool hit;
 
 	};
 	HitInfo hit;
 
-	Vec3f point_in_ray(float value) const {
+	Vector3f point_in_ray(float value) const {
 		return { origin_ + direction_ * value };
 	}
 
-	Vec3f origin() const { return origin_; }
-	Vec3f direction() const { return direction_; }
-	Vec3f unit_direction() const { return unit_direction_; }
+	Vector3f origin() const { return origin_; }
+	Vector3f direction() const { return direction_; }
+	Vector3f unit_direction() const { return unit_direction_; }
 
 	bool intersect_sphere(HitInfo& info, Sphere& sphere, float castDistance);
 	bool intersect_AABB3(HitInfo& info, AABB3 aabb);
 
 private:
-	Vec3f origin_ = {};
-	Vec3f direction_ = {};
-	Vec3f unit_direction_ = Vec3f{ direction_.x / direction_.Magnitude(), direction_.y / direction_.Magnitude(), direction_.z / direction_.Magnitude() };
+	Vector3f origin_ = {};
+	Vector3f direction_ = {};
+	Vector3f unit_direction_ = Vector3f{ direction_.x / direction_.Magnitude(), direction_.y / direction_.Magnitude(), direction_.z / direction_.Magnitude() };
 };
 
 } // namespace maths

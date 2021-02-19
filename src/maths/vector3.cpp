@@ -28,39 +28,39 @@ SOFTWARE.
 
 namespace maths
 {
-	Vec3f::Vec3f(float x, float y, float z) : x(x), y(y), z(z)
+	Vector3f::Vector3f(float x, float y, float z) : x(x), y(y), z(z)
 	{
 	}
 
-	void Vec3f::operator+=(const Vec3f rhs)
+	void Vector3f::operator+=(const Vector3f rhs)
 	{
 		x += rhs.x;
 		y += rhs.y;
 		z += rhs.z;
 	}
 
-	void Vec3f::operator-=(const Vec3f rhs)
+	void Vector3f::operator-=(const Vector3f rhs)
 	{
 		x -= rhs.x;
 		y -= rhs.y;
 		z -= rhs.z;
 	}
 
-	void Vec3f::operator*=(const float scalar)
+	void Vector3f::operator*=(const float scalar)
 	{
 		x *= scalar;
 		y *= scalar;
 		z *= scalar;
 	}
 
-	void Vec3f::operator/=(const float scalar)
+	void Vector3f::operator/=(const float scalar)
 	{
 		x /= scalar;
 		y /= scalar;
 		z /= scalar;
 	}
 
-	radian_t Vec3f::AngleBetween(const Vec3f v2) const
+	radian_t Vector3f::AngleBetween(const Vector3f v2) const
 	{
 		float dot = Dot(v2);
 		float magnitude = Magnitude();
@@ -68,7 +68,7 @@ namespace maths
 		return { maths::acos(dot / (otherMagnitude * magnitude)) };
 	}
 
-	radian_t Vec3f::AngleBetween(const Vec3f v1, const Vec3f v2)
+	radian_t Vector3f::AngleBetween(const Vector3f v1, const Vector3f v2)
 	{
 		float dot = Dot(v1, v2);
 		float otherMagnitude1 = v1.Magnitude();

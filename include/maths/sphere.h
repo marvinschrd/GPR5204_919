@@ -30,7 +30,7 @@ class Sphere
 {
 public:
 	Sphere() = default;
-	Sphere(float radius, maths::Vec3f center) : radius_(radius), center_(center) {};
+	Sphere(float radius, maths::Vector3f center) : radius_(radius), center_(center) {};
 	~Sphere() = default;
 
 	float area() const {
@@ -42,11 +42,11 @@ public:
 	}
 	
 	void set_radius(float radius) { radius_ = radius; }
-	Vec3f center() const { return center_; }
+	Vector3f center() const { return center_; }
 	float radius() const { return radius_; }
 	
 private:
-	Vec3f center_ = {};
+	Vector3f center_ = {};
 	float radius_ = {};
 };
 	

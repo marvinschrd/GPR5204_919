@@ -47,11 +47,11 @@ namespace maths
 	void Mat33f::operator*=(const Mat33f& rhs)
 	{
 	}
-	Vec3f Mat33f::operator*(const Vec3f& rhs) const
+	Vector3f Mat33f::operator*(const Vector3f& rhs) const
 	{
-		return Vec3f();
+		return Vector3f();
 	}
-	void Mat33f::operator*=(const Vec3f& rhs)
+	void Mat33f::operator*=(const Vector3f& rhs)
 	{
 	}
 	void Mat33f::operator*=(const float& scalar)
@@ -116,9 +116,9 @@ namespace maths
 	}
 	Mat33f Mat33f::Transpose() const
 	{
-		return Mat33f(Vec3f(matrix[0][0], matrix[1][0], matrix[2][0]), 
-						Vec3f(matrix[0][1], matrix[1][1], matrix[2][1]), 
-						Vec3f(matrix[0][2], matrix[1][2], matrix[2][2]));
+		return Mat33f(Vector3f(matrix[0][0], matrix[1][0], matrix[2][0]), 
+						Vector3f(matrix[0][1], matrix[1][1], matrix[2][1]), 
+						Vector3f(matrix[0][2], matrix[1][2], matrix[2][2]));
 	}
 	Mat33f Mat33f::Adjoint() const
 	{
@@ -166,18 +166,18 @@ namespace maths
 	}
 	Mat33f Mat33f::Identity33()
 	{
-		return Mat33f(Vec3f(1, 0, 0), Vec3f(0, 1, 0), Vec3f(0, 0, 1));
+		return Mat33f(Vector3f(1, 0, 0), Vector3f(0, 1, 0), Vector3f(0, 0, 1));
 	}
 	Mat33f Mat33f::RotationMatrix33(radian_t angle)
 	{
-		return Mat33f(Vec3f(cos(angle), -sin(angle), 0), Vec3f(sin(angle), cos(angle), 0), Vec3f(0, 0, 1));
+		return Mat33f(Vector3f(cos(angle), -sin(angle), 0), Vector3f(sin(angle), cos(angle), 0), Vector3f(0, 0, 1));
 	}
 	Mat33f Mat33f::ScalingMatrix33(Vector2f axisValues)
 	{
-		return Mat33f(Vec3f(axisValues.x, 0, 0), Vec3f(0, axisValues.y, 0), Vec3f(0, 0, 1));
+		return Mat33f(Vector3f(axisValues.x, 0, 0), Vector3f(0, axisValues.y, 0), Vector3f(0, 0, 1));
 	}
 	Mat33f Mat33f::TranslationMatrix33(Vector2f axisValues)
 	{
-		return Mat33f(Vec3f(1, 0, axisValues.x), Vec3f(0, 1, axisValues.y), Vec3f(0, 0, 1));
+		return Mat33f(Vector3f(1, 0, axisValues.x), Vector3f(0, 1, axisValues.y), Vector3f(0, 0, 1));
 	}
 }
