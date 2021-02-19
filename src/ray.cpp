@@ -23,17 +23,17 @@ SOFTWARE.
 */
 #include "..\include\maths\ray.h"
 
-bool physics::Ray2::IntersectCircle(HitInfo &info, Circle &circle, float castDistance)
+bool maths::Ray2::intersect_circle(HitInfo &info, Circle &circle, float castDistance)
 {
-	maths::Vec2f v = circle.center_ - origin;
-	float d = v.Dot(direction);
+	Vec2f v = circle.center() - origin();
+	float d = v.Dot(direction());
 	if(d<0)
 	{
 		return false;
 	}
 
 	float squaredDistance = v.Dot(v) - (d * d);
-	float radius2 = circle.radius_ * circle.radius_;
+	float radius2 = circle.radius() * circle.radius();
 	if(squaredDistance > radius2)
 	{
 		return false;
@@ -62,7 +62,7 @@ bool physics::Ray2::IntersectCircle(HitInfo &info, Circle &circle, float castDis
 		return false;
 	}
 
-	auto pt = origin + direction * dis;
+	auto pt = origin()+ direction() * dis;
 	info.hit = true;
 	info.hitPoint = pt;
 	info.distance = dis;
@@ -70,21 +70,21 @@ bool physics::Ray2::IntersectCircle(HitInfo &info, Circle &circle, float castDis
 	return true;
 }
 
-bool physics::Ray2::IntersectAABB(HitInfo &info, maths::AABB2D aabb)
+bool maths::Ray2::intersect_AABB2(HitInfo &info, maths::AABB2D aabb)
 {
 	maths::Vec2f lb = aabb.bottomLeft;
 	maths::Vec2f rt = aabb.topRight;
 	maths::Vec2f dirfrac;
 
-	dirfrac.x = 1.0f / unitDirection.x;
-	dirfrac.y = 1.0f / unitDirection.y;
+	dirfrac.x = 1.0f / unit_direction_.x;
+	dirfrac.y = 1.0f / unit_direction_.y;
 	
 	// lb is the corner of AABB with minimal coordinates - left bottom, rt is maximal corner
 	
-	float t1 = (lb.x - origin.x) * dirfrac.x;
-	float t2 = (rt.x - origin.x) * dirfrac.x;
-	float t3 = (lb.y - origin.y) * dirfrac.y;
-	float t4 = (rt.y - origin.y) * dirfrac.y;
+	float t1 = (lb.x - origin().x) * dirfrac.x;
+	float t2 = (rt.x - origin().x) * dirfrac.x;
+	float t3 = (lb.y - origin().y) * dirfrac.y;
+	float t4 = (rt.y - origin().y) * dirfrac.y;
 
 	float tmin = std::max(std::min(t1, t2), std::min(t3, t4));
 	float tmax = std::min(std::max(t1, t2), std::max(t3, t4));
@@ -104,21 +104,21 @@ bool physics::Ray2::IntersectAABB(HitInfo &info, maths::AABB2D aabb)
 	}
 
 	info.distance = tmin;
-	info.hitPoint = origin + direction * info.distance;
+	info.hitPoint = origin() + direction() * info.distance;
 	return true;
 }
 
-bool physics::Ray3::IntersectSphere(HitInfo& info, Sphere& sphere, float castDistance)
+bool maths::Ray3::intersect_sphere(HitInfo& info, Sphere& sphere, float castDistance)
 {
-	maths::Vec3f v = sphere.center_ - origin;
-	float d = v.Dot(direction);
+	Vec3f v = sphere.center() - origin();
+	float d = v.Dot(direction());
 	if (d < 0)
 	{
 		return false;
 	}
 
 	float squaredDistance = v.Dot(v) - (d * d);
-	float radius2 = sphere.radius_ * sphere.radius_;
+	float radius2 = sphere.radius() * sphere.radius();
 	if (squaredDistance > radius2)
 	{
 		return false;
@@ -147,7 +147,7 @@ bool physics::Ray3::IntersectSphere(HitInfo& info, Sphere& sphere, float castDis
 		return false;
 	}
 
-	auto pt = origin + unitDirection * dis;
+	auto pt = origin() + unit_direction() * dis;
 	info.hit = true;
 	info.hitPoint = pt;
 	info.distance = dis;
@@ -155,22 +155,22 @@ bool physics::Ray3::IntersectSphere(HitInfo& info, Sphere& sphere, float castDis
 	return true;
 }
 
-bool physics::Ray3::IntersectAABB3(HitInfo &info, maths::AABB3D aabb)
+bool maths::Ray3::intersect_AABB3(HitInfo& info, AABB3D aabb)
 {
 	maths::Vec3f lb = aabb.bottomLeft;
 	maths::Vec3f rt = aabb.topRight;
 	maths::Vec3f dirfrac;
-	
-	dirfrac.x = 1.0f / unitDirection.x;
-	dirfrac.y = 1.0f / unitDirection.y;
-	dirfrac.z = 1.0f / unitDirection.z;
+
+	dirfrac.x = 1.0f / unit_direction().x;
+	dirfrac.y = 1.0f / unit_direction().y;
+	dirfrac.z = 1.0f / unit_direction().z;
 	// lb is the corner of AABB with minimal coordinates - left bottom, rt is maximal corner
-	float t1 = (lb.x - origin.x) * dirfrac.x;
-	float t2 = (rt.x - origin.x) * dirfrac.x;
-	float t3 = (lb.y - origin.y) * dirfrac.y;
-	float t4 = (rt.y - origin.y) * dirfrac.y;
-	float t5 = (lb.z - origin.z) * dirfrac.z;
-	float t6 = (rt.z - origin.z) * dirfrac.z;
+	float t1 = (lb.x - origin_.x) * dirfrac.x;
+	float t2 = (rt.x - origin_.x) * dirfrac.x;
+	float t3 = (lb.y - origin_.y) * dirfrac.y;
+	float t4 = (rt.y - origin_.y) * dirfrac.y;
+	float t5 = (lb.z - origin_.z) * dirfrac.z;
+	float t6 = (rt.z - origin_.z) * dirfrac.z;
 
 	float tmin = std::max(std::max(std::min(t1, t2), std::min(t3, t4)), std::min(t5, t6));
 	float tmax = std::min(std::min(std::max(t1, t2), std::max(t3, t4)), std::max(t5, t6));
@@ -190,6 +190,8 @@ bool physics::Ray3::IntersectAABB3(HitInfo &info, maths::AABB3D aabb)
 	}
 
 	info.distance = tmin;
-	info.hitPoint = origin + direction * info.distance;
+	info.hitPoint = origin_ + direction_ * info.distance;
 	return true;
 }
+
+

@@ -24,20 +24,30 @@ SOFTWARE.
 */
 #define _USE_MATH_DEFINES
 #include <math.h>
-#include <maths/vector3.h>
-namespace physics
+#include "maths/vector3.h"
+namespace maths {
+class Sphere
 {
-	class Sphere
-	{
-	public:
-		Sphere(float radius, maths::Vec3f center) : radius_(radius), center_(center) {};
-		~Sphere() = default;
+public:
+	Sphere() = default;
+	Sphere(float radius, maths::Vec3f center) : radius_(radius), center_(center) {};
+	~Sphere() = default;
 
-		void SetRadius(float radius) { radius_ = radius; }
-		float CalculateArea() { return 4 * M_PI * (radius_ * radius_); }
-		float CalculateVolume() { return 4 / 3 * M_PI * (radius_ * radius_ * radius_); }
-		maths::Vec3f center_;
-		float radius_;
-	private:
-	};
-}
+	float area() const {
+		return 4 * M_PI * (radius_ * radius_) ;
+	}
+	
+	float volume() const {
+		return 4 / 3 * M_PI * (radius_ * radius_ * radius_);
+	}
+	
+	void set_radius(float radius) { radius_ = radius; }
+	Vec3f center() const { return center_; }
+	float radius() const { return radius_; }
+	
+private:
+	Vec3f center_ = {};
+	float radius_ = {};
+};
+	
+} // namespace maths

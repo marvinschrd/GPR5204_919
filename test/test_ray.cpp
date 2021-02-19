@@ -25,18 +25,53 @@ SOFTWARE.
 #include <gtest/gtest.h>
 
 #include <maths/ray.h>
+#include <aabb2.h>
+#include <aabb3.h>
 
 TEST(Maths, Ray_PointInRay)
 {
 	maths::Vec2f a{ 1.0f,2.0f };
 	maths::Vec2f b{ 2.0f,3.0f };
 
-	physics::Ray2 r{ a,b };
+	maths::Ray2 r{ a,b };
 	
 	float v = 2.0f;
 	
-	maths::Vec2f c = r.PointInRay(v);
+	maths::Vec2f c = r.point_in_ray(v);
 	maths::Vec2f d = a + (b * v);
-	ASSERT_EQ(r.PointInRay(v), d);
+	ASSERT_EQ(r.point_in_ray(v), d);
 	
 }
+
+TEST(Maths, Intersect_AABB2)
+{
+	maths::Vec2f a{ -0.5f,-0.5f };
+	maths::Vec2f b{ 0.5f,0.5f };
+
+	maths::AABB2D aabb{ a,b };
+
+	maths::Vec2f origin{ -0.1f,-0.1f };
+	maths::Vec2f direction{ 1.0f,1.0f };
+
+	maths::Ray2 ray{ origin,direction };
+	
+	ASSERT_TRUE(ray.intersect_AABB2(ray.info, aabb));
+
+	//Basic Intersect
+	origin = maths::Vec2f(-1.0f, -1.0f);
+	direction = maths::Vec2f(1.0f, 1.0f);
+	maths::Ray2 ray2{ origin,direction };
+	ASSERT_TRUE(ray2.intersect_AABB2(ray2.info,aabb));
+
+	//Limit Intersect
+	origin = maths::Vec2f(-0.5f, -1.5f);
+	maths::Ray2 ray3{ origin,direction };
+	ASSERT_TRUE(ray3.intersect_AABB2(ray3.info,aabb));
+
+	//Not Intersect
+	origin = maths::Vec2f(-0.5f, -2.0f);
+	maths::Ray2 ray4{ origin,direction };
+	ASSERT_FALSE(ray4.intersect_AABB2(ray4.info,aabb));
+
+}
+

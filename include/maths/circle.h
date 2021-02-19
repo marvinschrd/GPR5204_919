@@ -24,19 +24,27 @@ SOFTWARE.
 */
 #define _USE_MATH_DEFINES
 #include <math.h>
-#include <maths/vector2.h>
-namespace physics
+#include "maths/vector2.h"
+namespace maths {
+	
+class Circle
 {
-	class Circle
-	{
-	public:
-		Circle(float radius, maths::Vec2f center) : radius_(radius), center_(center) {};
-		~Circle() = default;
+public:
+	Circle() = default;
+	Circle(float radius, Vec2f center) : radius_(radius), center_(center) {};
+	~Circle() = default;
 
-		void SetRadius(float radius) { radius_ = radius; }
-		float CalculateArea() { return  M_PI * (radius_ * radius_); }
-		maths::Vec2f center_;
-		float radius_;
-	private:
-	};
-}
+	float area() const {
+		return ( M_PI * (radius_ * radius_) );
+	}
+	
+	void set_radius( const float radius) { radius_ = radius; }
+	Vec2f center() const { return center_; }
+	float radius() const { return radius_; }
+		
+private:
+	Vec2f center_ = {};
+	float radius_ = {};
+};
+	
+} // namespace maths

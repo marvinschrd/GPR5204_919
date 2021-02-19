@@ -23,102 +23,97 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include <maths/vector3.h>
-#include <maths/circle.h>
-#include <maths/sphere.h>
-#include <aabb2.h>
-#include <aabb3.h>
-namespace physics
-{
-	class Ray2
-	{
-	public:
-		Ray2() {};
-		Ray2(maths::Vec2f& a,maths::Vec2f& b) : origin(a), direction(b)
-		{
-			origin = a;
-			direction = b;
-			unitDirection = maths::Vec2f{ b.x / b.Magnitude(), b.y / b.Magnitude() };
-			//invertedDirectionVec3 = 1 / destinationVec3;
-			
-		}
-		maths::Vec2f Origin() { return origin; }
-		maths::Vec2f Direction() { return direction; }
-		maths::Vec2f PointInRay(const float value) { return origin + (direction.operator*(value)); }
+#include "maths/vector3.h"
+#include "maths/circle.h"
+#include "maths/sphere.h"
+#include "aabb2.h"
+#include "aabb3.h"
 
-		 struct HitInfo
-		{
-			HitInfo()
-			{
-				reset();
-			}
-
-			void reset()
-			{
-				distance = std::numeric_limits<float>::infinity();
-				hit = false;
-			}
-
-			maths::Vec2f hitPoint;
-			maths::Vec2f hitNormal;
-			float distance;
-			bool hit;
-			
-		};
-
-		bool IntersectCircle(HitInfo &info, Circle &circle, float castDistance);
-		bool IntersectAABB(HitInfo &info, maths::AABB2D aabb);
-	private:
-		maths::Vec2f origin;
-		maths::Vec2f direction;
-		maths::Vec2f unitDirection;
-		maths::Vec2f invertedDirectionVec3;
-	};
-
-	class Ray3
-	{
-	public:
-		Ray3() {};
-		Ray3(maths::Vec3f& a, maths::Vec3f& b) : origin(a), direction(b)
-		{
-			origin = a;
-			direction = b;
-			unitDirection = maths::Vec3f{ b.x / b.Magnitude(), b.y / b.Magnitude(), b.z / b.Magnitude() };
-			//invertedDirectionVec3 = 1 / destinationVec3;
-
-		}
-		maths::Vec3f Origin() { return origin; }
-		maths::Vec3f Direction() { return direction; }
-		maths::Vec3f PointInRay(const float value) { return origin + (direction.operator*(value)); }
-
-		struct HitInfo
-		{
-			HitInfo()
-			{
-				reset();
-			}
-
-			void reset()
-			{
-				distance = std::numeric_limits<float>::infinity();
-				hit = false;
-			}
-
-			maths::Vec3f hitPoint;
-			maths::Vec3f hitNormal;
-			float distance;
-			bool hit;
-
-		};
-
-		bool IntersectSphere(HitInfo& info, Sphere& sphere, float castDistance);
-		bool IntersectAABB3(HitInfo& info, maths::AABB3D aabb);
-	private:
-		maths::Vec3f unitDirection;
-		maths::Vec3f origin;
-		maths::Vec3f direction;
-		maths::Vec3f invertedDirectionVec3;
-		//vec3 unitDirection;
-	};
+namespace maths {
 	
-}
+class Ray2	{
+public:
+	Ray2() = default;
+	Ray2(Vec2f& origin,Vec2f& direction) : origin_(origin), direction_(direction) {}
+	
+	struct HitInfo
+	{
+		HitInfo()
+		{
+			reset();
+		}
+
+		void reset()
+		{
+			distance = std::numeric_limits<float>::infinity();
+			hit = false;
+		}
+
+		Vec2f hitPoint;
+		Vec2f hitNormal;
+		float distance;
+		bool hit;
+	};
+	HitInfo info;
+	
+	Vec2f point_in_ray(float value) const {
+		return { origin_ + direction_ * value };
+	}
+	
+	Vec2f origin() const { return origin_; }
+	Vec2f direction() const { return direction_; }
+	Vec2f unit_direction() const { return  unit_direction_; }
+	
+	bool intersect_circle(HitInfo &info, Circle &circle, float castDistance);
+	bool intersect_AABB2(HitInfo &info, maths::AABB2D aabb);
+	
+private:
+	Vec2f origin_ = {};
+	Vec2f direction_ = {};
+	Vec2f unit_direction_ = Vec2f{ direction_.x / direction_.Magnitude(), direction_.y / direction_.Magnitude() };;
+};
+
+class Ray3 {
+public:
+	Ray3() = default;
+	Ray3(Vec3f& origin, maths::Vec3f& direction) : origin_(origin), direction_(direction) {}
+	
+	struct HitInfo
+	{
+		HitInfo()
+		{
+			reset();
+		}
+
+		void reset()
+		{
+			distance = std::numeric_limits<float>::infinity();
+			hit = false;
+		}
+
+		Vec3f hitPoint;
+		Vec3f hitNormal;
+		float distance;
+		bool hit;
+
+	};
+	HitInfo hit;
+	
+	Vec3f point_in_ray(float value) const {
+		return { origin_ + direction_ * value };
+	}
+	
+	Vec3f origin() const { return origin_; }
+	Vec3f direction() const { return direction_; }
+	Vec3f unit_direction() const { return unit_direction_; }
+
+	bool intersect_sphere(HitInfo& info, Sphere& sphere, float castDistance);
+	bool intersect_AABB3(HitInfo& info, AABB3D aabb);
+	
+private:
+	Vec3f origin_ = {};
+	Vec3f direction_ = {};
+	Vec3f unit_direction_ = Vec3f{ direction_.x / direction_.Magnitude(), direction_.y / direction_.Magnitude(), direction_.z / direction_.Magnitude() };
+};
+	
+} // namespace maths
