@@ -37,7 +37,7 @@ bool Contain(const AABB2& a, const AABB2& b) {
 	const Vector2f v1 = b.bottom_left() - a.bottom_left();
 	const Vector2f v2 = a.top_right() - b.top_right();
 
-	return (v1.x > 0 && v1.y > 0 && v2.x > 0 && v2.y > 0);
+	return (v1.x >= 0 && v1.y >= 0 && v2.x >= 0 && v2.y >= 0);
 }
 	
 }  // namespace maths

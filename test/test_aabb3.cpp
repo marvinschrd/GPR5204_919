@@ -26,91 +26,102 @@ SOFTWARE.
 #include "maths/aabb3.h"
 #include "maths/contact3.h"
 
+TEST(Maths, Aabb3_extent)
+{
+	// Test extent of the aabb
+	maths::AABB3 aabb_3d(maths::Vector3f{ 0.0f, 1.0f, 0.0f }, maths::Vector3f{ 1.0f, 2.0f, 1.0f });
+	EXPECT_FLOAT_EQ(aabb_3d.extent().x, 0.5f);
+	EXPECT_FLOAT_EQ(aabb_3d.extent().y, 0.5f);
+	EXPECT_FLOAT_EQ(aabb_3d.extent().z, 0.5f);
+}
+
 TEST(Maths, Aabb3_center)
 {
+	// Test aabb center
 	maths::AABB3 aabb_3d(maths::Vector3f{ 0.0f, 1.0f, 0.0f }, maths::Vector3f{ 1.0f, 2.0f, 1.0f });
 	EXPECT_FLOAT_EQ(aabb_3d.center().x, 0.5f);
 	EXPECT_FLOAT_EQ(aabb_3d.center().y, 1.5f);
+	EXPECT_FLOAT_EQ(aabb_3d.center().z, 0.5f);
 }
 
 TEST(Maths, Aabb3_overlap)
 {
-	// Test aabb2 � l'interieur de aabb1
+	// Test if aabb2 is inside aabb1
 	maths::AABB3 aabb1(maths::Vector3f{ 0.0f, 0.0f, 0.0f }, maths::Vector3f{ 1.0f, 1.0f, 1.0f });
 	maths::AABB3 aabb2(maths::Vector3f{ 0.1f, 0.1f, 0.0f }, maths::Vector3f{ 0.9f, 0.9f, 1.0f });
 	EXPECT_TRUE(Overlap(aabb1, aabb2));
 	EXPECT_TRUE(Overlap(aabb2, aabb1));
 
-	// Test aabb2 � l'exterieur de aabb1 en positif
+	// Test if aabb2 is outside of aabb1 positive
 	aabb2 = maths::AABB3(maths::Vector3f{ 1.1f, 1.1f, 0.0f }, maths::Vector3f{ 1.5f, 1.5f, 1.0f });
 	EXPECT_FALSE(Overlap(aabb1, aabb2));
 
-	// Test aabb2 � l'exterieur de aabb1 en negatif
+	// Test if aabb2 is outside of aabb1 negative
 	aabb2 = maths::AABB3(maths::Vector3f{ -0.5f, -0.5f, 0.0f }, maths::Vector3f{ -0.1f, -0.1f, 1.0f });
 	EXPECT_FALSE(Overlap(aabb1, aabb2));
 
-	// Test angle aabb2 superpos� � aabb1 en positif
+	// Test if angle aabb2 is overlapped aabb1 in positive
 	aabb2 = maths::AABB3(maths::Vector3f{ 1.0f, 1.0f, 0.0f }, maths::Vector3f{ 1.5f, 1.5f, 1.0f });
 	EXPECT_TRUE(Overlap(aabb1, aabb2));
 
-	// Test angle aabb2 superpos� � aabb1 en negatif
+	// Test if angle aabb2 is overlapped on aabb1 in negative
 	aabb2 = maths::AABB3(maths::Vector3f{ -0.5f, -0.5f, 0.0f }, maths::Vector3f{ -0.0f, -0.0f, 1.0f });
 	EXPECT_TRUE(Overlap(aabb1, aabb2));
 
-	// Angle bas gauche aabb2 chavauche aabb1
+	// Test if bottom left corner of aabb2 overlaps aabb1
 	aabb2 = maths::AABB3(maths::Vector3f{ 0.5f, 0.5f, 0.0f }, maths::Vector3f{ 1.5f, 1.5f, 1.0f });
 	EXPECT_TRUE(Overlap(aabb1, aabb2));
 
-	// Angle haut droit chevauche aabb1
+	// Test if top right angle of aabb2 overlaps aabb1
 	aabb2 = maths::AABB3(maths::Vector3f{ -0.5f, -0.5f, 0.0f }, maths::Vector3f{ 0.5f, 0.5f, 1.0f });
 	EXPECT_TRUE(Overlap(aabb1, aabb2));
 
-	//Aabb2 traverse aabb1
+	// Test if aabb2 crosses aabb1
 	aabb2 = maths::AABB3(maths::Vector3f{ -0.1f, 0.1f, 0.0f }, maths::Vector3f{ 1.1f, 0.9f, 1.0f });
 	EXPECT_TRUE(Overlap(aabb1, aabb2));
 
-	// Meme aabb -> true ou false?
+	// Test of the same aabb
 	aabb2 = maths::AABB3(maths::Vector3f{ 0.0f, 0.0f, 0.0f }, maths::Vector3f{ 1.0f, 1.0f, 1.0f });
 	EXPECT_TRUE(Overlap(aabb1, aabb2));
 }
 
 TEST(Maths, Aabb3_contain)
 {
-	// Test aabb2 � l'interieur de aabb1
+	// Test if aabb2 is inside aabb1
 	maths::AABB3 aabb1(maths::Vector3f{ 0.0f, 0.0f, 0.0f }, maths::Vector3f{ 1.0f, 1.0f, 1.0f });
 	maths::AABB3 aabb2(maths::Vector3f{ 0.1f, 0.1f, 0.1f }, maths::Vector3f{ 0.9f, 0.9f, 0.9f });
 	EXPECT_TRUE(Contain(aabb1, aabb2));
 	EXPECT_FALSE(Contain(aabb2, aabb1));
 
-	// Test aabb2 � l'exterieur de aabb1 en positif
+	// Test if aabb2 is outside of aabb1 positive
 	aabb2 = maths::AABB3(maths::Vector3f{ 1.1f, 1.1f, 0.0f }, maths::Vector3f{ 1.5f, 1.5f, 1.0f });
 	EXPECT_FALSE(Contain(aabb1, aabb2));
 
-	// Test aabb2 � l'exterieur de aabb1 en negatif
+	// Test if aabb2 is outside of aabb1 negative
 	aabb2 = maths::AABB3(maths::Vector3f{ -0.5f, -0.5f, 0.0f }, maths::Vector3f{ -0.1f, -0.1f, 1.0f });
 	EXPECT_FALSE(Contain(aabb1, aabb2));
 
-	// Test angle aabb2 superpos� � aabb1 en positif
+	// Test if angle aabb2 is overlapped aabb1 in positive
 	aabb2 = maths::AABB3(maths::Vector3f{ 1.0f, 1.0f, 0.0f }, maths::Vector3f{ 1.5f, 1.5f, 1.0f });
 	EXPECT_FALSE(Contain(aabb1, aabb2));
 
-	// Test angle aabb2 superpos� � aabb1 en negatif
+	// Test if angle aabb2 is overlapped on aabb1 in negative
 	aabb2 = maths::AABB3(maths::Vector3f{ -0.5f, -0.5f, 0.0f }, maths::Vector3f{ -0.0f, -0.0f, 1.0f });
 	EXPECT_FALSE(Contain(aabb1, aabb2));
 
-	// Angle bas gauche aabb2 chavauche aabb1
+	// Test if bottom left corner of aabb2 overlaps aabb1
 	aabb2 = maths::AABB3(maths::Vector3f{ 0.5f, 0.5f, 0.0f }, maths::Vector3f{ 1.5f, 1.5f, 1.0f });
 	EXPECT_FALSE(Contain(aabb1, aabb2));
 
-	// Angle haut droit chevauche aabb1
+	// Test if top right angle of aabb2 overlaps aabb1
 	aabb2 = maths::AABB3(maths::Vector3f{ -0.5f, -0.5f, 0.0f }, maths::Vector3f{ 0.5f, 0.5f, 1.0f });
 	EXPECT_FALSE(Contain(aabb1, aabb2));
 
-	//Aabb2 traverse aabb1
+	// Test if aabb2 crosses aabb1
 	aabb2 = maths::AABB3(maths::Vector3f{ -0.1f, 0.1f, 0.0f }, maths::Vector3f{ 1.1f, 0.9f, 1.0f });
 	EXPECT_FALSE(Contain(aabb1, aabb2));
 
-	// Meme aabb -> true ou false?
+	// Test of the same aabb
 	aabb2 = maths::AABB3(maths::Vector3f{ 0.0f, 0.0f, 0.0f }, maths::Vector3f{ 1.0f, 1.0f, 1.0f });
-	EXPECT_FALSE(Contain(aabb1, aabb2));
+	EXPECT_TRUE(Contain(aabb1, aabb2));
 }

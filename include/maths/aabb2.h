@@ -27,7 +27,8 @@ SOFTWARE.
 #include "maths/vector2.h"
 
 namespace maths {
-	
+
+// Class that creates an AABB2
 class AABB2 {
 public:
 	AABB2() = default;
@@ -50,7 +51,9 @@ private:
 	Vector2f top_right_ = {};
 };
 
+// To find out if two AABBs are touching each other
 bool Overlap(const AABB2& a, const AABB2& b);
+// To find out if one AABB is contained in the other
 bool Contain(const AABB2& a, const AABB2& b);
 	
 }  // namespace maths

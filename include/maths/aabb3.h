@@ -27,7 +27,8 @@ SOFTWARE.
 #include "maths/vector3.h"
 
 namespace maths {
-	
+
+// Class that creates an AABB3
 class AABB3 {
 public:
 	AABB3() = default;
@@ -50,7 +51,9 @@ private:
 	Vector3f top_right_ = {};
 };
 
+// To find out if two AABB is are touching each other
 bool Overlap(const AABB3& a, const AABB3& b);
+// To find out if one AABB is contained in the other
 bool Contain(const AABB3& a, const AABB3& b);
 	
 }  // namespace maths
