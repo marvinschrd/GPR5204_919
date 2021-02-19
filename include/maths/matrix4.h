@@ -33,20 +33,20 @@ namespace maths
         {
             struct
             {
-                Vec4f v1;
-                Vec4f v2;
-                Vec4f v3;
-                Vec4f v4;
+                Vector4f v1;
+                Vector4f v2;
+                Vector4f v3;
+                Vector4f v4;
             };
 
-            Vec4f matrix[4]{};
+            Vector4f matrix[4]{};
         };
 
         Mat44f() {}
 
-        Mat44f(const Vec4f v1, const Vec4f v2, const Vec4f v3, const Vec4f v4) : v1(v1), v2(v2), v3(v3), v4(v4) {}
+        Mat44f(const Vector4f v1, const Vector4f v2, const Vector4f v3, const Vector4f v4) : v1(v1), v2(v2), v3(v3), v4(v4) {}
 
-        Vec4f& operator[](size_t index) { return matrix[index]; }
+        Vector4f& operator[](size_t index) { return matrix[index]; }
     	
         Mat44f operator+(const Mat44f& rhs) const;
 
@@ -60,9 +60,9 @@ namespace maths
 
         void operator*=(const Mat44f& rhs);
 
-        Vec4f operator*(const Vec4f& rhs) const;
+        Vector4f operator*(const Vector4f& rhs) const;
 
-        void operator*=(const Vec4f& rhs);
+        void operator*=(const Vector4f& rhs);
 
         float Determinant();
 
@@ -78,9 +78,9 @@ namespace maths
 
         static Mat44f RotationMatrix44(radian_t angle, char axis);
 
-        static Mat44f ScalingMatrix44(Vec3f axisValues);
+        static Mat44f ScalingMatrix44(Vector3f axisValues);
 
-        static Mat44f TranslationMatrix44(Vec3f axisValues);
+        static Mat44f TranslationMatrix44(Vector3f axisValues);
     };
 }
 

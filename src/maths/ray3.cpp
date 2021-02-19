@@ -26,7 +26,7 @@ SOFTWARE.
 
 bool maths::Ray3::intersect_sphere(HitInfo& info, Sphere& sphere, float castDistance)
 {
-	Vec3f v = sphere.center() - origin();
+	Vector3f v = sphere.center() - origin();
 	float d = v.Dot(direction());
 	if (d < 0)
 	{
@@ -73,9 +73,9 @@ bool maths::Ray3::intersect_sphere(HitInfo& info, Sphere& sphere, float castDist
 
 bool maths::Ray3::intersect_AABB3(HitInfo& info, AABB3 aabb)
 {
-	maths::Vec3f lb = aabb.bottom_left();
-	maths::Vec3f rt = aabb.top_right();
-	maths::Vec3f dirfrac;
+	maths::Vector3f lb = aabb.bottom_left();
+	maths::Vector3f rt = aabb.top_right();
+	maths::Vector3f dirfrac;
 
 	dirfrac.x = 1.0f / unit_direction().x;
 	dirfrac.y = 1.0f / unit_direction().y;

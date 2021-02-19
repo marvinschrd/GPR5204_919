@@ -32,7 +32,7 @@ SOFTWARE.
 
 TEST(Maths, Mat33f_Determinant)
 {
-	const maths::Mat33f a = maths::Mat33f(maths::Vec3f(1, 2, 1), maths::Vec3f(2, 1, 1), maths::Vec3f(1, 1, 2));
+	const maths::Mat33f a = maths::Mat33f(maths::Vector3f(1, 2, 1), maths::Vector3f(2, 1, 1), maths::Vector3f(1, 1, 2));
 
 	//Test determinant
 	ASSERT_EQ(a.Determinant(), -4);
@@ -40,7 +40,7 @@ TEST(Maths, Mat33f_Determinant)
 
 TEST(Maths, Mat33f_Inverse)
 {
-	const maths::Mat33f a = maths::Mat33f(maths::Vec3f(0, 1, -3), maths::Vec3f(-3, -4, 4), maths::Vec3f(-2, -2, 1));
+	const maths::Mat33f a = maths::Mat33f(maths::Vector3f(0, 1, -3), maths::Vector3f(-3, -4, 4), maths::Vector3f(-2, -2, 1));
 
 	//Test determinant
 	maths::Mat33f tmp_inverse = a.Inverse();
@@ -57,9 +57,9 @@ TEST(Maths, Mat33f_Inverse)
 
 TEST(Maths, Mat33f_IsOrthogonal)
 {
-	const maths::Mat33f a = maths::Mat33f(maths::Vec3f(0, 1, -3), 
-										maths::Vec3f(-3, -4, 4), 
-										maths::Vec3f(-2, -2, 1));
+	const maths::Mat33f a = maths::Mat33f(maths::Vector3f(0, 1, -3), 
+										maths::Vector3f(-3, -4, 4), 
+										maths::Vector3f(-2, -2, 1));
 
 	//Test if matrix is orthogonal
 	ASSERT_EQ(a.IsOrthogonal(), false);

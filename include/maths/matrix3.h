@@ -34,19 +34,19 @@ namespace maths
         {
             struct
             {
-                Vec3f v1;
-                Vec3f v2;
-                Vec3f v3;
+                Vector3f v1;
+                Vector3f v2;
+                Vector3f v3;
             };
 
-            Vec3f matrix[3]{};
+            Vector3f matrix[3]{};
         };
 
         Mat33f() {}
 
-        Mat33f(const Vec3f v1, const Vec3f v2, const Vec3f v3) : v1(v1), v2(v2), v3(v3) {}
+        Mat33f(const Vector3f v1, const Vector3f v2, const Vector3f v3) : v1(v1), v2(v2), v3(v3) {}
 
-        Vec3f& operator[](size_t index) { return matrix[index]; }
+        Vector3f& operator[](size_t index) { return matrix[index]; }
     	
         Mat33f operator+(const Mat33f& rhs) const;
 
@@ -60,9 +60,9 @@ namespace maths
 
         void operator*=(const Mat33f& rhs);
 
-        Vec3f operator*(const Vec3f& rhs) const;
+        Vector3f operator*(const Vector3f& rhs) const;
 
-        void operator*=(const Vec3f& rhs);
+        void operator*=(const Vector3f& rhs);
 
         void operator*=(const float& scalar);
 

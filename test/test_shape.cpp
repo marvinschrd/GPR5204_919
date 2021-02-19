@@ -13,12 +13,12 @@ TEST(Maths, Circle_CalculateArea)
 
 TEST(Maths, Sphere_CalculateArea)
 {
-	maths::Sphere s{ 1.0f,maths::Vec3f{1.0f,2.0f,1.0f} };
+	maths::Sphere s{ 1.0f,maths::Vector3f{1.0f,2.0f,1.0f} };
 	ASSERT_FLOAT_EQ(s.area(), 4 * M_PI * (s.radius() * s.radius()));
 }
 
 TEST(Maths, Sphere_CalculateVolume)
 {
-	maths::Sphere s{ 1.0f,maths::Vec3f{1.0f,2.0f,1.0f} };
+	maths::Sphere s{ 1.0f,maths::Vector3f{1.0f,2.0f,1.0f} };
 	ASSERT_FLOAT_EQ(s.volume(), 4 / 3 * M_PI * (s.radius() * s.radius()* s.radius()));
 }

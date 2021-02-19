@@ -45,11 +45,11 @@ namespace maths
 	void Mat44f::operator*=(const Mat44f& rhs)
 	{
 	}
-	Vec4f Mat44f::operator*(const Vec4f& rhs) const
+	Vector4f Mat44f::operator*(const Vector4f& rhs) const
 	{
-		return Vec4f();
+		return Vector4f();
 	}
-	void Mat44f::operator*=(const Vec4f& rhs)
+	void Mat44f::operator*=(const Vector4f& rhs)
 	{
 	}
 	float Mat44f::Determinant()
@@ -80,11 +80,11 @@ namespace maths
 	{
 		return Mat44f();
 	}
-	Mat44f Mat44f::ScalingMatrix44(Vec3f axisValues)
+	Mat44f Mat44f::ScalingMatrix44(Vector3f axisValues)
 	{
 		return Mat44f();
 	}
-	Mat44f Mat44f::TranslationMatrix44(Vec3f axisValues)
+	Mat44f Mat44f::TranslationMatrix44(Vector3f axisValues)
 	{
 		return Mat44f();
 	}

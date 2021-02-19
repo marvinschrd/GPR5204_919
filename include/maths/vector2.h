@@ -83,9 +83,9 @@ namespace maths
 
 		static float Dot(const Vec2f v1, const Vec2f v2) { return float(v1.x * v2.x + v1.y * v2.y); }
 
-		Vec3f Cross(const Vec2f v2) const;
+		Vector3f Cross(const Vec2f v2) const;
 
-		static Vec3f Cross(const Vec2f v1, const Vec2f v2);
+		static Vector3f Cross(const Vec2f v1, const Vec2f v2);
 
 		radian_t AngleBetween(const Vec2f v2) const;
 

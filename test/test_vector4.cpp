@@ -28,19 +28,19 @@ SOFTWARE.
 
 TEST(Maths, Vec4f_Addition)
 {
-	const maths::Vec4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
-	const maths::Vec4f b{ 1.0f, 4.0f, 3.0f, 2.0f };
+	const maths::Vector4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
+	const maths::Vector4f b{ 1.0f, 4.0f, 3.0f, 2.0f };
 
 	//Test operator +
-	maths::Vec4f c = a + b;
+	maths::Vector4f c = a + b;
 	ASSERT_EQ(c.x, a.x + b.x);
 	ASSERT_EQ(c.y, a.y + b.y);
 	ASSERT_EQ(c.z, a.z + b.z);
 	ASSERT_EQ(c.w, a.w + b.w);
 
 	//Test operator +=
-	const maths::Vec4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
-	maths::Vec4f e = d;
+	const maths::Vector4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
+	maths::Vector4f e = d;
 	e += a;
 	ASSERT_EQ(e.x, d.x + a.x);
 	ASSERT_EQ(e.y, d.y + a.y);
@@ -50,19 +50,19 @@ TEST(Maths, Vec4f_Addition)
 
 TEST(Maths, Vec4f_Substraction)
 {
-	const maths::Vec4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
-	const maths::Vec4f b{ 1.0f, 4.0f, 3.0f, 2.0f };
+	const maths::Vector4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
+	const maths::Vector4f b{ 1.0f, 4.0f, 3.0f, 2.0f };
 
 	//Test operator -
-	maths::Vec4f c = a - b;
+	maths::Vector4f c = a - b;
 	ASSERT_EQ(c.x, a.x - b.x);
 	ASSERT_EQ(c.y, a.y - b.y);
 	ASSERT_EQ(c.z, a.z - b.z);
 	ASSERT_EQ(c.w, a.w - b.w);
 
 	//Test operator -=
-	const maths::Vec4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
-	maths::Vec4f e = d;
+	const maths::Vector4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
+	maths::Vector4f e = d;
 	e -= a;
 	ASSERT_EQ(e.x, d.x - a.x);
 	ASSERT_EQ(e.y, d.y - a.y);
@@ -72,19 +72,19 @@ TEST(Maths, Vec4f_Substraction)
 
 TEST(Maths, Vec4f_MultiplicationByScalar)
 {
-	const maths::Vec4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
+	const maths::Vector4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
 	const float b = 4.0f;
 
 	//Test operator *
-	maths::Vec4f c = a * b;
+	maths::Vector4f c = a * b;
 	ASSERT_EQ(c.x, a.x * b);
 	ASSERT_EQ(c.y, a.y * b);
 	ASSERT_EQ(c.z, a.z * b);
 	ASSERT_EQ(c.w, a.w * b);
 
 	//Test operator *=
-	const maths::Vec4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
-	maths::Vec4f e = d;
+	const maths::Vector4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
+	maths::Vector4f e = d;
 	e *= b;
 	ASSERT_EQ(e.x, d.x * b);
 	ASSERT_EQ(e.y, d.y * b);
@@ -94,19 +94,19 @@ TEST(Maths, Vec4f_MultiplicationByScalar)
 
 TEST(Maths, Vec4f_DivisionByScalar)
 {
-	const maths::Vec4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
+	const maths::Vector4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
 	const float b = 4.0f;
 
 	//Test operator /
-	maths::Vec4f c = a / b;
+	maths::Vector4f c = a / b;
 	ASSERT_EQ(c.x, a.x / b);
 	ASSERT_EQ(c.y, a.y / b);
 	ASSERT_EQ(c.z, a.z / b);
 	ASSERT_EQ(c.w, a.w / b);
 
 	//Test operator /=
-	const maths::Vec4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
-	maths::Vec4f e = d;
+	const maths::Vector4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
+	maths::Vector4f e = d;
 	e /= b;
 	ASSERT_EQ(e.x, d.x / b);
 	ASSERT_EQ(e.y, d.y / b);
@@ -116,7 +116,7 @@ TEST(Maths, Vec4f_DivisionByScalar)
 
 TEST(Maths, Vec4f_Magnitude)
 {
-	const maths::Vec4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
+	const maths::Vector4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
 	const float b = 4;
 
 	//Test .SqrMagnitude()
@@ -125,7 +125,7 @@ TEST(Maths, Vec4f_Magnitude)
 
 TEST(Maths, Vec4f_SqrMagnitude)
 {
-	const maths::Vec4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
+	const maths::Vector4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
 	const float b = 4;
 
 	//Test .SqrMagnitude()
@@ -134,22 +134,22 @@ TEST(Maths, Vec4f_SqrMagnitude)
 
 TEST(Maths, Vec4f_DotProduct)
 {
-	const maths::Vec4f a{ 0.0f, 3.0f, 2.0f, 1.0f };
-	const maths::Vec4f b{ 1.0f, 0.0f, 2.0f, 3.0f };
+	const maths::Vector4f a{ 0.0f, 3.0f, 2.0f, 1.0f };
+	const maths::Vector4f b{ 1.0f, 0.0f, 2.0f, 3.0f };
 
 	//Test .Dot()
 	ASSERT_EQ(a.Dot(b), a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w);
 
 	//Test static Dot()
-	ASSERT_EQ(maths::Vec4f::Dot(a, b), a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w);
+	ASSERT_EQ(maths::Vector4f::Dot(a, b), a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w);
 
 
-	const maths::Vec4f c{ 2.0f, 3.0f, 1.0f, 0.0f };
-	const maths::Vec4f d{ 1.0f, 1.0f, 1.0f, 1.0f };
+	const maths::Vector4f c{ 2.0f, 3.0f, 1.0f, 0.0f };
+	const maths::Vector4f d{ 1.0f, 1.0f, 1.0f, 1.0f };
 
 	//Test .Dot()
 	ASSERT_EQ(c.Dot(d), c.x * d.x + c.y * d.y + c.z * d.z + c.w * d.w);
 
 	//Test static Dot()
-	ASSERT_EQ(maths::Vec4f::Dot(c, d), c.x * d.x + c.y * d.y + c.z * d.z + c.w * d.w);
+	ASSERT_EQ(maths::Vector4f::Dot(c, d), c.x * d.x + c.y * d.y + c.z * d.z + c.w * d.w);
 }

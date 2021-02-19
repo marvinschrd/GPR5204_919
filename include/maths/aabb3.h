@@ -31,23 +31,23 @@ namespace maths {
 class AABB3 {
 public:
 	AABB3() = default;
-	AABB3(Vec3f bottom_left, Vec3f top_right) :
+	AABB3(Vector3f bottom_left, Vector3f top_right) :
 		bottom_left_(bottom_left), top_right_(top_right) {}
-	Vec3f center() const{
+	Vector3f center() const{
 		return { (bottom_left_ + top_right_) / 2.0f };
 	}
 
-	Vec3f extent() const{
-		const Vec3f center_tmp = center();
+	Vector3f extent() const{
+		const Vector3f center_tmp = center();
 		return { top_right_ - center_tmp };
 	}
 
-	Vec3f bottom_left() const { return bottom_left_; }
-	Vec3f top_right() const { return top_right_; }
+	Vector3f bottom_left() const { return bottom_left_; }
+	Vector3f top_right() const { return top_right_; }
 	
 private:
-	Vec3f bottom_left_ = {};
-	Vec3f top_right_ = {};
+	Vector3f bottom_left_ = {};
+	Vector3f top_right_ = {};
 };
 
 bool Overlap(const AABB3& a, const AABB3& b);

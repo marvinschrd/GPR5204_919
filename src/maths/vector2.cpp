@@ -52,18 +52,18 @@ namespace maths
         y /= scalar;
     }
 
-    Vec3f Vec2f::Cross(Vec2f vec2) const
+    Vector3f Vec2f::Cross(Vec2f vec2) const
     {
-        Vec3f v1 = Vec3f(x, y, 0);
-        Vec3f v2 = Vec3f(vec2.x, vec2.y, 0);
-        return Vec3f(0, 0, v1.x * v2.y - v1.y * v2.x);
+        Vector3f v1 = Vector3f(x, y, 0);
+        Vector3f v2 = Vector3f(vec2.x, vec2.y, 0);
+        return Vector3f(0, 0, v1.x * v2.y - v1.y * v2.x);
     }
 
-    Vec3f Vec2f::Cross(Vec2f vec1, Vec2f vec2)
+    Vector3f Vec2f::Cross(Vec2f vec1, Vec2f vec2)
     {
-        Vec3f v1 = Vec3f(vec1.x, vec1.y, 0);
-        Vec3f v2 = Vec3f(vec2.x, vec2.y, 0);
-        return Vec3f(0, 0, v1.x * v2.y - v1.y * v2.x);
+        Vector3f v1 = Vector3f(vec1.x, vec1.y, 0);
+        Vector3f v2 = Vector3f(vec2.x, vec2.y, 0);
+        return Vector3f(0, 0, v1.x * v2.y - v1.y * v2.x);
     }
 
     radian_t Vec2f::AngleBetween(const Vec2f v2) const
