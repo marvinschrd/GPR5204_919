@@ -32,18 +32,18 @@ namespace maths
 	    {
             struct
             {
-                Vec2f v1;
-                Vec2f v2;
+                Vector2f v1;
+                Vector2f v2;
             };
 
-            Vec2f matrix[2]{};
+            Vector2f matrix[2]{};
 	    };
     	
         Mat22f() {}
 
-        Mat22f(const Vec2f v1, const Vec2f v2) : v1(v1), v2(v2) {}
+        Mat22f(const Vector2f v1, const Vector2f v2) : v1(v1), v2(v2) {}
 
-        Vec2f& operator[](size_t index) { return matrix[index]; }
+        Vector2f& operator[](size_t index) { return matrix[index]; }
 
         Mat22f operator+(const Mat22f& rhs) const;
 
@@ -59,9 +59,9 @@ namespace maths
 
         void operator*=(const float& scalar);
 
-        Vec2f operator*(const Vec2f& rhs) const;
+        Vector2f operator*(const Vector2f& rhs) const;
 
-        void operator*=(const Vec2f& rhs);
+        void operator*=(const Vector2f& rhs);
 
         float Determinant() const;
 

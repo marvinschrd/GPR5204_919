@@ -82,8 +82,8 @@ namespace maths
 
         static Mat33f RotationMatrix33(radian_t angle);
 
-        static Mat33f ScalingMatrix33(Vec2f axisValues);
+        static Mat33f ScalingMatrix33(Vector2f axisValues);
 
-        static Mat33f TranslationMatrix33(Vec2f axisValues);
+        static Mat33f TranslationMatrix33(Vector2f axisValues);
     };
 }

@@ -33,8 +33,8 @@ SOFTWARE.
 
 //TEST(Maths, Mat22f_operatorAddition)
 //{
-//	const maths::Mat22f A = maths::Mat22f(maths::Vec2f(1, 2), maths::Vec2f(3, 1));
-//	const maths::Mat22f B = maths::Mat22f(maths::Vec2f(3, 2), maths::Vec2f(1, 1));
+//	const maths::Mat22f A = maths::Mat22f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
+//	const maths::Mat22f B = maths::Mat22f(maths::Vector2f(3, 2), maths::Vector2f(1, 1));
 //
 //	const maths::Mat22f X = A + B;
 //
@@ -43,8 +43,8 @@ SOFTWARE.
 //
 //TEST(Maths, Mat22f_operatorSubstraction)
 //{
-//	const maths::Mat22f A = maths::Mat22f(maths::Vec2f(1, 2), maths::Vec2f(3, 1));
-//	const maths::Mat22f B = maths::Mat22f(maths::Vec2f(3, 2), maths::Vec2f(1, 1));
+//	const maths::Mat22f A = maths::Mat22f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
+//	const maths::Mat22f B = maths::Mat22f(maths::Vector2f(3, 2), maths::Vector2f(1, 1));
 //
 //	const maths::Mat22f X = A - B;
 //
@@ -53,8 +53,8 @@ SOFTWARE.
 //
 //TEST(Maths, Mat22f_operatorMultiplication)
 //{
-//	const maths::Mat22f A = maths::Mat22f(maths::Vec2f(1, 2), maths::Vec2f(3, 1));
-//	const maths::Mat22f B = maths::Mat22f(maths::Vec2f(3, 2), maths::Vec2f(1, 1));
+//	const maths::Mat22f A = maths::Mat22f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
+//	const maths::Mat22f B = maths::Mat22f(maths::Vector2f(3, 2), maths::Vector2f(1, 1));
 //
 //	const maths::Mat22f X = A * B;
 //
@@ -63,7 +63,7 @@ SOFTWARE.
 
 TEST(Maths, Mat22f_Determinant)
 {
-	const maths::Mat22f A = maths::Mat22f(maths::Vec2f(1, 2), maths::Vec2f(3, 1));
+	const maths::Mat22f A = maths::Mat22f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
 
 	//Test determinant
 	const float det = A.Determinant();
@@ -72,11 +72,11 @@ TEST(Maths, Mat22f_Determinant)
 
 TEST(Maths, Mat22f_Inverse)
 {
-	const maths::Mat22f A = maths::Mat22f(maths::Vec2f(1, 2), maths::Vec2f(1, 3));
+	const maths::Mat22f A = maths::Mat22f(maths::Vector2f(1, 2), maths::Vector2f(1, 3));
 
 	//Test inverse
 	const maths::Mat22f inverseA = A.Inverse();
-	maths::Mat22f testInverse = maths::Mat22f(maths::Vec2f(3, -1), maths::Vec2f(-2, 1));
+	maths::Mat22f testInverse = maths::Mat22f(maths::Vector2f(3, -1), maths::Vector2f(-2, 1));
 
 	ASSERT_EQ(inverseA.matrix[0][0], 3);
 	ASSERT_EQ(inverseA.matrix[0][1], -1);

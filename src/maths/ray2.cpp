@@ -25,7 +25,7 @@ SOFTWARE.
 
 bool maths::Ray2::intersect_circle(HitInfo &info, Circle &circle, float castDistance)
 {
-	Vec2f v = circle.center() - origin();
+	Vector2f v = circle.center() - origin();
 	float d = v.Dot(direction());
 	if(d<0)
 	{
@@ -72,9 +72,9 @@ bool maths::Ray2::intersect_circle(HitInfo &info, Circle &circle, float castDist
 
 bool maths::Ray2::intersect_AABB2(HitInfo &info, maths::AABB2 aabb)
 {
-	maths::Vec2f lb = aabb.bottom_left();
-	maths::Vec2f rt = aabb.top_right();
-	maths::Vec2f dirfrac;
+	maths::Vector2f lb = aabb.bottom_left();
+	maths::Vector2f rt = aabb.top_right();
+	maths::Vector2f dirfrac;
 
 	dirfrac.x = 1.0f / unit_direction_.x;
 	dirfrac.y = 1.0f / unit_direction_.y;

@@ -7,7 +7,7 @@
 
 TEST(Maths, Circle_CalculateArea)
 {
-	maths::Circle c{ 1.0f,maths::Vec2f{1.0f,2.0f} };
+	maths::Circle c{ 1.0f,maths::Vector2f{1.0f,2.0f} };
 	ASSERT_FLOAT_EQ(c.area(), M_PI * (c.radius() * c.radius()));
 }
 

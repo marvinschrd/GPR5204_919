@@ -32,7 +32,7 @@ namespace maths
 		float m11 = matrix[1][1] + rhs.matrix[1][1];
 
 
-		return Mat22f(Vec2f(m00,m01),Vec2f(m10,m11));
+		return Mat22f(Vector2f(m00,m01),Vector2f(m10,m11));
 	}
 	void Mat22f::operator+=(const Mat22f& rhs)
 	{
@@ -49,7 +49,7 @@ namespace maths
 		float m10 = matrix[1][0] - rhs.matrix[1][0];
 		float m11 = matrix[1][1] - rhs.matrix[1][1];
 		
-		return Mat22f(Vec2f(m00, m01), Vec2f(m10, m11));
+		return Mat22f(Vector2f(m00, m01), Vector2f(m10, m11));
 	}
 	void Mat22f::operator-=(const Mat22f& rhs)
 	{
@@ -66,7 +66,7 @@ namespace maths
 		float m11 = (matrix[1][0] * rhs.matrix[0][1]) + (matrix[1][1] * rhs.matrix[1][1]);
 
 		
-		return Mat22f(Vec2f(m00, m01), Vec2f(m10, m11));
+		return Mat22f(Vector2f(m00, m01), Vector2f(m10, m11));
 	}
 	void Mat22f::operator*=(const Mat22f& rhs)
 	{
@@ -83,11 +83,11 @@ namespace maths
 		matrix[1][0] *= scalar;
 		matrix[1][1] *= scalar;
 	}
-	Vec2f Mat22f::operator*(const Vec2f& rhs) const
+	Vector2f Mat22f::operator*(const Vector2f& rhs) const
 	{
-		return Vec2f();
+		return Vector2f();
 	}
-	void Mat22f::operator*=(const Vec2f& rhs)
+	void Mat22f::operator*=(const Vector2f& rhs)
 	{
 	}
 	float Mat22f::Determinant() const
@@ -112,6 +112,6 @@ namespace maths
 	}
 	Mat22f Mat22f::Identity22()
 	{
-		return Mat22f(Vec2f(1, 0), Vec2f(0, 1));
+		return Mat22f(Vector2f(1, 0), Vector2f(0, 1));
 	}
 }

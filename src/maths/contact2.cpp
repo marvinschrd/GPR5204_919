@@ -27,15 +27,15 @@ SOFTWARE.
 namespace maths {
 
 bool Overlap(const AABB2& a, const AABB2& b) {
-	const Vec2f v1 = b.bottom_left() - a.top_right();
-	const Vec2f v2 = a.bottom_left() - b.top_right();
+	const Vector2f v1 = b.bottom_left() - a.top_right();
+	const Vector2f v2 = a.bottom_left() - b.top_right();
 
 	return !(v1.x > 0 || v2.x > 0 || v1.y > 0 || v2.y > 0);
 }
 
 bool Contain(const AABB2& a, const AABB2& b) {
-	const Vec2f v1 = b.bottom_left() - a.bottom_left();
-	const Vec2f v2 = a.top_right() - b.top_right();
+	const Vector2f v1 = b.bottom_left() - a.bottom_left();
+	const Vector2f v2 = a.top_right() - b.top_right();
 
 	return (v1.x > 0 && v1.y > 0 && v2.x > 0 && v2.y > 0);
 }

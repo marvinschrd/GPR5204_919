@@ -172,11 +172,11 @@ namespace maths
 	{
 		return Mat33f(Vec3f(cos(angle), -sin(angle), 0), Vec3f(sin(angle), cos(angle), 0), Vec3f(0, 0, 1));
 	}
-	Mat33f Mat33f::ScalingMatrix33(Vec2f axisValues)
+	Mat33f Mat33f::ScalingMatrix33(Vector2f axisValues)
 	{
 		return Mat33f(Vec3f(axisValues.x, 0, 0), Vec3f(0, axisValues.y, 0), Vec3f(0, 0, 1));
 	}
-	Mat33f Mat33f::TranslationMatrix33(Vec2f axisValues)
+	Mat33f Mat33f::TranslationMatrix33(Vector2f axisValues)
 	{
 		return Mat33f(Vec3f(1, 0, axisValues.x), Vec3f(0, 1, axisValues.y), Vec3f(0, 0, 1));
 	}
