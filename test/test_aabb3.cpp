@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "aabb3.h"
-#include "contact3.h"
+#include "maths/aabb3.h"
+#include "maths/contact3.h"
 
 TEST(Maths, Aabb3_center)
 {
@@ -12,25 +12,25 @@ TEST(Maths, Aabb3_center)
 
 TEST(Maths, Aabb3_overlap)
 {
-	// Test aabb2 à l'interieur de aabb1
+	// Test aabb2 ï¿½ l'interieur de aabb1
 	maths::AABB3D aabb1(maths::Vec3f{ 0.0f, 0.0f, 0.0f }, maths::Vec3f{ 1.0f, 1.0f, 1.0f });
 	maths::AABB3D aabb2(maths::Vec3f{ 0.1f, 0.1f, 0.0f }, maths::Vec3f{ 0.9f, 0.9f, 1.0f });
 	EXPECT_TRUE(Overlap(aabb1, aabb2));
 	EXPECT_TRUE(Overlap(aabb2, aabb1));
 
-	// Test aabb2 à l'exterieur de aabb1 en positif
+	// Test aabb2 ï¿½ l'exterieur de aabb1 en positif
 	aabb2 = maths::AABB3D(maths::Vec3f{ 1.1f, 1.1f, 0.0f }, maths::Vec3f{ 1.5f, 1.5f, 1.0f });
 	EXPECT_FALSE(Overlap(aabb1, aabb2));
 
-	// Test aabb2 à l'exterieur de aabb1 en negatif
+	// Test aabb2 ï¿½ l'exterieur de aabb1 en negatif
 	aabb2 = maths::AABB3D(maths::Vec3f{ -0.5f, -0.5f, 0.0f }, maths::Vec3f{ -0.1f, -0.1f, 1.0f });
 	EXPECT_FALSE(Overlap(aabb1, aabb2));
 
-	// Test angle aabb2 superposé à aabb1 en positif
+	// Test angle aabb2 superposï¿½ ï¿½ aabb1 en positif
 	aabb2 = maths::AABB3D(maths::Vec3f{ 1.0f, 1.0f, 0.0f }, maths::Vec3f{ 1.5f, 1.5f, 1.0f });
 	EXPECT_TRUE(Overlap(aabb1, aabb2));
 
-	// Test angle aabb2 superposé à aabb1 en negatif
+	// Test angle aabb2 superposï¿½ ï¿½ aabb1 en negatif
 	aabb2 = maths::AABB3D(maths::Vec3f{ -0.5f, -0.5f, 0.0f }, maths::Vec3f{ -0.0f, -0.0f, 1.0f });
 	EXPECT_TRUE(Overlap(aabb1, aabb2));
 
@@ -53,25 +53,25 @@ TEST(Maths, Aabb3_overlap)
 
 TEST(Maths, Aabb3_contain)
 {
-	// Test aabb2 à l'interieur de aabb1
+	// Test aabb2 ï¿½ l'interieur de aabb1
 	maths::AABB3D aabb1(maths::Vec3f{ 0.0f, 0.0f, 0.0f }, maths::Vec3f{ 1.0f, 1.0f, 1.0f });
 	maths::AABB3D aabb2(maths::Vec3f{ 0.1f, 0.1f, 0.1f }, maths::Vec3f{ 0.9f, 0.9f, 0.9f });
 	EXPECT_TRUE(Contain(aabb1, aabb2));
 	EXPECT_FALSE(Contain(aabb2, aabb1));
 
-	// Test aabb2 à l'exterieur de aabb1 en positif
+	// Test aabb2 ï¿½ l'exterieur de aabb1 en positif
 	aabb2 = maths::AABB3D(maths::Vec3f{ 1.1f, 1.1f, 0.0f }, maths::Vec3f{ 1.5f, 1.5f, 1.0f });
 	EXPECT_FALSE(Contain(aabb1, aabb2));
 
-	// Test aabb2 à l'exterieur de aabb1 en negatif
+	// Test aabb2 ï¿½ l'exterieur de aabb1 en negatif
 	aabb2 = maths::AABB3D(maths::Vec3f{ -0.5f, -0.5f, 0.0f }, maths::Vec3f{ -0.1f, -0.1f, 1.0f });
 	EXPECT_FALSE(Contain(aabb1, aabb2));
 
-	// Test angle aabb2 superposé à aabb1 en positif
+	// Test angle aabb2 superposï¿½ ï¿½ aabb1 en positif
 	aabb2 = maths::AABB3D(maths::Vec3f{ 1.0f, 1.0f, 0.0f }, maths::Vec3f{ 1.5f, 1.5f, 1.0f });
 	EXPECT_FALSE(Contain(aabb1, aabb2));
 
-	// Test angle aabb2 superposé à aabb1 en negatif
+	// Test angle aabb2 superposï¿½ ï¿½ aabb1 en negatif
 	aabb2 = maths::AABB3D(maths::Vec3f{ -0.5f, -0.5f, 0.0f }, maths::Vec3f{ -0.0f, -0.0f, 1.0f });
 	EXPECT_FALSE(Contain(aabb1, aabb2));
 

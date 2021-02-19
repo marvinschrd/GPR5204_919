@@ -1,4 +1,5 @@
-#include "aabb3.h"
+#pragma once
+#include "maths/aabb3.h"
 namespace maths
 {
 	bool Overlap(const AABB3D& a, const AABB3D& b)

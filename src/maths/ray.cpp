@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include "..\include\maths\ray.h"
+#include "maths/ray.h"
 
 bool maths::Ray2::intersect_circle(HitInfo &info, Circle &circle, float castDistance)
 {
