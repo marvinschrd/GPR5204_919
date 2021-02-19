@@ -71,10 +71,10 @@ bool maths::Ray3::intersect_sphere(HitInfo& info, Sphere& sphere, float castDist
 	return true;
 }
 
-bool maths::Ray3::intersect_AABB3(HitInfo& info, AABB3D aabb)
+bool maths::Ray3::intersect_AABB3(HitInfo& info, AABB3 aabb)
 {
-	maths::Vec3f lb = aabb.bottomLeft;
-	maths::Vec3f rt = aabb.topRight;
+	maths::Vec3f lb = aabb.bottom_left();
+	maths::Vec3f rt = aabb.top_right();
 	maths::Vec3f dirfrac;
 
 	dirfrac.x = 1.0f / unit_direction().x;

@@ -49,7 +49,7 @@ TEST(Maths, Intersect_AABB2)
 	maths::Vec2f a{ -0.5f,-0.5f };
 	maths::Vec2f b{ 0.5f,0.5f };
 
-	maths::AABB2D aabb{ a,b };
+	maths::AABB2 aabb{ a,b };
 
 	maths::Vec2f origin{ -0.1f,-0.1f };
 	maths::Vec2f direction{ 1.0f,1.0f };

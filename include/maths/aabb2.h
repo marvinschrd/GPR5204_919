@@ -1,30 +1,56 @@
 #pragma once
 
+/*
+MIT License
+
+Copyright (c) 2021 SAE Institute Geneva
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 #include "maths/vector2.h"
 
-namespace maths
-{
-	struct AABB2D
-	{
-		maths::Vec2f bottomLeft;
-		maths::Vec2f topRight;
+namespace maths {
+	
+class AABB2 {
+public:
+	AABB2() = default;
+	AABB2(Vec2f bottom_left, Vec2f top_right) :
+		bottom_left_(bottom_left), top_right_(top_right) {}
+	Vec2f center() const {
+		return { (bottom_left_ + top_right_) / 2.0f };
+	}
 
-		AABB2D() : bottomLeft(), topRight() {}
+	Vec2f extent() const {
+		const Vec2f center_tmp = center();
+		return { top_right_ - center_tmp };
+	}
 
-		AABB2D(maths::Vec2f bottomLeft, maths::Vec2f topRight) : bottomLeft(bottomLeft), topRight(topRight) {}
+	Vec2f bottom_left() const { return bottom_left_; }
+	Vec2f top_right() const { return top_right_; }
+	
+private:
+	Vec2f bottom_left_ = {};
+	Vec2f top_right_ = {};
+};
 
-		// Calculate center of the aabb
-		maths::Vec2f CalculateCenter() const
-		{
-			return { (bottomLeft + topRight) / 2.0f };
-		}
-
-		maths::Vec2f CalculateExtent() const
-		{
-			return { topRight - CalculateCenter() };
-		}
-	};
-
-	bool Overlap(const AABB2D& a, const AABB2D& b);
-	bool Contain(const AABB2D& a, const AABB2D& b);
-}
+bool Overlap(const AABB2& a, const AABB2& b);
+bool Contain(const AABB2& a, const AABB2& b);
+	
+}  // namespace maths

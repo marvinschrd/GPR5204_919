@@ -70,10 +70,10 @@ bool maths::Ray2::intersect_circle(HitInfo &info, Circle &circle, float castDist
 	return true;
 }
 
-bool maths::Ray2::intersect_AABB2(HitInfo &info, maths::AABB2D aabb)
+bool maths::Ray2::intersect_AABB2(HitInfo &info, maths::AABB2 aabb)
 {
-	maths::Vec2f lb = aabb.bottomLeft;
-	maths::Vec2f rt = aabb.topRight;
+	maths::Vec2f lb = aabb.bottom_left();
+	maths::Vec2f rt = aabb.top_right();
 	maths::Vec2f dirfrac;
 
 	dirfrac.x = 1.0f / unit_direction_.x;

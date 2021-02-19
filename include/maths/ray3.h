@@ -63,7 +63,7 @@ public:
 	Vec3f unit_direction() const { return unit_direction_; }
 
 	bool intersect_sphere(HitInfo& info, Sphere& sphere, float castDistance);
-	bool intersect_AABB3(HitInfo& info, AABB3D aabb);
+	bool intersect_AABB3(HitInfo& info, AABB3 aabb);
 
 private:
 	Vec3f origin_ = {};
