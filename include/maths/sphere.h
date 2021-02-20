@@ -34,11 +34,13 @@ public:
 	~Sphere() = default;
 
 	float area() const {
-		return 4 * M_PI * (radius_ * radius_) ;
+		const double pi = 3.14159265358979323846;
+		return 4 * pi * (radius_ * radius_) ;
 	}
 	
 	float volume() const {
-		return 4 / 3 * M_PI * (radius_ * radius_ * radius_);
+		const double pi = 3.14159265358979323846;
+		return 4 / 3 * pi * (radius_ * radius_ * radius_);
 	}
 	
 	void set_radius(float radius) { radius_ = radius; }

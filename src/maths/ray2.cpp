@@ -23,90 +23,96 @@ SOFTWARE.
 */
 #include "maths/ray2.h"
 
-bool maths::Ray2::intersect_circle(HitInfo &info, Circle &circle, float castDistance)
+namespace maths
 {
-	Vec2f v = circle.center() - origin();
-	float d = v.Dot(direction());
-	if(d<0)
+	bool Ray2::intersect_circle(HitInfo& info, Circle& circle)
 	{
-		return false;
-	}
+		Vec2f v = circle.center() - origin();
+		float d = v.Dot(unit_direction_);
+		if (d < 0)
+		{
+			return false;
+		}
 
-	float squaredDistance = v.Dot(v) - (d * d);
-	float radius2 = circle.radius() * circle.radius();
-	if(squaredDistance > radius2)
-	{
-		return false;
-	}
+		float squaredDistance = v.Dot(v) - (d * d);
+		float radius2 = circle.radius() * circle.radius();
+		if (squaredDistance > radius2)
+		{
+			return false;
+		}
 
-	auto q = std::sqrt(radius2 - squaredDistance);
+		auto q = std::sqrt(radius2 - squaredDistance);
 
-	auto t0 = d + q;
-	auto t1 = d - q;
+		auto t0 = d + q;
+		auto t1 = d - q;
 
-	bool hasHit = false;
-	float dis;
-	if (t0 >= 0 && t0 < castDistance) {
-		dis = t0;
-		hasHit = true;
-	}
-
-	if (t1 >= 0 && t1 < castDistance) {
-		if (!hasHit || t1 < dis) {
-			dis = t1;
+		bool hasHit = false;
+		float dis;
+		if (t0 >= 0) {
+			dis = t0;
 			hasHit = true;
 		}
+
+		if (t1 >= 0) {
+			if (!hasHit || t1 < dis) {
+				dis = t1;
+				hasHit = true;
+			}
+		}
+
+		if (!hasHit) {
+			return false;
+		}
+
+		info.distance = dis;
+		auto pt = origin() + unit_direction_ * dis;
+		info.hit = true;
+		info.hitPoint = pt;
+
+		return true;
 	}
 
-	if (!hasHit) {
-		return false;
-	}
-
-	auto pt = origin()+ direction() * dis;
-	info.hit = true;
-	info.hitPoint = pt;
-	info.distance = dis;
-	
-	return true;
-}
-
-bool maths::Ray2::intersect_AABB2(HitInfo &info, maths::AABB2 aabb)
-{
-	maths::Vec2f lb = aabb.bottom_left();
-	maths::Vec2f rt = aabb.top_right();
-	maths::Vec2f dirfrac;
-
-	dirfrac.x = 1.0f / unit_direction_.x;
-	dirfrac.y = 1.0f / unit_direction_.y;
-	
-	// lb is the corner of AABB with minimal coordinates - left bottom, rt is maximal corner
-	
-	float t1 = (lb.x - origin().x) * dirfrac.x;
-	float t2 = (rt.x - origin().x) * dirfrac.x;
-	float t3 = (lb.y - origin().y) * dirfrac.y;
-	float t4 = (rt.y - origin().y) * dirfrac.y;
-
-	float tmin = std::max(std::min(t1, t2), std::min(t3, t4));
-	float tmax = std::min(std::max(t1, t2), std::max(t3, t4));
-
-	// if tmax < 0, ray (line) is intersecting AABB, but the whole AABB is behind us
-	if (tmax < 0)
+	bool Ray2::intersect_AABB2(HitInfo& info, AABB2 aabb)
 	{
-		info.distance = tmax;
-		return false;
-	}
+		Vec2f lb = aabb.bottom_left();
+		Vec2f rt = aabb.top_right();
+		Vec2f dirfrac;
 
-	// if tmin > tmax, ray doesn't intersect AABB
-	if (tmin > tmax)
-	{
-		info.distance = tmax;
-		return false;
-	}
+		/*dirfrac.x = 1.0f / unit_direction_.x;
+		dirfrac.y = 1.0f / unit_direction_.y;*/
 
-	info.distance = tmin;
-	info.hitPoint = origin() + direction() * info.distance;
-	return true;
-}
+		dirfrac.x = 1.0f / direction_.x;
+		dirfrac.y = 1.0f / direction_.y;
+
+		// lb is the corner of AABB with minimal coordinates - left bottom, rt is maximal corner
+
+		float t1 = (lb.x - origin().x) * dirfrac.x;
+		float t2 = (rt.x - origin().x) * dirfrac.x;
+		float t3 = (lb.y - origin().y) * dirfrac.y;
+		float t4 = (rt.y - origin().y) * dirfrac.y;
+
+		float tmin = std::max(std::min(t1, t2), std::min(t3, t4));
+		float tmax = std::min(std::max(t1, t2), std::max(t3, t4));
+
+		// if tmax < 0, ray (line) is intersecting AABB, but the whole AABB is behind us
+		if (tmax < 0)
+		{
+			info.distance = tmax;
+			return false;
+		}
+
+		// if tmin > tmax, ray doesn't intersect AABB
+		if (tmin > tmax)
+		{
+			info.distance = tmax;
+			return false;
+		}
+
+		info.distance = tmin;
+		info.hitPoint = origin() + direction() * info.distance;
+		return true;
+	}
+} // namespace maths
 
 
 

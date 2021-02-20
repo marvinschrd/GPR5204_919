@@ -22,20 +22,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#define _USE_MATH_DEFINES
-#include <math.h>
+#include <cmath>
 #include "maths/vector2.h"
 namespace maths {
 	
-class Circle
-{
+class Circle {
 public:
 	Circle() = default;
 	Circle(float radius, Vec2f center) : radius_(radius), center_(center) {};
 	~Circle() = default;
 
 	float area() const {
-		return ( M_PI * (radius_ * radius_) );
+		const double pi = 3.14159265358979323846;
+		return (pi * (radius_ * radius_) );
 	}
 	
 	void set_radius( const float radius) { radius_ = radius; }

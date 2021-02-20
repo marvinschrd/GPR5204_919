@@ -61,8 +61,8 @@ public:
 	Vec2f direction() const { return direction_; }
 	Vec2f unit_direction() const { return  unit_direction_; }
 	
-	bool intersect_circle(HitInfo &info, Circle &circle, float castDistance);
-	bool intersect_AABB2(HitInfo &info, maths::AABB2 aabb);
+	bool intersect_circle(HitInfo &info, Circle &circle);
+	bool intersect_AABB2(HitInfo &info, AABB2 aabb);
 	
 private:
 	Vec2f origin_ = {};
