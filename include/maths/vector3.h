@@ -95,6 +95,6 @@ namespace maths
 
 		static Vector3f Lerp(const Vector3f v1, const Vector3f v2, const float t) { return  v1 + (v2 - v1) * t; }
 
-		//Vector3f Slerp(const Vector3f v2, const float t) const;
+		Vector3f Slerp(Vector3f v2, const float t) const;
 	};
 }

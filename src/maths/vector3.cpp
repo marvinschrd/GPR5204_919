@@ -25,6 +25,7 @@ SOFTWARE.
 #include <maths/vector3.h>
 #include <maths/angle.h>
 #include <cmath>
+#include <algorithm>
 
 namespace maths
 {
@@ -84,17 +85,27 @@ namespace maths
 
 	void Vector3f::Normalize()
 	{
-		float magnitude = Vector3f::Magnitude();
+		const float magnitude = Vector3f::Magnitude();
 		x /= magnitude;
 		y /= magnitude;
 		z /= magnitude;
 	}
 
-	//Vector3f Vector3f::Slerp(const Vector3f v2, const float t) const
-	//{
-	//	radian_t theta = maths::acos(Vector3f::Dot(*this, v2)) * t;
-	//	Vector3f relativeVec = v2 - *this * Vector3f::Dot(*this, v2);
-	//	//relativeVec.Normalize()
-	//	return *this * maths::cos(theta) + relativeVec * maths::sin(theta);
-	//}
+	Vector3f Vector3f::Slerp(Vector3f v2, const float t) const
+	{
+		const float magnitude_v1 = Magnitude();
+		const float magnitude_v2 = v2.Magnitude();
+		const Vector3f v1 = *this / magnitude_v1;
+		v2 /= magnitude_v2;
+		float dot = Dot(v1, v2);
+		//Makes sure dot value cannot be under -1
+		dot = fmax(dot, -1.0f);
+		//Makes sure dot value cannot be over 1
+		dot = fmin(dot, 1.0f);
+
+		const radian_t theta = maths::acos(dot) * t;
+		const Vector3f relative_vec = (v2 - v1 * dot).Normalized();
+		const Vector3f new_vec = v1 * maths::cos(theta) + relative_vec * maths::sin(theta);
+		return new_vec * (magnitude_v1 + (magnitude_v2 - magnitude_v1) * t);
+	}
 }

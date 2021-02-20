@@ -177,7 +177,6 @@ TEST(Maths, Vec3f_Lerp)
 	const maths::Vector3f a{ 2.0f, 3.0f, 1.0f };
 	const maths::Vector3f b{ 1.0f, 4.0f, 3.0f };
 
-	//Test Lerp()
 	const float t0 = 0.0f;
 	const float t1 = 1.0f;
 
@@ -204,4 +203,29 @@ TEST(Maths, Vec3f_Lerp)
 	EXPECT_EQ(f.x, b.x);
 	EXPECT_EQ(f.y, b.y);
 	EXPECT_EQ(f.z, b.z);
+}
+
+TEST(Maths, Vec3f_Slerp)
+{
+	float threshold = 0.0001f;
+	
+	const maths::Vector3f a{ 2.0f, 3.0f, 1.0f };
+	const maths::Vector3f b{ 1.0f, 4.0f, 3.0f };
+
+	const float t0 = 0.0f;
+	const float t1 = 1.0f;
+
+	//Test Vector3f Slerp t = 0
+	maths::Vector3f c = a.Slerp(b, t0);
+	//Check difference between result & expected value
+	//Because slerp function lose too much precision with double
+	EXPECT_TRUE(std::abs(c.x - a.x) < threshold);
+	EXPECT_TRUE(std::abs(c.y - a.y) < threshold);
+	EXPECT_TRUE(std::abs(c.z - a.z) < threshold);
+
+	//Test Vector3f Slerp t = 1
+	maths::Vector3f d = a.Slerp(b, t1);
+	EXPECT_TRUE(std::abs(d.x - b.x) < threshold);
+	EXPECT_TRUE(std::abs(d.y - b.y) < threshold);
+	EXPECT_TRUE(std::abs(d.z - b.z) < threshold);
 }
