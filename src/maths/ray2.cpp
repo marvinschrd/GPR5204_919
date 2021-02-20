@@ -26,11 +26,9 @@ SOFTWARE.
 namespace maths
 {
 	bool Ray2::intersect_circle(HitInfo& info, Circle& circle)
-	Vector2f v = circle.center() - origin();
-	float d = v.Dot(direction());
-	if(d<0)
 	{
-		Vec2f v = circle.center() - origin();
+		
+		Vector2f v = circle.center() - origin();
 		float d = v.Dot(unit_direction_);
 		if (d < 0)
 		{
@@ -54,7 +52,7 @@ namespace maths
 		if (t0 >= 0) {
 			dis = t0;
 			hasHit = true;
-		}
+			}
 
 		if (t1 >= 0) {
 			if (!hasHit || t1 < dis) {
@@ -75,17 +73,13 @@ namespace maths
 		return true;
 	}
 
-	bool Ray2::intersect_AABB2(HitInfo& info, AABB2 aabb)
-	{
-		Vec2f lb = aabb.bottom_left();
-		Vec2f rt = aabb.top_right();
-		Vec2f dirfrac;
+		
 
-bool maths::Ray2::intersect_AABB2(HitInfo &info, maths::AABB2 aabb)
-{
-	maths::Vector2f lb = aabb.bottom_left();
-	maths::Vector2f rt = aabb.top_right();
-	maths::Vector2f dirfrac;
+	bool Ray2::intersect_AABB2(HitInfo & info, maths::AABB2 aabb)
+	{
+		Vector2f lb = aabb.bottom_left();
+		Vector2f rt = aabb.top_right();
+		Vector2f dirfrac;
 
 		dirfrac.x = 1.0f / direction_.x;
 		dirfrac.y = 1.0f / direction_.y;
@@ -118,6 +112,7 @@ bool maths::Ray2::intersect_AABB2(HitInfo &info, maths::AABB2 aabb)
 		info.hitPoint = origin() + direction() * info.distance;
 		return true;
 	}
+	
 } // namespace maths
 
 

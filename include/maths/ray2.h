@@ -67,7 +67,8 @@ public:
 private:
 	Vector2f origin_ = {};
 	Vector2f direction_ = {};
-	Vector2f unit_direction_ = Vector2f{ direction_.x / direction_.Magnitude(), direction_.y / direction_.Magnitude() };;
+	Vector2f unit_direction_ = Vector2f{ direction_.x / direction_.Magnitude(),
+		direction_.y / direction_.Magnitude() };
 };
 	
 } // namespace maths

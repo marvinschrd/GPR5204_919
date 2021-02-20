@@ -28,7 +28,7 @@ namespace maths {
 
 	bool Ray3::intersect_sphere(HitInfo& info, Sphere& sphere) {
 		
-		Vec3f v = sphere.center() - origin_;
+		Vector3f v = sphere.center() - origin_;
 		float d = v.Dot(unit_direction_);
 		if (d < 0)
 		{
@@ -75,9 +75,9 @@ namespace maths {
 
 	bool Ray3::intersect_AABB3(HitInfo& info, AABB3 aabb) {
 		
-		Vec3f lb = aabb.bottom_left();
-		Vec3f rt = aabb.top_right();
-		Vec3f dirfrac;
+		Vector3f lb = aabb.bottom_left();
+		Vector3f rt = aabb.top_right();
+		Vector3f dirfrac;
 
 		dirfrac.x = 1.0f / unit_direction().x;
 		dirfrac.y = 1.0f / unit_direction().y;

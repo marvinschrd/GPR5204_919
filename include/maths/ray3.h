@@ -66,11 +66,9 @@ public:
 	bool intersect_AABB3(HitInfo& info, AABB3 aabb);
 
 private:
-	Vec3f origin_ = {};
-	Vec3f direction_ = {};
-	Vec3f unit_direction_ = Vec3f{direction_.x / direction_.Magnitude(),
-		direction_.y / direction_.Magnitude(),
-		direction_.z / direction_.Magnitude() };
+	Vector3f origin_ = {};
+	Vector3f direction_ = {};
+	Vector3f unit_direction_ = direction_.Normalized();
 };
 
 } // namespace maths
