@@ -76,6 +76,20 @@ namespace maths
 		return { maths::acos(dot / (otherMagnitude1 * otherMagnitude2)) };
 	}
 
+	Vector3f Vector3f::Normalized() const
+	{
+		const float magnitude = Vector3f::Magnitude();
+		return {x / magnitude, y / magnitude, z / magnitude};
+	}
+
+	void Vector3f::Normalize()
+	{
+		float magnitude = Vector3f::Magnitude();
+		x /= magnitude;
+		y /= magnitude;
+		z /= magnitude;
+	}
+
 	//Vector3f Vector3f::Slerp(const Vector3f v2, const float t) const
 	//{
 	//	radian_t theta = maths::acos(Vector3f::Dot(*this, v2)) * t;

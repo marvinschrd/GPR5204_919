@@ -158,6 +158,20 @@ TEST(Maths, Vec3f_AngleBetween)
 	ASSERT_EQ(maths::Vector3f::AngleBetween(a, b), maths::acos(maths::Vector3f::Dot(a, b) / (a.Magnitude() * b.Magnitude())));
 }
 
+TEST(Maths, Vec3f_Normalize)
+{
+	const maths::Vector3f a{ 0.0f, 3.0f, 2.0f };
+	const maths::Vector3f b = a.Normalized();
+
+	//Test .Normalized()
+	ASSERT_EQ(b.Magnitude(), 1.0f);
+
+	//Test .Normalize()
+	maths::Vector3f c = a;
+	c.Normalize();
+	ASSERT_EQ(c.Magnitude(), 1.0f);
+}
+
 TEST(Maths, Vec3f_Lerp)
 {
 	const maths::Vector3f a{ 2.0f, 3.0f, 1.0f };

@@ -87,6 +87,10 @@ namespace maths
 
 		float& operator[](size_t component) { return coord[component]; }
 
+		Vector3f Normalized() const;
+
+		void Normalize();
+
 		Vector3f Lerp(const Vector3f v2, const float t) const { return *this + (v2 - *this) * t;}
 
 		static Vector3f Lerp(const Vector3f v1, const Vector3f v2, const float t) { return  v1 + (v2 - v1) * t; }
