@@ -67,17 +67,17 @@ namespace maths
 
 		void operator/=(float scalar);
 
-		float Dot(const Vector3f v2) const { return { x * v2.x + y * v2.y + z * v2.z }; }
+		float Dot(const Vector3f v2) const { return x * v2.x + y * v2.y + z * v2.z; }
 
-		static float Dot(const Vector3f v1, const Vector3f v2) { return { v1.x * v2.x + v1.y * v2.y + v1.z * v2.z }; }
+		static float Dot(const Vector3f v1, const Vector3f v2) { return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z; }
 
-		/*Vector3f Cross(const Vector3f v2) const { return { y * v2.z – z * v2.y, z * v2.x – x * v2.z, x * v2.y - y * v2.x }; }
+		Vector3f Cross(const Vector3f v2) const { return { y * v2.z - z * v2.y, z * v2.x - x * v2.z, x * v2.y - y * v2.x }; }
 
-		static Vector3f Cross(const Vector3f v1, const Vector3f v2) { return { v1.y * v2.z – v1.z * v2.y, v1.z * v2.x – v1.x * v2.z, v1.x * v2.y - v1.y * v2.x }; }*/
+		static Vector3f Cross(const Vector3f v1, const Vector3f v2) { return { v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x }; }
 
 		float Magnitude() const { return std::sqrt(x * x + y * y + z * z); }
 
-		float SqrMagnitude() const { return { x * x + y * y + z * z }; }
+		float SqrMagnitude() const { return x * x + y * y + z * z; }
 
 		radian_t AngleBetween(const Vector3f v2) const;
 
@@ -86,5 +86,11 @@ namespace maths
 		const float& operator[](size_t component) const { return coord[component]; }
 
 		float& operator[](size_t component) { return coord[component]; }
+
+		Vector3f Lerp(const Vector3f v2, const float t) const { return *this + (v2 - *this) * t;}
+
+		static Vector3f Lerp(const Vector3f v1, const Vector3f v2, const float t) { return  v1 + (v2 - v1) * t; }
+
+		//Vector3f Slerp(const Vector3f v2, const float t) const;
 	};
 }

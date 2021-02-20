@@ -75,5 +75,12 @@ namespace maths
 		float otherMagnitude2 = v2.Magnitude();
 		return { maths::acos(dot / (otherMagnitude1 * otherMagnitude2)) };
 	}
-	
+
+	//Vector3f Vector3f::Slerp(const Vector3f v2, const float t) const
+	//{
+	//	radian_t theta = maths::acos(Vector3f::Dot(*this, v2)) * t;
+	//	Vector3f relativeVec = v2 - *this * Vector3f::Dot(*this, v2);
+	//	//relativeVec.Normalize()
+	//	return *this * maths::cos(theta) + relativeVec * maths::sin(theta);
+	//}
 }

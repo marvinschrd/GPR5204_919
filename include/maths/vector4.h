@@ -48,7 +48,7 @@ namespace maths
 			float coord[4]{};
 		};
 
-		Vector4f() : x(0), y(0), z(0), w(0) {};
+		Vector4f() : x(0), y(0), z(0), w(0) {}
 
 		Vector4f(float x, float y, float z, float w);
 

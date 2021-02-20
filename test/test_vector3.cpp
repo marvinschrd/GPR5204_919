@@ -157,3 +157,37 @@ TEST(Maths, Vec3f_AngleBetween)
 	//Test static AngleBetween()
 	ASSERT_EQ(maths::Vector3f::AngleBetween(a, b), maths::acos(maths::Vector3f::Dot(a, b) / (a.Magnitude() * b.Magnitude())));
 }
+
+TEST(Maths, Vec3f_Lerp)
+{
+	const maths::Vector3f a{ 2.0f, 3.0f, 1.0f };
+	const maths::Vector3f b{ 1.0f, 4.0f, 3.0f };
+
+	//Test Lerp()
+	const float t0 = 0.0f;
+	const float t1 = 1.0f;
+
+	//Test static Vector3f Lerp t = 0
+	maths::Vector3f c = maths::Vector3f::Lerp(a, b, t0);
+	EXPECT_EQ(c.x, a.x);
+	EXPECT_EQ(c.y, a.y);
+	EXPECT_EQ(c.z, a.z);
+
+	//Test static Vector3f Lerp t = 1
+	maths::Vector3f d = maths::Vector3f::Lerp(a, b, t1);
+	EXPECT_EQ(d.x, b.x);
+	EXPECT_EQ(d.y, b.y);
+	EXPECT_EQ(d.z, b.z);
+
+	//Test Vector3f Lerp t = 0
+	maths::Vector3f e = a.Lerp(b, t0);
+	EXPECT_EQ(e.x, a.x);
+	EXPECT_EQ(e.y, a.y);
+	EXPECT_EQ(e.z, a.z);
+
+	//Test Vector3f Lerp t = 1
+	maths::Vector3f f = a.Lerp(b, t1);
+	EXPECT_EQ(f.x, b.x);
+	EXPECT_EQ(f.y, b.y);
+	EXPECT_EQ(f.z, b.z);
+}
