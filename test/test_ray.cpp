@@ -31,28 +31,28 @@ SOFTWARE.
 
 TEST(Maths, Ray_PointInRay)
 {
-	maths::Vec2f a{ 1.0f,2.0f };
-	maths::Vec2f b{ 2.0f,3.0f };
+	maths::Vector2f a{ 1.0f,2.0f };
+	maths::Vector2f b{ 2.0f,3.0f };
 
 	maths::Ray2 r{ a,b };
 	
 	float v = 2.0f;
 	
-	maths::Vec2f c = r.point_in_ray(v);
-	maths::Vec2f d = a + (b * v);
+	maths::Vector2f c = r.point_in_ray(v);
+	maths::Vector2f d = a + (b * v);
 	ASSERT_EQ(r.point_in_ray(v), d);
 	
 }
 
 TEST(Maths, Ray_Intersect_AABB2)
 {
-	maths::Vec2f a{ -0.5f,-0.5f };	
-	maths::Vec2f b{ 0.5f,0.5f };
+	maths::Vector2f a{ -0.5f,-0.5f };
+	maths::Vector2f b{ 0.5f,0.5f };
 
 	maths::AABB2 aabb{ a,b };
 
-	maths::Vec2f origin{ -0.1f,-0.1f };
-	maths::Vec2f direction{ 1.0f,1.0f };
+	maths::Vector2f origin{ -0.1f,-0.1f };
+	maths::Vector2f direction{ 1.0f,1.0f };
 
 	maths::Ray2 ray{ origin,direction };
 

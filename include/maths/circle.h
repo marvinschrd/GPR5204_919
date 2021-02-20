@@ -29,7 +29,7 @@ namespace maths {
 class Circle {
 public:
 	Circle() = default;
-	Circle(float radius, Vec2f center) : radius_(radius), center_(center) {};
+	Circle(float radius, Vector2f center) : radius_(radius), center_(center) {};
 	~Circle() = default;
 
 	float area() const {
@@ -38,11 +38,11 @@ public:
 	}
 	
 	void set_radius( const float radius) { radius_ = radius; }
-	Vec2f center() const { return center_; }
+	Vector2f center() const { return center_; }
 	float radius() const { return radius_; }
 		
 private:
-	Vec2f center_ = {};
+	Vector2f center_ = {};
 	float radius_ = {};
 };
 	

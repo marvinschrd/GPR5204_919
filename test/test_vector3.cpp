@@ -28,18 +28,18 @@ SOFTWARE.
 
 TEST(Maths, Vec3f_Addition)
 {
-	const maths::Vec3f a{2.0f, 3.0f, 1.0f};
-	const maths::Vec3f b{1.0f, 4.0f, 3.0f};
+	const maths::Vector3f a{2.0f, 3.0f, 1.0f};
+	const maths::Vector3f b{1.0f, 4.0f, 3.0f};
 
 	//Test operator +
-	maths::Vec3f c = a + b;
+	maths::Vector3f c = a + b;
 	ASSERT_EQ(c.x, a.x + b.x);
 	ASSERT_EQ(c.y, a.y + b.y);
 	ASSERT_EQ(c.z, a.z + b.z);
 
 	//Test operator +=
-	const maths::Vec3f d{3.0f, 4.0f, 2.0f};
-	maths::Vec3f e = d;
+	const maths::Vector3f d{3.0f, 4.0f, 2.0f};
+	maths::Vector3f e = d;
 	e += a;
 	ASSERT_EQ(e.x, d.x + a.x);
 	ASSERT_EQ(e.y, d.y + a.y);
@@ -48,18 +48,18 @@ TEST(Maths, Vec3f_Addition)
 
 TEST(Maths, Vec3f_Substraction)
 {
-	const maths::Vec3f a{2.0f, 3.0f, 1.0f};
-	const maths::Vec3f b{1.0f, 4.0f, 3.0f};
+	const maths::Vector3f a{2.0f, 3.0f, 1.0f};
+	const maths::Vector3f b{1.0f, 4.0f, 3.0f};
 
 	//Test operator -
-	maths::Vec3f c = a - b;
+	maths::Vector3f c = a - b;
 	ASSERT_EQ(c.x, a.x - b.x);
 	ASSERT_EQ(c.y, a.y - b.y);
 	ASSERT_EQ(c.z, a.z - b.z);
 
 	//Test operator -=
-	const maths::Vec3f d{3.0f, 4.0f, 2.0f};
-	maths::Vec3f e = d;
+	const maths::Vector3f d{3.0f, 4.0f, 2.0f};
+	maths::Vector3f e = d;
 	e -= a;
 	ASSERT_EQ(e.x, d.x - a.x);
 	ASSERT_EQ(e.y, d.y - a.y);
@@ -68,18 +68,18 @@ TEST(Maths, Vec3f_Substraction)
 
 TEST(Maths, Vec3f_MultiplicationByScalar)
 {
-	const maths::Vec3f a{2.0f, 3.0f, 1.0f};
+	const maths::Vector3f a{2.0f, 3.0f, 1.0f};
 	const float b = 4.0f;
 
 	//Test operator *
-	maths::Vec3f c = a * b;
+	maths::Vector3f c = a * b;
 	ASSERT_EQ(c.x, a.x * b);
 	ASSERT_EQ(c.y, a.y * b);
 	ASSERT_EQ(c.z, a.z * b);
 
 	//Test operator *=
-	const maths::Vec3f d{3.0f, 4.0f, 2.0f};
-	maths::Vec3f e = d;
+	const maths::Vector3f d{3.0f, 4.0f, 2.0f};
+	maths::Vector3f e = d;
 	e *= b;
 	ASSERT_EQ(e.x, d.x * b);
 	ASSERT_EQ(e.y, d.y * b);
@@ -88,18 +88,18 @@ TEST(Maths, Vec3f_MultiplicationByScalar)
 
 TEST(Maths, Vec3f_DivisionByScalar)
 {
-	const maths::Vec3f a{2.0f, 3.0f, 1.0f};
+	const maths::Vector3f a{2.0f, 3.0f, 1.0f};
 	const float b = 4.0f;
 
 	//Test operator /
-	maths::Vec3f c = a / b;
+	maths::Vector3f c = a / b;
 	ASSERT_EQ(c.x, a.x / b);
 	ASSERT_EQ(c.y, a.y / b);
 	ASSERT_EQ(c.z, a.z / b);
 
 	//Test operator /=
-	const maths::Vec3f d{3.0f, 4.0f, 2.0f};
-	maths::Vec3f e = d;
+	const maths::Vector3f d{3.0f, 4.0f, 2.0f};
+	maths::Vector3f e = d;
 	e /= b;
 	ASSERT_EQ(e.x, d.x / b);
 	ASSERT_EQ(e.y, d.y / b);
@@ -108,7 +108,7 @@ TEST(Maths, Vec3f_DivisionByScalar)
 
 TEST(Maths, Vec3f_Magnitude)
 {
-	const maths::Vec3f a{ 2.0f, 3.0f, 1.0f };
+	const maths::Vector3f a{ 2.0f, 3.0f, 1.0f };
 	const float b = 4;
 
 	//Test .SqrMagnitude()
@@ -117,7 +117,7 @@ TEST(Maths, Vec3f_Magnitude)
 
 TEST(Maths, Vec3f_SqrMagnitude)
 {
-	const maths::Vec3f a{ 2.0f, 3.0f, 1.0f };
+	const maths::Vector3f a{ 2.0f, 3.0f, 1.0f };
 	const float b = 4;
 
 	//Test .SqrMagnitude()
@@ -126,34 +126,106 @@ TEST(Maths, Vec3f_SqrMagnitude)
 
 TEST(Maths, Vec3f_DotProduct)
 {
-	const maths::Vec3f a{ 0.0f, 3.0f, 2.0f};
-	const maths::Vec3f b{ 1.0f, 0.0f, 2.0f };
+	const maths::Vector3f a{ 0.0f, 3.0f, 2.0f};
+	const maths::Vector3f b{ 1.0f, 0.0f, 2.0f };
 
 	//Test .Dot()
 	ASSERT_EQ(a.Dot(b), a.x * b.x + a.y * b.y + a.z * b.z);
 
 	//Test static Dot()
-	ASSERT_EQ(maths::Vec3f::Dot(a, b), a.x * b.x + a.y * b.y + a.z * b.z);
+	ASSERT_EQ(maths::Vector3f::Dot(a, b), a.x * b.x + a.y * b.y + a.z * b.z);
 
 
-	const maths::Vec3f c{ 2.0f, 3.0f, 1.0f };
-	const maths::Vec3f d{ 1.0f, 1.0f, 1.0f };
+	const maths::Vector3f c{ 2.0f, 3.0f, 1.0f };
+	const maths::Vector3f d{ 1.0f, 1.0f, 1.0f };
 
 	//Test .Dot()
 	ASSERT_EQ(c.Dot(d), c.x * d.x + c.y * d.y + c.z * d.z);
 
 	//Test static Dot()
-	ASSERT_EQ(maths::Vec3f::Dot(c, d), c.x * d.x + c.y * d.y + c.z * d.z);
+	ASSERT_EQ(maths::Vector3f::Dot(c, d), c.x * d.x + c.y * d.y + c.z * d.z);
 }
 
 TEST(Maths, Vec3f_AngleBetween)
 {
-	const maths::Vec3f a{ 0.0f, 3.0f, 2.0f };
-	const maths::Vec3f b{ 1.0f, 0.0f, 2.0f };
+	const maths::Vector3f a{ 0.0f, 3.0f, 2.0f };
+	const maths::Vector3f b{ 1.0f, 0.0f, 2.0f };
 
 	//Test .AngleBetween()
-	ASSERT_EQ(maths::Vec3f::AngleBetween(a, b), maths::acos(a.Dot(b) / (a.Magnitude() * b.Magnitude())));
+	ASSERT_EQ(maths::Vector3f::AngleBetween(a, b), maths::acos(a.Dot(b) / (a.Magnitude() * b.Magnitude())));
 
 	//Test static AngleBetween()
-	ASSERT_EQ(maths::Vec3f::AngleBetween(a, b), maths::acos(maths::Vec3f::Dot(a, b) / (a.Magnitude() * b.Magnitude())));
+	ASSERT_EQ(maths::Vector3f::AngleBetween(a, b), maths::acos(maths::Vector3f::Dot(a, b) / (a.Magnitude() * b.Magnitude())));
+}
+
+TEST(Maths, Vec3f_Normalize)
+{
+	const maths::Vector3f a{ 0.0f, 3.0f, 2.0f };
+	const maths::Vector3f b = a.Normalized();
+
+	//Test .Normalized()
+	ASSERT_EQ(b.Magnitude(), 1.0f);
+
+	//Test .Normalize()
+	maths::Vector3f c = a;
+	c.Normalize();
+	ASSERT_EQ(c.Magnitude(), 1.0f);
+}
+
+TEST(Maths, Vec3f_Lerp)
+{
+	const maths::Vector3f a{ 2.0f, 3.0f, 1.0f };
+	const maths::Vector3f b{ 1.0f, 4.0f, 3.0f };
+
+	const float t0 = 0.0f;
+	const float t1 = 1.0f;
+
+	//Test static Vector3f Lerp t = 0
+	maths::Vector3f c = maths::Vector3f::Lerp(a, b, t0);
+	EXPECT_EQ(c.x, a.x);
+	EXPECT_EQ(c.y, a.y);
+	EXPECT_EQ(c.z, a.z);
+
+	//Test static Vector3f Lerp t = 1
+	maths::Vector3f d = maths::Vector3f::Lerp(a, b, t1);
+	EXPECT_EQ(d.x, b.x);
+	EXPECT_EQ(d.y, b.y);
+	EXPECT_EQ(d.z, b.z);
+
+	//Test Vector3f Lerp t = 0
+	maths::Vector3f e = a.Lerp(b, t0);
+	EXPECT_EQ(e.x, a.x);
+	EXPECT_EQ(e.y, a.y);
+	EXPECT_EQ(e.z, a.z);
+
+	//Test Vector3f Lerp t = 1
+	maths::Vector3f f = a.Lerp(b, t1);
+	EXPECT_EQ(f.x, b.x);
+	EXPECT_EQ(f.y, b.y);
+	EXPECT_EQ(f.z, b.z);
+}
+
+TEST(Maths, Vec3f_Slerp)
+{
+	float threshold = 0.0001f;
+	
+	const maths::Vector3f a{ 2.0f, 3.0f, 1.0f };
+	const maths::Vector3f b{ 1.0f, 4.0f, 3.0f };
+
+	const float t0 = 0.0f;
+	const float t1 = 1.0f;
+
+	//Test Vector3f Slerp t = 0
+	maths::Vector3f c = a.Slerp(b, t0);
+	//Check difference between result & expected value
+	//Because slerp function lose too much precision with double
+	EXPECT_TRUE(std::abs(c.x - a.x) < threshold);
+	EXPECT_TRUE(std::abs(c.y - a.y) < threshold);
+	EXPECT_TRUE(std::abs(c.z - a.z) < threshold);
+
+	//Test Vector3f Slerp t = 1
+	maths::Vector3f d = a.Slerp(b, t1);
+	EXPECT_TRUE(std::abs(d.x - b.x) < threshold);
+	EXPECT_TRUE(std::abs(d.y - b.y) < threshold);
+	EXPECT_TRUE(std::abs(d.z - b.z) < threshold);
 }

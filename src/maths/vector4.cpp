@@ -26,11 +26,11 @@ SOFTWARE.
 
 namespace maths
 {
-	Vec4f::Vec4f(float x, float y, float z, float w) : x(x), y(y), z(z), w(w)
+	Vector4f::Vector4f(float x, float y, float z, float w) : x(x), y(y), z(z), w(w)
 	{
 	}
 
-	void Vec4f::operator+=(const Vec4f rhs)
+	void Vector4f::operator+=(const Vector4f rhs)
 	{
 		x += rhs.x;
 		y += rhs.y;
@@ -38,7 +38,7 @@ namespace maths
 		w += rhs.w;
 	}
 
-	void Vec4f::operator-=(const Vec4f rhs)
+	void Vector4f::operator-=(const Vector4f rhs)
 	{
 		x -= rhs.x;
 		y -= rhs.y;
@@ -46,7 +46,7 @@ namespace maths
 		w -= rhs.w;
 	}
 
-	void Vec4f::operator*=(const float scalar)
+	void Vector4f::operator*=(const float scalar)
 	{
 		x *= scalar;
 		y *= scalar;
@@ -54,7 +54,7 @@ namespace maths
 		w *= scalar;
 	}
 
-	void Vec4f::operator/=(const float scalar)
+	void Vector4f::operator/=(const float scalar)
 	{
 		x /= scalar;
 		y /= scalar;

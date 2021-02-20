@@ -33,7 +33,7 @@ namespace maths
 	/**
 	 *  \brief Class used to represent a 3D vector.
 	 */
-	struct Vec3f
+	struct Vector3f
 	{
 	public:
 		union
@@ -47,44 +47,54 @@ namespace maths
 			float coord[3]{};
 		};
 
-		Vec3f() : x(0), y(0), z(0){};
+		Vector3f() : x(0), y(0), z(0){};
 
-		Vec3f(float x, float y, float z);
+		Vector3f(float x, float y, float z);
 
-		Vec3f operator+(const Vec3f rhs) const { return {x + rhs.x, y + rhs.y, z + rhs.z}; }
+		Vector3f operator+(const Vector3f rhs) const { return {x + rhs.x, y + rhs.y, z + rhs.z}; }
 
-		void operator+=(Vec3f rhs);
+		void operator+=(Vector3f rhs);
 
-		Vec3f operator-(const Vec3f rhs) const { return {x - rhs.x, y - rhs.y, z - rhs.z}; }
+		Vector3f operator-(const Vector3f rhs) const { return {x - rhs.x, y - rhs.y, z - rhs.z}; }
 
-		void operator-=(Vec3f rhs);
+		void operator-=(Vector3f rhs);
 
-		Vec3f operator*(const float scalar) const { return {x * scalar, y * scalar, z * scalar}; }
+		Vector3f operator*(const float scalar) const { return {x * scalar, y * scalar, z * scalar}; }
 
 		void operator*=(float scalar);
 
-		Vec3f operator/(const float scalar) const { return {x / scalar, y / scalar, z / scalar}; }
+		Vector3f operator/(const float scalar) const { return {x / scalar, y / scalar, z / scalar}; }
 
 		void operator/=(float scalar);
 
-		float Dot(const Vec3f v2) const { return { x * v2.x + y * v2.y + z * v2.z }; }
+		float Dot(const Vector3f v2) const { return x * v2.x + y * v2.y + z * v2.z; }
 
-		static float Dot(const Vec3f v1, const Vec3f v2) { return { v1.x * v2.x + v1.y * v2.y + v1.z * v2.z }; }
+		static float Dot(const Vector3f v1, const Vector3f v2) { return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z; }
 
-		/*Vec3f Cross(const Vec3f v2) const { return { y * v2.z – z * v2.y, z * v2.x – x * v2.z, x * v2.y - y * v2.x }; }
+		Vector3f Cross(const Vector3f v2) const { return { y * v2.z - z * v2.y, z * v2.x - x * v2.z, x * v2.y - y * v2.x }; }
 
-		static Vec3f Cross(const Vec3f v1, const Vec3f v2) { return { v1.y * v2.z – v1.z * v2.y, v1.z * v2.x – v1.x * v2.z, v1.x * v2.y - v1.y * v2.x }; }*/
+		static Vector3f Cross(const Vector3f v1, const Vector3f v2) { return { v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x }; }
 
 		float Magnitude() const { return std::sqrt(x * x + y * y + z * z); }
 
-		float SqrMagnitude() const { return { x * x + y * y + z * z }; }
+		float SqrMagnitude() const { return x * x + y * y + z * z; }
 
-		radian_t AngleBetween(const Vec3f v2) const;
+		radian_t AngleBetween(const Vector3f v2) const;
 
-		static radian_t AngleBetween(const Vec3f v1, const Vec3f v2);
+		static radian_t AngleBetween(const Vector3f v1, const Vector3f v2);
 
 		const float& operator[](size_t component) const { return coord[component]; }
 
 		float& operator[](size_t component) { return coord[component]; }
+
+		Vector3f Normalized() const;
+
+		void Normalize();
+
+		Vector3f Lerp(const Vector3f v2, const float t) const { return *this + (v2 - *this) * t;}
+
+		static Vector3f Lerp(const Vector3f v1, const Vector3f v2, const float t) { return  v1 + (v2 - v1) * t; }
+
+		Vector3f Slerp(Vector3f v2, const float t) const;
 	};
 }

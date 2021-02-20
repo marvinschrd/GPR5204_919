@@ -27,30 +27,33 @@ SOFTWARE.
 #include "maths/vector2.h"
 
 namespace maths {
-	
+
+// Class that creates an AABB2
 class AABB2 {
 public:
 	AABB2() = default;
-	AABB2(Vec2f bottom_left, Vec2f top_right) :
+	AABB2(Vector2f bottom_left, Vector2f top_right) :
 		bottom_left_(bottom_left), top_right_(top_right) {}
-	Vec2f center() const {
+	Vector2f center() const {
 		return { (bottom_left_ + top_right_) / 2.0f };
 	}
 
-	Vec2f extent() const {
-		const Vec2f center_tmp = center();
+	Vector2f extent() const {
+		const Vector2f center_tmp = center();
 		return { top_right_ - center_tmp };
 	}
 
-	Vec2f bottom_left() const { return bottom_left_; }
-	Vec2f top_right() const { return top_right_; }
+	Vector2f bottom_left() const { return bottom_left_; }
+	Vector2f top_right() const { return top_right_; }
 	
 private:
-	Vec2f bottom_left_ = {};
-	Vec2f top_right_ = {};
+	Vector2f bottom_left_ = {};
+	Vector2f top_right_ = {};
 };
 
+// To find out if two AABBs are touching each other
 bool Overlap(const AABB2& a, const AABB2& b);
+// To find out if one AABB is contained in the other
 bool Contain(const AABB2& a, const AABB2& b);
 	
 }  // namespace maths

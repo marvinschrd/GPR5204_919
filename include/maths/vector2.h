@@ -32,7 +32,7 @@ namespace maths
 	/**
 	* \brief Class used to represent a 2D vector.
 	*/
-	struct Vec2f
+	struct Vector2f
 	{
 	public:
 		union
@@ -45,31 +45,31 @@ namespace maths
 			float coord[2]{};
 		};
 
-		Vec2f() : x(0), y(0) {}
+		Vector2f() : x(0), y(0) {}
 		
 
-		Vec2f(float x, float y);
+		Vector2f(float x, float y);
 
 
-		Vec2f operator+(const Vec2f rhs) const { return Vec2f(x + rhs.x, y + rhs.y); }
+		Vector2f operator+(const Vector2f rhs) const { return Vector2f(x + rhs.x, y + rhs.y); }
 
-		void operator+=(Vec2f rhs);
+		Vector2f operator+=(Vector2f rhs);
 
-		Vec2f operator-(const Vec2f rhs) const { return Vec2f(x - rhs.x, y - rhs.y); }
+		Vector2f operator-(const Vector2f rhs) const { return Vector2f(x - rhs.x, y - rhs.y); }
 
-		void operator-=(Vec2f rhs);
+		Vector2f operator-=(Vector2f rhs);
 
-		Vec2f operator*(const float scalar) const { return Vec2f(x * scalar, y * scalar); }
+		Vector2f operator*(const float scalar) const { return Vector2f(x * scalar, y * scalar); }
 
-		void operator*=(float scalar);
+		Vector2f operator*=(float scalar);
 
-		Vec2f operator/(const float scalar) const { return Vec2f(x / scalar, y / scalar); }
+		Vector2f operator/(const float scalar) const { return Vector2f(x / scalar, y / scalar); }
 
-		void operator/=(float scalar);
+		Vector2f operator/=(float scalar);
 
-		bool operator==(const Vec2f rhs) const { return x == rhs.x && y == rhs.y; }
+		bool operator==(const Vector2f rhs) const { return x == rhs.x && y == rhs.y; }
 
-		bool operator!=(const Vec2f rhs) const { return x != rhs.x || y != rhs.y; }
+		bool operator!=(const Vector2f rhs) const { return x != rhs.x || y != rhs.y; }
 
 		const float& operator[](size_t component) const { return coord[component]; }
 
@@ -79,16 +79,16 @@ namespace maths
 
 		float SqrMagnitude() const { return float((x * x + y * y)); }
 
-		float Dot(const Vec2f v2) const { return float(x * v2.x + y * v2.y); }
+		float Dot(const Vector2f v2) const { return float(x * v2.x + y * v2.y); }
 
-		static float Dot(const Vec2f v1, const Vec2f v2) { return float(v1.x * v2.x + v1.y * v2.y); }
+		static float Dot(const Vector2f v1, const Vector2f v2) { return float(v1.x * v2.x + v1.y * v2.y); }
 
-		Vec3f Cross(const Vec2f v2) const;
+		Vector3f Cross(const Vector2f v2) const;
 
-		static Vec3f Cross(const Vec2f v1, const Vec2f v2);
+		static Vector3f Cross(const Vector2f v1, const Vector2f v2);
 
-		radian_t AngleBetween(const Vec2f v2) const;
+		radian_t AngleBetween(const Vector2f v2) const;
 
-		static radian_t AngleBetween(const Vec2f v1, const Vec2f v2);
+		static radian_t AngleBetween(const Vector2f v1, const Vector2f v2);
 	};
 };

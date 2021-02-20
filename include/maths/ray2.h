@@ -31,7 +31,7 @@ namespace maths {
 class Ray2	{
 public:
 	Ray2() = default;
-	Ray2(Vec2f& origin,Vec2f& direction) : origin_(origin), direction_(direction) {}
+	Ray2(Vector2f& origin,Vector2f& direction) : origin_(origin), direction_(direction) {}
 	
 	struct HitInfo
 	{
@@ -46,28 +46,28 @@ public:
 			hit = false;
 		}
 
-		Vec2f hitPoint;
-		Vec2f hitNormal;
+		Vector2f hitPoint;
+		Vector2f hitNormal;
 		float distance;
 		bool hit;
 	};
 	HitInfo info;
 	
-	Vec2f point_in_ray(float value) const {
+	Vector2f point_in_ray(float value) const {
 		return { origin_ + direction_ * value };
 	}
 	
-	Vec2f origin() const { return origin_; }
-	Vec2f direction() const { return direction_; }
-	Vec2f unit_direction() const { return  unit_direction_; }
+	Vector2f origin() const { return origin_; }
+	Vector2f direction() const { return direction_; }
+	Vector2f unit_direction() const { return  unit_direction_; }
 	
 	bool intersect_circle(HitInfo &info, Circle &circle);
 	bool intersect_AABB2(HitInfo &info, AABB2 aabb);
 	
 private:
-	Vec2f origin_ = {};
-	Vec2f direction_ = {};
-	Vec2f unit_direction_ = Vec2f{ direction_.x / direction_.Magnitude(), direction_.y / direction_.Magnitude() };;
+	Vector2f origin_ = {};
+	Vector2f direction_ = {};
+	Vector2f unit_direction_ = Vector2f{ direction_.x / direction_.Magnitude(), direction_.y / direction_.Magnitude() };;
 };
 	
 } // namespace maths

@@ -26,6 +26,9 @@ SOFTWARE.
 namespace maths
 {
 	bool Ray2::intersect_circle(HitInfo& info, Circle& circle)
+	Vector2f v = circle.center() - origin();
+	float d = v.Dot(direction());
+	if(d<0)
 	{
 		Vec2f v = circle.center() - origin();
 		float d = v.Dot(unit_direction_);
@@ -78,8 +81,11 @@ namespace maths
 		Vec2f rt = aabb.top_right();
 		Vec2f dirfrac;
 
-		/*dirfrac.x = 1.0f / unit_direction_.x;
-		dirfrac.y = 1.0f / unit_direction_.y;*/
+bool maths::Ray2::intersect_AABB2(HitInfo &info, maths::AABB2 aabb)
+{
+	maths::Vector2f lb = aabb.bottom_left();
+	maths::Vector2f rt = aabb.top_right();
+	maths::Vector2f dirfrac;
 
 		dirfrac.x = 1.0f / direction_.x;
 		dirfrac.y = 1.0f / direction_.y;
