@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include <corecrt_math_defines.h>
 #include "maths/vector2.h"
 
 namespace maths
@@ -86,5 +87,36 @@ namespace maths
         float v2Magnitude = v2.Magnitude();
         radian_t angle = maths::acos(dot / (v1Magnitude * v2Magnitude));
         return angle;
+    }
+
+    Vector2f Vector2f::Normalized() const
+    {
+        const float magnitude = Vector2f::Magnitude();
+        return { x / magnitude, y / magnitude};
+    }
+
+    void Vector2f::Normalize()
+    {
+        const float magnitude = Vector2f::Magnitude();
+        x /= magnitude;
+        y /= magnitude;
+    }
+
+    Vector2f Vector2f::Slerp(Vector2f v2, const float t) const
+    {
+        const float magnitude_v1 = Magnitude();
+        const float magnitude_v2 = v2.Magnitude();
+        const Vector2f v1 = *this / magnitude_v1;
+        v2 /= magnitude_v2;
+        float dot = Dot(v1, v2);
+        //Makes sure dot value cannot be under -1
+        dot = fmax(dot, -1.0f);
+        //Makes sure dot value cannot be over 1
+        dot = fmin(dot, 1.0f);
+
+        const radian_t theta = maths::acos(dot) * t;
+        const Vector2f relative_vec = (v2 - v1 * dot).Normalized();
+        const Vector2f new_vec = v1 * maths::cos(theta) + relative_vec * maths::sin(theta);
+        return new_vec * (magnitude_v1 + (magnitude_v2 - magnitude_v1) * t);
     }
 }

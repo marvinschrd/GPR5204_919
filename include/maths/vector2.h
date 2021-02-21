@@ -47,14 +47,12 @@ namespace maths
 
 		Vector2f() : x(0), y(0) {}
 		
-
 		Vector2f(float x, float y);
-
-
+		
 		Vector2f operator+(const Vector2f rhs) const { return Vector2f(x + rhs.x, y + rhs.y); }
-
+		
 		Vector2f operator+=(Vector2f rhs);
-
+		
 		Vector2f operator-(const Vector2f rhs) const { return Vector2f(x - rhs.x, y - rhs.y); }
 
 		Vector2f operator-=(Vector2f rhs);
@@ -90,5 +88,15 @@ namespace maths
 		radian_t AngleBetween(const Vector2f v2) const;
 
 		static radian_t AngleBetween(const Vector2f v1, const Vector2f v2);
+
+		Vector2f Normalized() const;
+
+		void Normalize();
+
+		Vector2f Lerp(const Vector2f v2, const float t) const { return *this + (v2 - *this) * t; }
+
+		static Vector2f Lerp(const Vector2f v1, const Vector2f v2, const float t) { return  v1 + (v2 - v1) * t; }
+
+		Vector2f Slerp(Vector2f v2, const float t) const;
 	};
-};
+}
