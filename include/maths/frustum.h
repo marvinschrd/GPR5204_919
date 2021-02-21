@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 /*
 MIT License
 
@@ -23,51 +23,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "maths/circle.h"
-#include "maths/aabb2.h"
+#include "maths/matrix4.h"
+#include "maths/sphere.h"
+#include "maths/aabb3.h"
 
 namespace maths {
 	
-class Ray2	{
-public:
-	Ray2() = default;
-	Ray2(Vector2f& origin,Vector2f& direction) : origin_(origin), direction_(direction) {}
-	
-	struct HitInfo
-	{
-		HitInfo()
-		{
-			reset();
-		}
-
-		void reset()
-		{
-			distance = std::numeric_limits<float>::infinity();
-			hit = false;
-		}
-
-		Vector2f hitPoint;
-		Vector2f hitNormal;
-		float distance;
-		bool hit;
-	};
-	HitInfo info;
-	
-	Vector2f point_in_ray(float value) const {
-		return { origin_ + direction_ * value };
-	}
-	
-	Vector2f origin() const { return origin_; }
-	Vector2f direction() const { return direction_; }
-	Vector2f unit_direction() const { return  unit_direction_; }
-	
-	bool intersect_circle(HitInfo &info, Circle &circle);
-	bool intersect_AABB2(HitInfo &info, AABB2 aabb);
-	
-private:
-	Vector2f origin_ = {};
-	Vector2f direction_ = {};
-	Vector2f unit_direction_ = direction_.Normalized();
+struct Plane {
+	float a;
+	float b;
+	float c;
+	float d;
 };
+	
+class Frustum {
+public:
+	Frustum() = default;
+	Frustum(Mat44f& viewProjection) : viewProjection_(viewProjection) {}
+
+	void normalize_plane(Plane& plane);
+	void calcluate_frustum_planes();
+
+private:
+	Mat44f viewProjection_;
+	Plane planes_[6];
+};
+
+bool Contains(Frustum &frustum, const Sphere &sphere);
+bool Contains(Frustum &frustum, const AABB3 &aabb);
+bool Contains(Frustum &frustum, const Vector3f &point);
 	
 } // namespace maths
