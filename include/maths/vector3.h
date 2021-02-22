@@ -71,9 +71,9 @@ namespace maths
 
 		static float Dot(const Vector3f v1, const Vector3f v2) { return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z; }
 
-		Vector3f Cross(const Vector3f v2) const { return { y * v2.z - z * v2.y, z * v2.x - x * v2.z, x * v2.y - y * v2.x }; }
+		/*Vector3f Cross(const Vector3f v2) const { return { y * v2.z - z * v2.y, z * v2.x - x * v2.z, x * v2.y - y * v2.x }; }
 
-		static Vector3f Cross(const Vector3f v1, const Vector3f v2) { return { v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x }; }
+		static Vector3f Cross(const Vector3f v1, const Vector3f v2) { return { v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x }; }*/
 
 		float Magnitude() const { return std::sqrt(x * x + y * y + z * z); }
 

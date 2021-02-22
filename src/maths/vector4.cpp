@@ -61,4 +61,19 @@ namespace maths
 		z /= scalar;
 		w /= scalar;
 	}
+
+	Vector4f Vector4f::Normalized() const
+	{
+		const float magnitude = Vector4f::Magnitude();
+		return { x / magnitude, y / magnitude, z / magnitude, w / magnitude };
+	}
+
+	void Vector4f::Normalize()
+	{
+		const float magnitude = Vector4f::Magnitude();
+		x /= magnitude;
+		y /= magnitude;
+		z /= magnitude;
+		w /= magnitude;
+	}
 }

@@ -79,5 +79,13 @@ namespace maths
 		const float& operator[](size_t component) const { return coord[component]; }
 
 		float& operator[](size_t component) { return coord[component]; }
+
+		Vector4f Normalized() const;
+
+		void Normalize();
+
+		Vector4f Lerp(const Vector4f v2, const float t) const { return *this + (v2 - *this) * t; }
+
+		static Vector4f Lerp(const Vector4f v1, const Vector4f v2, const float t) { return  v1 + (v2 - v1) * t; }
 	};
 }
