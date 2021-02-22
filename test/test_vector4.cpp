@@ -117,7 +117,7 @@ TEST(Maths, Vector4f_DivisionByScalar)
 TEST(Maths, Vector4f_Magnitude)
 {
 	const maths::Vector4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
-	const float b = 4;
+	const float b = 4.0f;
 
 	//Test .SqrMagnitude()
 	EXPECT_EQ(a.Magnitude(), sqrt((a.x * a.x) + (a.y * a.y) + (a.z * a.z) + (a.w * a.w)));

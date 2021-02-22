@@ -146,21 +146,21 @@ TEST(Maths, Vector3f_DotProduct)
 	EXPECT_EQ(maths::Vector3f::Dot(c, d), c.x * d.x + c.y * d.y + c.z * d.z);
 }
 
-//TEST(Maths, Vec3f_CrossProduct)
-//{
-//	const maths::Vector3f a{ 2.0f, 3.0f, 1.0f };
-//	const maths::Vector3f b{ 1.0f, -3.0f, 2.0f };
-//
-//	//Test .Cross()
-//    ASSERT_EQ(a.Cross(b).x, 0);
-//    ASSERT_EQ(a.Cross(b).y, 0);
-//    ASSERT_EQ(a.Cross(b).z, 0);
-//
-//    //Test static Cross()
-//    ASSERT_EQ(maths::Vector3f::Cross(a, b).x, 0);
-//    ASSERT_EQ(maths::Vector3f::Cross(a, b).y, 0);
-//	ASSERT_EQ(maths::Vector3f::Cross(a, b).z, 0);
-//}
+TEST(Maths, Vector3f_CrossProduct)
+{
+	const maths::Vector3f a{ 2.0f, 3.0f, 1.0f };
+	const maths::Vector3f b{ 1.0f, -3.0f, 2.0f };
+
+	//Test .Cross()
+    EXPECT_EQ(a.Cross(b).x, a.y * b.z - a.z * b.y);
+    EXPECT_EQ(a.Cross(b).y, a.z * b.x - a.x * b.z);
+    EXPECT_EQ(a.Cross(b).z, a.x * b.y - a.y * b.x);
+
+    //Test static Cross()
+    EXPECT_EQ(maths::Vector3f::Cross(a, b).x, a.y * b.z - a.z * b.y);
+    EXPECT_EQ(maths::Vector3f::Cross(a, b).y, a.z * b.x - a.x * b.z);
+	EXPECT_EQ(maths::Vector3f::Cross(a, b).z, a.x * b.y - a.y * b.x);
+}
 
 TEST(Maths, Vector3f_AngleBetween)
 {
