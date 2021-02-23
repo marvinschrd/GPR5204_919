@@ -26,19 +26,21 @@ SOFTWARE.
 
 #include <maths/vector4.h>
 
+namespace tests
+{
 TEST(Maths, Vector4f_Addition)
 {
 	const maths::Vector4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
 	const maths::Vector4f b{ 1.0f, 4.0f, 3.0f, 2.0f };
 
-	//Test operator +
+	//Test operator +.
 	maths::Vector4f c = a + b;
 	EXPECT_EQ(c.x, a.x + b.x);
 	EXPECT_EQ(c.y, a.y + b.y);
 	EXPECT_EQ(c.z, a.z + b.z);
 	EXPECT_EQ(c.w, a.w + b.w);
 
-	//Test operator +=
+	//Test operator +=.
 	const maths::Vector4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
 	maths::Vector4f e = d;
 	e += a;
@@ -53,14 +55,14 @@ TEST(Maths, Vector4f_Substraction)
 	const maths::Vector4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
 	const maths::Vector4f b{ 1.0f, 4.0f, 3.0f, 2.0f };
 
-	//Test operator -
+	//Test operator -.
 	maths::Vector4f c = a - b;
 	EXPECT_EQ(c.x, a.x - b.x);
 	EXPECT_EQ(c.y, a.y - b.y);
 	EXPECT_EQ(c.z, a.z - b.z);
 	EXPECT_EQ(c.w, a.w - b.w);
 
-	//Test operator -=
+	//Test operator -=.
 	const maths::Vector4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
 	maths::Vector4f e = d;
 	e -= a;
@@ -75,14 +77,14 @@ TEST(Maths, Vector4f_MultiplicationByScalar)
 	const maths::Vector4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
 	const float b = 4.0f;
 
-	//Test operator *
+	//Test operator *.
 	maths::Vector4f c = a * b;
 	EXPECT_EQ(c.x, a.x * b);
 	EXPECT_EQ(c.y, a.y * b);
 	EXPECT_EQ(c.z, a.z * b);
 	EXPECT_EQ(c.w, a.w * b);
 
-	//Test operator *=
+	//Test operator *=.
 	const maths::Vector4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
 	maths::Vector4f e = d;
 	e *= b;
@@ -97,14 +99,14 @@ TEST(Maths, Vector4f_DivisionByScalar)
 	const maths::Vector4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
 	const float b = 4.0f;
 
-	//Test operator /
+	//Test operator /.
 	maths::Vector4f c = a / b;
 	EXPECT_EQ(c.x, a.x / b);
 	EXPECT_EQ(c.y, a.y / b);
 	EXPECT_EQ(c.z, a.z / b);
 	EXPECT_EQ(c.w, a.w / b);
 
-	//Test operator /=
+	//Test operator /=.
 	const maths::Vector4f d{ 3.0f, 4.0f, 2.0f, 1.0f };
 	maths::Vector4f e = d;
 	e /= b;
@@ -119,8 +121,9 @@ TEST(Maths, Vector4f_Magnitude)
 	const maths::Vector4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
 	const float b = 4.0f;
 
-	//Test .SqrMagnitude()
-	EXPECT_EQ(a.Magnitude(), sqrt((a.x * a.x) + (a.y * a.y) + (a.z * a.z) + (a.w * a.w)));
+	//Test .SqrMagnitude().
+	EXPECT_EQ(a.Magnitude(),
+			  sqrt((a.x * a.x) + (a.y * a.y) + (a.z * a.z) + (a.w * a.w)));
 }
 
 TEST(Maths, Vector4f_SqrMagnitude)
@@ -128,8 +131,9 @@ TEST(Maths, Vector4f_SqrMagnitude)
 	const maths::Vector4f a{ 2.0f, 3.0f, 1.0f, 4.0f };
 	const float b = 4;
 
-	//Test .SqrMagnitude()
-	EXPECT_EQ(a.SqrMagnitude(), (a.x * a.x) + (a.y * a.y) + (a.z * a.z) + (a.w * a.w));
+	//Test .SqrMagnitude().
+	EXPECT_EQ(a.SqrMagnitude(),
+			 (a.x * a.x) + (a.y * a.y) + (a.z * a.z) + (a.w * a.w));
 }
 
 TEST(Maths, Vector4f_DotProduct)
@@ -137,21 +141,23 @@ TEST(Maths, Vector4f_DotProduct)
 	const maths::Vector4f a{ 0.0f, 3.0f, 2.0f, 1.0f };
 	const maths::Vector4f b{ 1.0f, 0.0f, 2.0f, 3.0f };
 
-	//Test .Dot()
+	//Test .Dot().
 	EXPECT_EQ(a.Dot(b), a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w);
 
-	//Test static Dot()
-	EXPECT_EQ(maths::Vector4f::Dot(a, b), a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w);
+	//Test static Dot().
+	EXPECT_EQ(maths::Vector4f::Dot(a, b),
+			  a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w);
 
 
 	const maths::Vector4f c{ 2.0f, 3.0f, 1.0f, 0.0f };
 	const maths::Vector4f d{ 1.0f, 1.0f, 1.0f, 1.0f };
 
-	//Test .Dot()
+	//Test .Dot().
 	EXPECT_EQ(c.Dot(d), c.x * d.x + c.y * d.y + c.z * d.z + c.w * d.w);
 
-	//Test static Dot()
-	EXPECT_EQ(maths::Vector4f::Dot(c, d), c.x * d.x + c.y * d.y + c.z * d.z + c.w * d.w);
+	//Test static Dot().
+	EXPECT_EQ(maths::Vector4f::Dot(c, d),
+			  c.x * d.x + c.y * d.y + c.z * d.z + c.w * d.w);
 }
 
 TEST(Maths, Vector4f_Normalize)
@@ -159,10 +165,10 @@ TEST(Maths, Vector4f_Normalize)
 	const maths::Vector4f a{ 0.0f, 3.0f, 2.0f, 1.0f };
 	const maths::Vector4f b = a.Normalized();
 
-	//Test .Normalized()
+	//Test .Normalized().
 	EXPECT_FLOAT_EQ(b.Magnitude(), 1.0f);
 
-	//Test .Normalize()
+	//Test .Normalize().
 	maths::Vector4f c = a;
 	c.Normalize();
 	EXPECT_FLOAT_EQ(c.Magnitude(), 1.0f);
@@ -176,31 +182,33 @@ TEST(Maths, Vector4f_Lerp)
 	const float t0 = 0.0f;
 	const float t1 = 1.0f;
 
-	//Test static Vector3f Lerp t = 0
+	//Test static Vector3f Lerp t = 0.
 	maths::Vector4f c = maths::Vector4f::Lerp(a, b, t0);
 	EXPECT_EQ(c.x, a.x);
 	EXPECT_EQ(c.y, a.y);
 	EXPECT_EQ(c.z, a.z);
 	EXPECT_EQ(c.w, a.w);
 
-	//Test static Vector3f Lerp t = 1
+	//Test static Vector3f Lerp t = 1.
 	maths::Vector4f d = maths::Vector4f::Lerp(a, b, t1);
 	EXPECT_EQ(d.x, b.x);
 	EXPECT_EQ(d.y, b.y);
 	EXPECT_EQ(d.z, b.z);
 	EXPECT_EQ(d.w, b.w);
 	
-	//Test Vector3f Lerp t = 0
+	//Test Vector3f Lerp t = 0.
 	maths::Vector4f e = a.Lerp(b, t0);
 	EXPECT_EQ(e.x, a.x);
 	EXPECT_EQ(e.y, a.y);
 	EXPECT_EQ(e.z, a.z);
 	EXPECT_EQ(e.w, a.w);
 	
-	//Test Vector3f Lerp t = 1
+	//Test Vector3f Lerp t = 1.
 	maths::Vector4f f = a.Lerp(b, t1);
 	EXPECT_EQ(f.x, b.x);
 	EXPECT_EQ(f.y, b.y);
 	EXPECT_EQ(f.z, b.z);
 	EXPECT_EQ(f.w, b.w);
 }
+}// namespace tests
+

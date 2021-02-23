@@ -26,54 +26,57 @@ SOFTWARE.
 
 namespace maths
 {
-	Vector4f::Vector4f(float x, float y, float z, float w) : x(x), y(y), z(z), w(w)
-	{
-	}
-
-	void Vector4f::operator+=(const Vector4f rhs)
-	{
-		x += rhs.x;
-		y += rhs.y;
-		z += rhs.z;
-		w += rhs.w;
-	}
-
-	void Vector4f::operator-=(const Vector4f rhs)
-	{
-		x -= rhs.x;
-		y -= rhs.y;
-		z -= rhs.z;
-		w -= rhs.w;
-	}
-
-	void Vector4f::operator*=(const float scalar)
-	{
-		x *= scalar;
-		y *= scalar;
-		z *= scalar;
-		w *= scalar;
-	}
-
-	void Vector4f::operator/=(const float scalar)
-	{
-		x /= scalar;
-		y /= scalar;
-		z /= scalar;
-		w /= scalar;
-	}
-
-	Vector4f Vector4f::Normalized() const
-	{
-		const float magnitude = Vector4f::Magnitude();
-		return { x / magnitude, y / magnitude, z / magnitude, w / magnitude };
-	}
-
-	void Vector4f::Normalize()
-	{
-		const float magnitude = Vector4f::Magnitude();
-		x /= magnitude;
-		y /= magnitude;
-		z /= magnitude;
-		w /= magnitude;
-	}
+Vector4f::Vector4f(float x, float y, float z, float w) : x(x), y(y), z(z), w(w)
+{
 }
+
+void Vector4f::operator+=(const Vector4f rhs)
+{
+	x += rhs.x;
+	y += rhs.y;
+	z += rhs.z;
+	w += rhs.w;
+}
+
+void Vector4f::operator-=(const Vector4f rhs)
+{
+	x -= rhs.x;
+	y -= rhs.y;
+	z -= rhs.z;
+	w -= rhs.w;
+}
+
+void Vector4f::operator*=(const float scalar)
+{
+	x *= scalar;
+	y *= scalar;
+	z *= scalar;
+	w *= scalar;
+}
+
+void Vector4f::operator/=(const float scalar)
+{
+	x /= scalar;
+	y /= scalar;
+	z /= scalar;
+	w /= scalar;
+}
+
+Vector4f Vector4f::Normalized() const
+{
+	const float magnitude = Vector4f::Magnitude();
+	return { x / magnitude,
+			 y / magnitude,
+			 z / magnitude,
+			 w / magnitude };
+}
+
+void Vector4f::Normalize()
+{
+	const float magnitude = Vector4f::Magnitude();
+	x /= magnitude;
+	y /= magnitude;
+	z /= magnitude;
+	w /= magnitude;
+}
+}// namespace maths
