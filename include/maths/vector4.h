@@ -1,5 +1,3 @@
-#pragma once
-
 /*
 MIT License
 
@@ -24,68 +22,77 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-
+#pragma once
 #include <cmath>
 #include <maths/angle.h>
 
 namespace maths
 {
-	/**
-	 *  \brief Class used to represent a 4D vector.
-	 */
-	struct Vector4f
+/**
+ *  \brief Class used to represent a 4D vector.
+ */
+class Vector4f
+{
+public:
+	union
 	{
-	public:
-		union
+		struct
 		{
-			struct
-			{
-				float x;
-				float y;
-				float z;
-				float w;
-			};
-			float coord[4]{};
+			float x;
+			float y;
+			float z;
+			float w;
 		};
-
-		Vector4f() : x(0), y(0), z(0), w(0) {}
-
-		Vector4f(float x, float y, float z, float w);
-
-		Vector4f operator+(const Vector4f rhs) const { return { x + rhs.x, y + rhs.y, z + rhs.z, w + rhs.w }; }
-
-		void operator+=(Vector4f rhs);
-
-		Vector4f operator-(const Vector4f rhs) const { return { x - rhs.x, y - rhs.y, z - rhs.z, w - rhs.w }; }
-
-		void operator-=(Vector4f rhs);
-
-		Vector4f operator*(const float scalar) const { return { x * scalar, y * scalar, z * scalar, w * scalar }; }
-
-		void operator*=(float scalar);
-
-		Vector4f operator/(const float scalar) const { return { x / scalar, y / scalar, z / scalar, w / scalar }; }
-
-		void operator/=(float scalar);
-
-		float Dot(const Vector4f v2) const { return { x * v2.x + y * v2.y + z * v2.z + w * v2.w }; }
-
-		static float Dot(const Vector4f v1, const Vector4f v2) { return { v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w }; }
-
-		float Magnitude() const { return std::sqrt(x * x + y * y + z * z + w * w); }
-
-		float SqrMagnitude() const { return { x * x + y * y + z * z + w * w }; }
-
-		const float& operator[](size_t component) const { return coord[component]; }
-
-		float& operator[](size_t component) { return coord[component]; }
-
-		Vector4f Normalized() const;
-
-		void Normalize();
-
-		Vector4f Lerp(const Vector4f v2, const float t) const { return *this + (v2 - *this) * t; }
-
-		static Vector4f Lerp(const Vector4f v1, const Vector4f v2, const float t) { return  v1 + (v2 - v1) * t; }
+		float coord[4]{};
 	};
+
+	Vector4f() : x(0), y(0), z(0), w(1) {}
+
+	Vector4f(float x, float y, float z, float w);
+
+	Vector4f operator+(const Vector4f rhs) const {
+		return { x + rhs.x, y + rhs.y, z + rhs.z, w + rhs.w }; }
+
+	void operator+=(Vector4f rhs);
+
+	Vector4f operator-(const Vector4f rhs) const {
+		return { x - rhs.x, y - rhs.y, z - rhs.z, w - rhs.w }; }
+
+	void operator-=(Vector4f rhs);
+
+	Vector4f operator*(const float scalar) const {
+		return { x * scalar, y * scalar, z * scalar, w * scalar }; }
+
+	void operator*=(float scalar);
+
+	Vector4f operator/(const float scalar) const {
+		return { x / scalar, y / scalar, z / scalar, w / scalar }; }
+
+	void operator/=(float scalar);
+
+	float Dot(const Vector4f v2) const {
+		return { x * v2.x + y * v2.y + z * v2.z + w * v2.w }; }
+
+	static float Dot(const Vector4f v1, const Vector4f v2) {
+		return { v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w }; }
+
+	float Magnitude() const {
+		return std::sqrt(x * x + y * y + z * z + w * w); }
+
+	float SqrMagnitude() const { return { x * x + y * y + z * z + w * w }; }
+
+	const float& operator[](size_t component) const { return coord[component];}
+
+	float& operator[](size_t component) { return coord[component]; }
+
+	Vector4f Normalized() const;
+
+	void Normalize();
+
+	Vector4f Lerp(const Vector4f v2, const float t) const {
+		return *this + (v2 - *this) * t;}
+
+	static Vector4f Lerp(const Vector4f v1, const Vector4f v2, const float t) {
+		return  v1 + (v2 - v1) * t; }
+};
 }

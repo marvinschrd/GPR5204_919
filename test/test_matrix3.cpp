@@ -37,7 +37,6 @@ TEST(Maths, Matrix3f_GetCofactor)
 		maths::Vector3f(-1, 0, -1));
 
 	//Test cofactor
-
 	EXPECT_EQ(a.GetCofactor(0, 0), 2);
 	EXPECT_EQ(a.GetCofactor(0, 1), 2);
 	EXPECT_EQ(a.GetCofactor(0, 2), 6);
@@ -65,8 +64,9 @@ TEST(Maths, Matrix3f_Inverse)
 											maths::Vector3f(-3, -4, 4), 
 											maths::Vector3f(-2, -2, 1));
 
-	//Test determinant
+	//Test inverse
 	maths::Matrix3f tmp_inverse = a.Inverse();
+	
 	EXPECT_EQ(tmp_inverse.matrix[0][0], 4);
 	EXPECT_EQ(tmp_inverse.matrix[0][1], 5);
 	EXPECT_EQ(tmp_inverse.matrix[0][2], -8);
@@ -86,6 +86,7 @@ TEST(Maths, Matrix3f_Transpose)
 
 	//Test transpose
 	maths::Matrix3f tmp_transpose = a.Transpose();
+	
 	EXPECT_EQ(tmp_transpose.matrix[0][0], 0);
 	EXPECT_EQ(tmp_transpose.matrix[0][1], 3);
 	EXPECT_EQ(tmp_transpose.matrix[0][2], 6);
@@ -105,6 +106,7 @@ TEST(Maths, Matrix3f_Adjoint)
 
 	//Test adjoint
 	maths::Matrix3f tmp_adjoint = a.Adjoint();
+	
 	EXPECT_EQ(tmp_adjoint.matrix[0][0], 2);
 	EXPECT_EQ(tmp_adjoint.matrix[0][1], 2);
 	EXPECT_EQ(tmp_adjoint.matrix[0][2], 6);
@@ -164,7 +166,7 @@ TEST(Maths, Matrix3f_ScalingMatrix)
 {
 	const maths::Matrix3f a = maths::Matrix3f::ScalingMatrix(maths::Vector2f(1, 1));
 
-	//Test rotation matrix
+	//Test scaling matrix
 	EXPECT_EQ(a.matrix[0][0], 1);
 	EXPECT_EQ(a.matrix[0][1], 0);
 	EXPECT_EQ(a.matrix[0][2], 0);
@@ -180,7 +182,7 @@ TEST(Maths, Matrix3f_TranslationMatrix)
 {
 	const maths::Matrix3f a = maths::Matrix3f::TranslationMatrix(maths::Vector2f(1, 1));
 
-	//Test rotation matrix
+	//Test translation matrix
 	EXPECT_EQ(a.matrix[0][0], 1);
 	EXPECT_EQ(a.matrix[0][1], 0);
 	EXPECT_EQ(a.matrix[0][2], 1);
