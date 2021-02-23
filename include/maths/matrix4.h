@@ -64,15 +64,19 @@ struct Matrix4f
 
     void operator*=(const Vector4f& rhs);
 
-    float Determinant();
+    void operator*=(const float& scalar);
 
-    Matrix4f Inverse();
+    float GetCofactor(int row, int column) const;
 
-    Matrix4f Transpose();
+    float Determinant() const;
 
-    Matrix4f Adjoint();
+    Matrix4f Inverse() const;
 
-    bool IsOrthogonal();
+    Matrix4f Transpose() const;
+
+    Matrix4f Adjoint() const;
+
+    bool IsOrthogonal() const;
 
     static Matrix4f Identity();
 

@@ -21,6 +21,9 @@ SOFTWARE.
 */
 
 #include "maths/matrix3.h"
+
+#include <cassert>
+
 #include "maths/angle.h"
 #include "maths/matrix2.h"
 
@@ -104,6 +107,8 @@ float Matrix3f::Determinant() const
 }
 Matrix3f Matrix3f::Inverse() const
 {
+	assert(Determinant() != 0.0f);
+	
 	if(IsOrthogonal())
 	{
 		return Transpose();
@@ -123,6 +128,7 @@ Matrix3f Matrix3f::Transpose() const
 Matrix3f Matrix3f::Adjoint() const
 {
 	int size = 3;
+	
 	Matrix3f tmp_mat;
 
 	for (int i = 0; i < size; ++i)
