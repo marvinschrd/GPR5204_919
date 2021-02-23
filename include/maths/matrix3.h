@@ -27,63 +27,63 @@ SOFTWARE.
 
 namespace maths
 {
-	
-    struct Mat33f
+struct Matrix3f
+{
+    union
     {
-        union
+        struct
         {
-            struct
-            {
-                Vector3f v1;
-                Vector3f v2;
-                Vector3f v3;
-            };
-
-            Vector3f matrix[3]{};
+            Vector3f v1;
+            Vector3f v2;
+            Vector3f v3;
         };
 
-        Mat33f() {}
-
-        Mat33f(const Vector3f v1, const Vector3f v2, const Vector3f v3) : v1(v1), v2(v2), v3(v3) {}
-
-        Vector3f& operator[](size_t index) { return matrix[index]; }
-    	
-        Mat33f operator+(const Mat33f& rhs) const;
-
-        void operator+=(const Mat33f& rhs);
-
-        Mat33f operator-(const Mat33f& rhs) const;
-
-        void operator-=(const Mat33f& rhs);
-
-        Mat33f operator*(const Mat33f& rhs) const;
-
-        void operator*=(const Mat33f& rhs);
-
-        Vector3f operator*(const Vector3f& rhs) const;
-
-        void operator*=(const Vector3f& rhs);
-
-        void operator*=(const float& scalar);
-
-        float GetCofactor(const int row, const int column) const;
-
-        float Determinant() const;
-
-        Mat33f Inverse() const;
-
-        Mat33f Transpose() const;
-
-        Mat33f Adjoint() const;
-
-        bool IsOrthogonal() const;
-
-        static Mat33f Identity33();
-
-        static Mat33f RotationMatrix33(radian_t angle);
-
-        static Mat33f ScalingMatrix33(Vector2f axisValues);
-
-        static Mat33f TranslationMatrix33(Vector2f axisValues);
+        Vector3f matrix[3]{};
     };
-}
+
+    Matrix3f() {}
+
+    Matrix3f(const Vector3f v1, const Vector3f v2, const Vector3f v3) : v1(v1), v2(v2), v3(v3) {}
+
+    Vector3f& operator[](size_t index) { return matrix[index]; }
+    
+    Matrix3f operator+(const Matrix3f& rhs) const;
+
+    void operator+=(const Matrix3f& rhs);
+
+    Matrix3f operator-(const Matrix3f& rhs) const;
+
+    void operator-=(const Matrix3f& rhs);
+
+    Matrix3f operator*(const Matrix3f& rhs) const;
+
+    void operator*=(const Matrix3f& rhs);
+
+    Vector3f operator*(const Vector3f& rhs) const;
+
+    void operator*=(const Vector3f& rhs);
+
+    void operator*=(const float& scalar);
+
+    float GetCofactor(const int row, const int column) const;
+
+    float Determinant() const;
+
+    Matrix3f Inverse() const;
+
+    Matrix3f Transpose() const;
+
+    Matrix3f Adjoint() const;
+
+    bool IsOrthogonal() const;
+
+    static Matrix3f Identity();
+
+    static Matrix3f RotationMatrix(radian_t angle);
+
+    static Matrix3f ScalingMatrix(Vector2f axisValues);
+
+    static Matrix3f TranslationMatrix(Vector2f axisValues);
+};
+	
+}//namespace maths

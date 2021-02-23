@@ -31,66 +31,79 @@ SOFTWARE.
 #include "maths/matrix4.h"
 
 
-//TEST(Maths, Mat22f_operatorAddition)
+//TEST(Maths, Matrix2f_operatorAddition)
 //{
-//	const maths::Mat22f A = maths::Mat22f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
-//	const maths::Mat22f B = maths::Mat22f(maths::Vector2f(3, 2), maths::Vector2f(1, 1));
+//	const maths::Matrix2f A = maths::Matrix2f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
+//	const maths::Matrix2f B = maths::Matrix2f(maths::Vector2f(3, 2), maths::Vector2f(1, 1));
 //
-//	const maths::Mat22f X = A + B;
+//	const maths::Matrix2f X = A + B;
 //
-//	ASSERT_EQ(A + B, X);
+//	EXPECT_EQ(A + B, X);
 //}
 //
-//TEST(Maths, Mat22f_operatorSubstraction)
+//TEST(Maths, Matrix2f_operatorSubstraction)
 //{
-//	const maths::Mat22f A = maths::Mat22f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
-//	const maths::Mat22f B = maths::Mat22f(maths::Vector2f(3, 2), maths::Vector2f(1, 1));
+//	const maths::Matrix2f A = maths::Matrix2f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
+//	const maths::Matrix2f B = maths::Matrix2f(maths::Vector2f(3, 2), maths::Vector2f(1, 1));
 //
-//	const maths::Mat22f X = A - B;
+//	const maths::Matrix2f X = A - B;
 //
-//	ASSERT_EQ(A - B, X);
+//	EXPECT_EQ(A - B, X);
 //}
 //
-//TEST(Maths, Mat22f_operatorMultiplication)
+//TEST(Maths, Matrix2f_operatorMultiplication)
 //{
-//	const maths::Mat22f A = maths::Mat22f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
-//	const maths::Mat22f B = maths::Mat22f(maths::Vector2f(3, 2), maths::Vector2f(1, 1));
+//	const maths::Matrix2f A = maths::Matrix2f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
+//	const maths::Matrix2f B = maths::Matrix2f(maths::Vector2f(3, 2), maths::Vector2f(1, 1));
 //
-//	const maths::Mat22f X = A * B;
+//	const maths::Matrix2f X = A * B;
 //
-//	ASSERT_EQ(A * B, X);
+//	EXPECT_EQ(A * B, X);
 //}
 
-TEST(Maths, Mat22f_Determinant)
+TEST(Maths, Matrix2f_Determinant)
 {
-	const maths::Mat22f A = maths::Mat22f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
+	const maths::Matrix2f A = maths::Matrix2f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
 
 	//Test determinant
 	const float det = A.Determinant();
-	ASSERT_EQ(det, -5);
+	EXPECT_EQ(det, -5);
 }
 
-TEST(Maths, Mat22f_Inverse)
+TEST(Maths, Matrix2f_Inverse)
 {
-	const maths::Mat22f A = maths::Mat22f(maths::Vector2f(1, 2), maths::Vector2f(1, 3));
+	const maths::Matrix2f A = maths::Matrix2f(maths::Vector2f(1, 2), maths::Vector2f(1, 3));
 
 	//Test inverse
-	const maths::Mat22f inverseA = A.Inverse();
-	maths::Mat22f testInverse = maths::Mat22f(maths::Vector2f(3, -1), maths::Vector2f(-2, 1));
+	const maths::Matrix2f inverseA = A.Inverse();
+	maths::Matrix2f testInverse = maths::Matrix2f(maths::Vector2f(3, -1), maths::Vector2f(-2, 1));
 
-	ASSERT_EQ(inverseA.matrix[0][0], 3);
-	ASSERT_EQ(inverseA.matrix[0][1], -1);
-	ASSERT_EQ(inverseA.matrix[1][0], -2);
-	ASSERT_EQ(inverseA.matrix[1][1], 1);
+	EXPECT_EQ(inverseA.matrix[0][0], 3);
+	EXPECT_EQ(inverseA.matrix[0][1], -1);
+	EXPECT_EQ(inverseA.matrix[1][0], -2);
+	EXPECT_EQ(inverseA.matrix[1][1], 1);
 }
 
-TEST(Maths, Mat22f_Identity)
+TEST(Maths, Matrix2f_Transpose)
 {
-	maths::Mat22f I = maths::Mat22f::Identity22();
+	maths::Matrix2f a = maths::Matrix2f(maths::Vector2f(3, -1), maths::Vector2f(-2, 1));
+
+	//Test transpose
+	maths::Matrix2f transposeA = a.Transpose();
+	
+	EXPECT_EQ(transposeA.matrix[0][0], 3);
+	EXPECT_EQ(transposeA.matrix[0][1], -2);
+	EXPECT_EQ(transposeA.matrix[1][0], -1);
+	EXPECT_EQ(transposeA.matrix[1][1], 1);
+}
+
+TEST(Maths, Matrix2f_Identity)
+{
+	maths::Matrix2f I = maths::Matrix2f::Identity();
 
 	//Test identity
-	ASSERT_EQ(I.matrix[0][0], 1);
-	ASSERT_EQ(I.matrix[0][1], 0);
-	ASSERT_EQ(I.matrix[1][0], 0);
-	ASSERT_EQ(I.matrix[1][1], 1);
+	EXPECT_EQ(I.matrix[0][0], 1);
+	EXPECT_EQ(I.matrix[0][1], 0);
+	EXPECT_EQ(I.matrix[1][0], 0);
+	EXPECT_EQ(I.matrix[1][1], 1);
 }
