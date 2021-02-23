@@ -23,13 +23,15 @@ SOFTWARE.
 */
 
 #include "maths/aabb2.h"
+#include "maths/circle.h"
 
 namespace maths {
 
 bool Overlap(const AABB2& a, const AABB2& b) {
 	const Vector2f v1 = b.bottom_left() - a.top_right();
 	const Vector2f v2 = a.bottom_left() - b.top_right();
-
+	
+	if (Contain(a, b) || Contain(b, a)) return false;
 	return !(v1.x > 0 || v2.x > 0 || v1.y > 0 || v2.y > 0);
 }
 
@@ -37,7 +39,24 @@ bool Contain(const AABB2& a, const AABB2& b) {
 	const Vector2f v1 = b.bottom_left() - a.bottom_left();
 	const Vector2f v2 = a.top_right() - b.top_right();
 
-	return (v1.x >= 0 && v1.y >= 0 && v2.x >= 0 && v2.y >= 0);
+	return (v1.x > 0 && v1.y > 0 && v2.x > 0 && v2.y > 0);
+}
+
+bool OverlapCircle(const Circle& a, const Circle& b) {
+	const Vector2f d = b.center() - a.center();
+	const float v1 = b.radius() + a.radius();
+	const float v2 = d.Magnitude();
+
+	if (ContainCircle(a, b) || ContainCircle(b, a)) return false;
+	return (v1 > v2);
+}
+	
+bool ContainCircle(const Circle& a, const Circle& b) {
+	const Vector2f d = b.center() - a.center();
+	const float v1 = d.Magnitude() + b.radius();
+	const float v2 = a.radius();
+
+	return (v1 < v2);
 }
 	
 }  // namespace maths

@@ -45,5 +45,8 @@ private:
 	Vector2f center_ = {};
 	float radius_ = {};
 };
+
+bool OverlapCircle(const Circle& a, const Circle& b);
+bool ContainCircle(const Circle& a, const Circle& b);
 	
 } // namespace maths

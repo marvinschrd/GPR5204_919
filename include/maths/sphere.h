@@ -51,5 +51,8 @@ private:
 	Vector3f center_ = {};
 	float radius_ = {};
 };
+
+bool OverlapSphere(const Sphere& a, const Sphere& b);
+bool ContainSphere(const Sphere& a, const Sphere& b);
 	
 } // namespace maths

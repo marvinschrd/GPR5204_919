@@ -23,6 +23,7 @@ SOFTWARE.
 */
 
 #include "maths/aabb3.h"
+#include "maths/sphere.h"
 
 namespace maths {
 
@@ -30,6 +31,7 @@ bool Overlap(const AABB3& a, const AABB3& b) {
 	const Vector3f v1 = b.bottom_left() - a.top_right();
 	const Vector3f v2 = a.bottom_left() - b.top_right();
 
+	if (Contain(a, b) || Contain(b, a)) return false;
 	return !(v1.x > 0 || v2.x > 0 || v1.y > 0 || v2.y > 0 ||
 		v1.z > 0 || v2.z > 0);
 }
@@ -38,8 +40,25 @@ bool Contain(const AABB3& a, const AABB3& b) {
 	const Vector3f v1 = b.bottom_left() - a.bottom_left();
 	const Vector3f v2 = a.top_right() - b.top_right();
 
-	return (v1.x >= 0 && v1.y >= 0 && v1.z >= 0 && v2.x >= 0 
-		&& v2.y >= 0 && v2.z >= 0);
+	return (v1.x > 0 && v1.y > 0 && v1.z > 0 && v2.x > 0 
+		&& v2.y > 0 && v2.z > 0);
+}
+
+bool OverlapSphere(const Sphere& a, const Sphere& b) {
+	const Vector3f d = b.center() - a.center();
+	const float v1 = b.radius() + a.radius();
+	const float v2 = d.Magnitude();
+
+	if (ContainSphere(a, b) || ContainSphere(b, a)) return false;
+	return (v1 > v2);
+}
+
+bool ContainSphere(const Sphere& a, const Sphere& b) {
+	const Vector3f d = b.center() - a.center();
+	const float v1 = d.Magnitude() + b.radius();
+	const float v2 = a.radius();
+
+	return (v1 < v2);
 }
 	
 }  // namespace maths

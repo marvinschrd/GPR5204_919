@@ -25,6 +25,7 @@ SOFTWARE.
 */
 
 #include "maths/aabb2.h"
+#include "maths/circle.h"
 
 namespace maths {
 	

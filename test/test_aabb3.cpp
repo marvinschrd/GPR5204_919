@@ -48,9 +48,9 @@ TEST(Maths, Aabb3_overlap)
 {
 	// Test if aabb2 is inside aabb1
 	maths::AABB3 aabb1(maths::Vector3f{ 0.0f, 0.0f, 0.0f }, maths::Vector3f{ 1.0f, 1.0f, 1.0f });
-	maths::AABB3 aabb2(maths::Vector3f{ 0.1f, 0.1f, 0.0f }, maths::Vector3f{ 0.9f, 0.9f, 1.0f });
-	EXPECT_TRUE(Overlap(aabb1, aabb2));
-	EXPECT_TRUE(Overlap(aabb2, aabb1));
+	maths::AABB3 aabb2(maths::Vector3f{ 0.1f, 0.1f, 0.1f }, maths::Vector3f{ 0.9f, 0.9f, 0.9f });
+	EXPECT_FALSE(Overlap(aabb1, aabb2));
+	EXPECT_FALSE(Overlap(aabb2, aabb1));
 
 	// Test if aabb2 is outside of aabb1 positive
 	aabb2 = maths::AABB3(maths::Vector3f{ 1.1f, 1.1f, 0.0f }, maths::Vector3f{ 1.5f, 1.5f, 1.0f });
@@ -123,5 +123,5 @@ TEST(Maths, Aabb3_contain)
 
 	// Test of the same aabb
 	aabb2 = maths::AABB3(maths::Vector3f{ 0.0f, 0.0f, 0.0f }, maths::Vector3f{ 1.0f, 1.0f, 1.0f });
-	EXPECT_TRUE(Contain(aabb1, aabb2));
+	EXPECT_FALSE(Contain(aabb1, aabb2));
 }
