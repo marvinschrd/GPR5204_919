@@ -27,61 +27,62 @@ SOFTWARE.
 
 namespace maths
 {
-    struct Mat44f
+struct Matrix4f
+{
+    union
     {
-        union
+        struct
         {
-            struct
-            {
-                Vector4f v1;
-                Vector4f v2;
-                Vector4f v3;
-                Vector4f v4;
-            };
-
-            Vector4f matrix[4]{};
+            Vector4f v1;
+            Vector4f v2;
+            Vector4f v3;
+            Vector4f v4;
         };
 
-        Mat44f() {}
-
-        Mat44f(const Vector4f v1, const Vector4f v2, const Vector4f v3, const Vector4f v4) : v1(v1), v2(v2), v3(v3), v4(v4) {}
-
-        Vector4f& operator[](size_t index) { return matrix[index]; }
-    	
-        Mat44f operator+(const Mat44f& rhs) const;
-
-        void operator+=(const Mat44f& rhs);
-
-        Mat44f operator-(const Mat44f& rhs) const;
-
-        void operator-=(const Mat44f& rhs);
-
-        Mat44f operator*(const Mat44f& rhs) const;
-
-        void operator*=(const Mat44f& rhs);
-
-        Vector4f operator*(const Vector4f& rhs) const;
-
-        void operator*=(const Vector4f& rhs);
-
-        float Determinant();
-
-        Mat44f Inverse();
-
-        Mat44f Transpose();
-
-        Mat44f Adjoint();
-
-        bool IsOrthogonal();
-
-        static Mat44f Identity44();
-
-        static Mat44f RotationMatrix44(radian_t angle, char axis);
-
-        static Mat44f ScalingMatrix44(Vector3f axisValues);
-
-        static Mat44f TranslationMatrix44(Vector3f axisValues);
+        Vector4f matrix[4]{};
     };
-}
+
+    Matrix4f() {}
+
+    Matrix4f(const Vector4f v1, const Vector4f v2, const Vector4f v3, const Vector4f v4) : v1(v1), v2(v2), v3(v3), v4(v4) {}
+
+    Vector4f& operator[](size_t index) { return matrix[index]; }
+    
+    Matrix4f operator+(const Matrix4f& rhs) const;
+
+    void operator+=(const Matrix4f& rhs);
+
+    Matrix4f operator-(const Matrix4f& rhs) const;
+
+    void operator-=(const Matrix4f& rhs);
+
+    Matrix4f operator*(const Matrix4f& rhs) const;
+
+    void operator*=(const Matrix4f& rhs);
+
+    Vector4f operator*(const Vector4f& rhs) const;
+
+    void operator*=(const Vector4f& rhs);
+
+    float Determinant();
+
+    Matrix4f Inverse();
+
+    Matrix4f Transpose();
+
+    Matrix4f Adjoint();
+
+    bool IsOrthogonal();
+
+    static Matrix4f Identity();
+
+    static Matrix4f RotationMatrix(radian_t angle, char axis);
+
+    static Matrix4f ScalingMatrix(Vector3f axisValues);
+
+    static Matrix4f TranslationMatrix(Vector3f axisValues);
+};
+	
+}//namespace maths
 
 

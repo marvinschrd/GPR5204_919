@@ -39,13 +39,13 @@ struct Plane {
 class Frustum {
 public:
 	Frustum() = default;
-	Frustum(Mat44f& viewProjection) : viewProjection_(viewProjection) {}
+	Frustum(Matrix4f& viewProjection) : viewProjection_(viewProjection) {}
 
 	void normalize_plane(Plane& plane);
 	void calcluate_frustum_planes();
 
 private:
-	Mat44f viewProjection_;
+	Matrix4f viewProjection_;
 	Plane planes_[6];
 };
 

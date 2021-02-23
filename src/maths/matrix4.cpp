@@ -24,68 +24,69 @@ SOFTWARE.
 
 namespace maths
 {
-	Mat44f Mat44f::operator+(const Mat44f& rhs) const
-	{
-		return Mat44f();
-	}
-	void Mat44f::operator+=(const Mat44f& rhs)
-	{
-	}
-	Mat44f Mat44f::operator-(const Mat44f& rhs) const
-	{
-		return Mat44f();
-	}
-	void Mat44f::operator-=(const Mat44f& rhs)
-	{
-	}
-	Mat44f Mat44f::operator*(const Mat44f& rhs) const
-	{
-		return Mat44f();
-	}
-	void Mat44f::operator*=(const Mat44f& rhs)
-	{
-	}
-	Vector4f Mat44f::operator*(const Vector4f& rhs) const
-	{
-		return Vector4f();
-	}
-	void Mat44f::operator*=(const Vector4f& rhs)
-	{
-	}
-	float Mat44f::Determinant()
-	{
-		return 0.0f;
-	}
-	Mat44f Mat44f::Inverse()
-	{
-		return Mat44f();
-	}
-	Mat44f Mat44f::Transpose()
-	{
-		return Mat44f();
-	}
-	Mat44f Mat44f::Adjoint()
-	{
-		return Mat44f();
-	}
-	bool Mat44f::IsOrthogonal()
-	{
-		return false;
-	}
-	Mat44f Mat44f::Identity44()
-	{
-		return Mat44f();
-	}
-	Mat44f Mat44f::RotationMatrix44(radian_t angle, char axis)
-	{
-		return Mat44f();
-	}
-	Mat44f Mat44f::ScalingMatrix44(Vector3f axisValues)
-	{
-		return Mat44f();
-	}
-	Mat44f Mat44f::TranslationMatrix44(Vector3f axisValues)
-	{
-		return Mat44f();
-	}
+Matrix4f Matrix4f::operator+(const Matrix4f& rhs) const
+{
+	return Matrix4f();
 }
+void Matrix4f::operator+=(const Matrix4f& rhs)
+{
+}
+Matrix4f Matrix4f::operator-(const Matrix4f& rhs) const
+{
+	return Matrix4f();
+}
+void Matrix4f::operator-=(const Matrix4f& rhs)
+{
+}
+Matrix4f Matrix4f::operator*(const Matrix4f& rhs) const
+{
+	return Matrix4f();
+}
+void Matrix4f::operator*=(const Matrix4f& rhs)
+{
+}
+Vector4f Matrix4f::operator*(const Vector4f& rhs) const
+{
+	return Vector4f();
+}
+void Matrix4f::operator*=(const Vector4f& rhs)
+{
+}
+float Matrix4f::Determinant()
+{
+	return 0.0f;
+}
+Matrix4f Matrix4f::Inverse()
+{
+	return Matrix4f();
+}
+Matrix4f Matrix4f::Transpose()
+{
+	return Matrix4f();
+}
+Matrix4f Matrix4f::Adjoint()
+{
+	return Matrix4f();
+}
+bool Matrix4f::IsOrthogonal()
+{
+	return false;
+}
+Matrix4f Matrix4f::Identity()
+{
+	return Matrix4f();
+}
+Matrix4f Matrix4f::RotationMatrix(radian_t angle, char axis)
+{
+	return Matrix4f();
+}
+Matrix4f Matrix4f::ScalingMatrix(Vector3f axisValues)
+{
+	return Matrix4f();
+}
+Matrix4f Matrix4f::TranslationMatrix(Vector3f axisValues)
+{
+	return Matrix4f();
+}
+	
+}//namespace maths

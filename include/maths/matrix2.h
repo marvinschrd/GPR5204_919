@@ -26,49 +26,49 @@ SOFTWARE.
 
 namespace maths
 {
-    struct Mat22f
+struct Matrix2f
+{
+    union 
     {
-	    union 
-	    {
-            struct
-            {
-                Vector2f v1;
-                Vector2f v2;
-            };
+        struct
+        {
+            Vector2f v1;
+            Vector2f v2;
+        };
 
-            Vector2f matrix[2]{};
-	    };
-    	
-        Mat22f() {}
-
-        Mat22f(const Vector2f v1, const Vector2f v2) : v1(v1), v2(v2) {}
-
-        Vector2f& operator[](size_t index) { return matrix[index]; }
-
-        Mat22f operator+(const Mat22f& rhs) const;
-
-        void operator+=(const Mat22f& rhs);
-
-        Mat22f operator-(const Mat22f& rhs) const;
-
-        void operator-=(const Mat22f& rhs);
-
-        Mat22f operator*(const Mat22f& rhs) const;
-
-        void operator*=(const Mat22f& rhs);
-
-        void operator*=(const float& scalar);
-
-        Vector2f operator*(const Vector2f& rhs) const;
-
-        void operator*=(const Vector2f& rhs);
-
-        float Determinant() const;
-
-        Mat22f Inverse() const;
-
-        Mat22f Transpose() const;
-
-        static Mat22f Identity22();
+        Vector2f matrix[2]{};
     };
-}
+    
+    Matrix2f() {}
+
+    Matrix2f(const Vector2f v1, const Vector2f v2) : v1(v1), v2(v2) {}
+
+    Vector2f& operator[](size_t index) { return matrix[index]; }
+
+    Matrix2f operator+(const Matrix2f& rhs) const;
+
+    void operator+=(const Matrix2f& rhs);
+
+    Matrix2f operator-(const Matrix2f& rhs) const;
+
+    void operator-=(const Matrix2f& rhs);
+
+    Matrix2f operator*(const Matrix2f& rhs) const;
+
+    void operator*=(const Matrix2f& rhs);
+
+    void operator*=(const float& scalar);
+
+    Vector2f operator*(const Vector2f& rhs) const;
+
+    void operator*=(const Vector2f& rhs);
+
+    float Determinant() const;
+
+    Matrix2f Inverse() const;
+
+    Matrix2f Transpose() const;
+
+    static Matrix2f Identity();
+};
+}//namespace maths
