@@ -30,36 +30,40 @@ Vector4f::Vector4f(float x, float y, float z, float w) : x(x), y(y), z(z), w(w)
 {
 }
 
-void Vector4f::operator+=(const Vector4f rhs)
+Vector4f& Vector4f::operator+=(const Vector4f rhs)
 {
 	x += rhs.x;
 	y += rhs.y;
 	z += rhs.z;
 	w += rhs.w;
+	return *this;
 }
 
-void Vector4f::operator-=(const Vector4f rhs)
+Vector4f& Vector4f::operator-=(const Vector4f rhs)
 {
 	x -= rhs.x;
 	y -= rhs.y;
 	z -= rhs.z;
 	w -= rhs.w;
+	return *this;
 }
 
-void Vector4f::operator*=(const float scalar)
+Vector4f& Vector4f::operator*=(const float scalar)
 {
 	x *= scalar;
 	y *= scalar;
 	z *= scalar;
 	w *= scalar;
+	return *this;
 }
 
-void Vector4f::operator/=(const float scalar)
+Vector4f& Vector4f::operator/=(const float scalar)
 {
 	x /= scalar;
 	y /= scalar;
 	z /= scalar;
 	w /= scalar;
+	return *this;
 }
 
 Vector4f Vector4f::Normalized() const

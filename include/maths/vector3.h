@@ -49,41 +49,57 @@ public:
 
 	Vector3f(float x, float y, float z);
 
-	Vector3f operator+(const Vector3f rhs) const {
-		return {x + rhs.x, y + rhs.y, z + rhs.z}; }
+	Vector3f operator+(const Vector3f rhs) const
+	{
+		return {x + rhs.x, y + rhs.y, z + rhs.z};
+	}
 
-	void operator+=(Vector3f rhs);
+	Vector3f& operator+=(Vector3f rhs);
 
-	Vector3f operator-(const Vector3f rhs) const{
-		return {x - rhs.x, y - rhs.y, z - rhs.z}; }
+	Vector3f operator-(const Vector3f rhs) const
+	{
+		return {x - rhs.x, y - rhs.y, z - rhs.z};
+	}
 
-	void operator-=(Vector3f rhs);
+	Vector3f& operator-=(Vector3f rhs);
 
-	Vector3f operator*(const float scalar) const {
-		return {x * scalar, y * scalar, z * scalar}; }
+	Vector3f operator*(const float scalar) const
+	{
+		return {x * scalar, y * scalar, z * scalar};
+	}
 
-	void operator*=(float scalar);
+	Vector3f& operator*=(float scalar);
 
-	Vector3f operator/(const float scalar) const {
-		return {x / scalar, y / scalar, z / scalar}; }
+	Vector3f operator/(const float scalar) const
+	{
+		return {x / scalar, y / scalar, z / scalar};
+	}
 
-	void operator/=(float scalar);
+	Vector3f& operator/=(float scalar);
 
-	float Dot(const Vector3f v2) const {
-		return x * v2.x + y * v2.y + z * v2.z; }
+	float Dot(const Vector3f v2) const
+	{
+		return x * v2.x + y * v2.y + z * v2.z;
+	}
 
-	static float Dot(const Vector3f v1, const Vector3f v2) {
-		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z; }
+	static float Dot(const Vector3f v1, const Vector3f v2)
+	{
+		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+	}
 
-	Vector3f Cross(const Vector3f v2) const {
+	Vector3f Cross(const Vector3f v2) const
+	{
 		return {y * v2.z - z * v2.y,
 				z * v2.x - x * v2.z,
-				x * v2.y - y * v2.x }; }
+				x * v2.y - y * v2.x };
+	}
 
-	static Vector3f Cross(const Vector3f v1, const Vector3f v2) {
+	static Vector3f Cross(const Vector3f v1, const Vector3f v2)
+	{
 		return {v1.y * v2.z - v1.z * v2.y,
 				v1.z * v2.x - v1.x * v2.z,
-				v1.x * v2.y - v1.y * v2.x }; }
+				v1.x * v2.y - v1.y * v2.x };
+	}
 
 	float Magnitude() const { return std::sqrt(x * x + y * y + z * z); }
 
@@ -101,11 +117,15 @@ public:
 
 	void Normalize();
 
-	Vector3f Lerp(const Vector3f v2, const float t) const {
-		return *this + (v2 - *this) * t; }
+	Vector3f Lerp(const Vector3f v2, const float t) const
+	{
+		return *this + (v2 - *this) * t;
+	}
 
-	static Vector3f Lerp(const Vector3f v1, const Vector3f v2, const float t) {
-		return  v1 + (v2 - v1) * t; }
+	static Vector3f Lerp(const Vector3f v1, const Vector3f v2, const float t)
+	{
+		return  v1 + (v2 - v1) * t;
+	}
 
 	Vector3f Slerp(Vector3f v2, const float t) const;
 };

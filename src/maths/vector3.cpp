@@ -33,32 +33,36 @@ Vector3f::Vector3f(float x, float y, float z) : x(x), y(y), z(z)
 {
 }
 
-void Vector3f::operator+=(const Vector3f rhs)
+Vector3f& Vector3f::operator+=(const Vector3f rhs)
 {
 	x += rhs.x;
 	y += rhs.y;
 	z += rhs.z;
+	return *this;
 }
 
-void Vector3f::operator-=(const Vector3f rhs)
+Vector3f& Vector3f::operator-=(const Vector3f rhs)
 {
 	x -= rhs.x;
 	y -= rhs.y;
 	z -= rhs.z;
+	return *this;
 }
 
-void Vector3f::operator*=(const float scalar)
+Vector3f& Vector3f::operator*=(const float scalar)
 {
 	x *= scalar;
 	y *= scalar;
 	z *= scalar;
+	return *this;
 }
 
-void Vector3f::operator/=(const float scalar)
+Vector3f& Vector3f::operator/=(const float scalar)
 {
 	x /= scalar;
 	y /= scalar;
 	z /= scalar;
+	return *this;
 }
 
 radian_t Vector3f::AngleBetween(const Vector3f v2) const
