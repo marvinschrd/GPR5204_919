@@ -22,48 +22,40 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include <array>
+
 #include "maths/vector2.h"
 #include "maths/vector3.h"
 
 namespace maths
 {
-struct Matrix3f
+class Matrix3f
 {
-    union
-    {
-        struct
-        {
-            Vector3f v1;
-            Vector3f v2;
-            Vector3f v3;
-        };
+public:
+	
+    Matrix3f() = default;
 
-        Vector3f matrix[3]{};
-    };
+    Matrix3f(const Vector3f v1, const Vector3f v2, const Vector3f v3);
 
-    Matrix3f() {}
+    Vector3f& operator[](size_t index) { return matrix_[index]; }
 
-    Matrix3f(const Vector3f v1, const Vector3f v2, const Vector3f v3) : v1(v1), v2(v2), v3(v3) {}
-
-    Vector3f& operator[](size_t index) { return matrix[index]; }
+    const Vector3f& operator[](size_t index) const { return matrix_[index]; }
     
     Matrix3f operator+(const Matrix3f& rhs) const;
 
-    void operator+=(const Matrix3f& rhs);
+    Matrix3f& operator+=(const Matrix3f& rhs);
 
     Matrix3f operator-(const Matrix3f& rhs) const;
 
-    void operator-=(const Matrix3f& rhs);
+    Matrix3f& operator-=(const Matrix3f& rhs);
 
     Matrix3f operator*(const Matrix3f& rhs) const;
 
-    void operator*=(const Matrix3f& rhs);
+    Matrix3f& operator*=(const Matrix3f& rhs);
 
     Vector3f operator*(const Vector3f& rhs) const;
 
-    void operator*=(const Vector3f& rhs);
-
-    void operator*=(const float& scalar);
+    Matrix3f& operator*=(const float& scalar);
 
     float GetCofactor(const int row, const int column) const;
 
@@ -84,6 +76,11 @@ struct Matrix3f
     static Matrix3f ScalingMatrix(Vector2f axisValues);
 
     static Matrix3f TranslationMatrix(Vector2f axisValues);
+
+private:
+
+    std::array<Vector3f, 3> matrix_;
+    int size_ = 3;
 };
 	
 }//namespace maths

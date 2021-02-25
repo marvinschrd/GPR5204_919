@@ -24,94 +24,104 @@ SOFTWARE.
 
 namespace maths
 {
-Matrix2f Matrix2f::operator+(const Matrix2f& rhs) const
-{
-	float m00 = matrix[0][0] + rhs.matrix[0][0];
-	float m01 = matrix[0][1] + rhs.matrix[0][1];
-	float m10 = matrix[1][0] + rhs.matrix[1][0];
-	float m11 = matrix[1][1] + rhs.matrix[1][1];
+Matrix2f::Matrix2f(const Vector2f v1, const Vector2f v2) {
+	
+	matrix_[0] = v1;
+	matrix_[1] = v2;
+}
+Matrix2f Matrix2f::operator+(const Matrix2f& rhs) const {
+	
+	float m00 = matrix_[0][0] + rhs[0][0];
+	float m01 = matrix_[0][1] + rhs[0][1];
+	float m10 = matrix_[1][0] + rhs[1][0];
+	float m11 = matrix_[1][1] + rhs[1][1];
 
 
 	return Matrix2f(Vector2f(m00,m01),Vector2f(m10,m11));
 }
-void Matrix2f::operator+=(const Matrix2f& rhs)
-{
-	matrix[0][0] += rhs.matrix[0][0];
-	matrix[0][1] += rhs.matrix[0][1];
-	matrix[1][0] += rhs.matrix[1][0];
-	matrix[1][1] += rhs.matrix[1][1];
+Matrix2f& Matrix2f::operator+=(const Matrix2f& rhs) {
+	
+	matrix_[0][0] += rhs[0][0];
+	matrix_[0][1] += rhs[0][1];
+	matrix_[1][0] += rhs[1][0];
+	matrix_[1][1] += rhs[1][1];
 
+	return *this;
 }
-Matrix2f Matrix2f::operator-(const Matrix2f& rhs) const
-{
-	float m00 = matrix[0][0] - rhs.matrix[0][0];
-	float m01 = matrix[0][1] - rhs.matrix[0][1];
-	float m10 = matrix[1][0] - rhs.matrix[1][0];
-	float m11 = matrix[1][1] - rhs.matrix[1][1];
+Matrix2f Matrix2f::operator-(const Matrix2f& rhs) const {
+	
+	float m00 = matrix_[0][0] - rhs[0][0];
+	float m01 = matrix_[0][1] - rhs[0][1];
+	float m10 = matrix_[1][0] - rhs[1][0];
+	float m11 = matrix_[1][1] - rhs[1][1];
 	
 	return Matrix2f(Vector2f(m00, m01), Vector2f(m10, m11));
 }
-void Matrix2f::operator-=(const Matrix2f& rhs)
-{
-	matrix[0][0] -= rhs.matrix[0][0];
-	matrix[0][1] -= rhs.matrix[0][1];
-	matrix[1][0] -= rhs.matrix[1][0];
-	matrix[1][1] -= rhs.matrix[1][1];
+Matrix2f& Matrix2f::operator-=(const Matrix2f& rhs) {
+	
+	matrix_[0][0] -= rhs[0][0];
+	matrix_[0][1] -= rhs[0][1];
+	matrix_[1][0] -= rhs[1][0];
+	matrix_[1][1] -= rhs[1][1];
+
+	return *this;
 }
-Matrix2f Matrix2f::operator*(const Matrix2f& rhs) const
-{
-	float m00 = (matrix[0][0] * rhs.matrix[0][0]) + (matrix[0][1] * rhs.matrix[1][0]);
-	float m01 = (matrix[0][0] * rhs.matrix[0][1]) + (matrix[0][1] * rhs.matrix[1][1]);
-	float m10 = (matrix[1][0] * rhs.matrix[0][0]) + (matrix[1][1] * rhs.matrix[1][0]);
-	float m11 = (matrix[1][0] * rhs.matrix[0][1]) + (matrix[1][1] * rhs.matrix[1][1]);
+Matrix2f Matrix2f::operator*(const Matrix2f& rhs) const {
+	
+	float m00 = (matrix_[0][0] * rhs[0][0]) + (matrix_[0][1] * rhs[1][0]);
+	float m01 = (matrix_[0][0] * rhs[0][1]) + (matrix_[0][1] * rhs[1][1]);
+	float m10 = (matrix_[1][0] * rhs[0][0]) + (matrix_[1][1] * rhs[1][0]);
+	float m11 = (matrix_[1][0] * rhs[0][1]) + (matrix_[1][1] * rhs[1][1]);
 
 	
 	return Matrix2f(Vector2f(m00, m01), Vector2f(m10, m11));
 }
-void Matrix2f::operator*=(const Matrix2f& rhs)
-{
-	matrix[0][0] = (matrix[0][0] * rhs.matrix[0][0]) + (matrix[0][1] * rhs.matrix[1][0]);
-	matrix[0][1] = (matrix[0][0] * rhs.matrix[0][1]) + (matrix[0][1] * rhs.matrix[1][1]);
-	matrix[1][0] = (matrix[1][0] * rhs.matrix[0][0]) + (matrix[1][1] * rhs.matrix[1][0]);
-	matrix[1][1] = (matrix[1][0] * rhs.matrix[0][1]) + (matrix[1][1] * rhs.matrix[1][1]);
+Matrix2f& Matrix2f::operator*=(const Matrix2f& rhs) {
+	
+	matrix_[0][0] = (matrix_[0][0] * rhs[0][0]) + (matrix_[0][1] * rhs[1][0]);
+	matrix_[0][1] = (matrix_[0][0] * rhs[0][1]) + (matrix_[0][1] * rhs[1][1]);
+	matrix_[1][0] = (matrix_[1][0] * rhs[0][0]) + (matrix_[1][1] * rhs[1][0]);
+	matrix_[1][1] = (matrix_[1][0] * rhs[0][1]) + (matrix_[1][1] * rhs[1][1]);
 
+	return *this;
 }
-void Matrix2f::operator*=(const float& scalar)
-{
-	matrix[0][0] *= scalar;
-	matrix[0][1] *= scalar;
-	matrix[1][0] *= scalar;
-	matrix[1][1] *= scalar;
+Matrix2f& Matrix2f::operator*=(const float& scalar) {
+	
+	matrix_[0][0] *= scalar;
+	matrix_[0][1] *= scalar;
+	matrix_[1][0] *= scalar;
+	matrix_[1][1] *= scalar;
+
+	return *this;
 }
-Vector2f Matrix2f::operator*(const Vector2f& rhs) const
-{
+Vector2f Matrix2f::operator*(const Vector2f& rhs) const {
+	
 	return Vector2f();
 }
-void Matrix2f::operator*=(const Vector2f& rhs)
-{
+float Matrix2f::Determinant() const {
+	
+	return (matrix_[0][0] * matrix_[1][1]) - (matrix_[0][1] * matrix_[1][0]);
 }
-float Matrix2f::Determinant() const
-{
-	return (matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0]);
-}
-Matrix2f Matrix2f::Inverse() const
-{
+Matrix2f Matrix2f::Inverse() const {
+	
 	Matrix2f inverse;
-	inverse[0][0] = matrix[1][1];
-	inverse[0][1] = -matrix[1][0];
-	inverse[1][0] = -matrix[0][1];
-	inverse[1][1] = matrix[0][0];
+	
+	inverse[0][0] = matrix_[1][1];
+	inverse[0][1] = -matrix_[1][0];
+	inverse[1][0] = -matrix_[0][1];
+	inverse[1][1] = matrix_[0][0];
 
 	inverse *= 1/Determinant();
 	
 	return inverse;
 }
-Matrix2f Matrix2f::Transpose() const
-{
-	return Matrix2f(Vector2f(matrix[0][0], matrix[1][0]), Vector2f(matrix[0][1], matrix[1][1]));
+Matrix2f Matrix2f::Transpose() const {
+	
+	return Matrix2f(Vector2f(matrix_[0][0], matrix_[1][0]), Vector2f(matrix_[0][1], matrix_[1][1]));
 }
-Matrix2f Matrix2f::Identity()
-{
+Matrix2f Matrix2f::Identity() {
+	
 	return Matrix2f(Vector2f(1, 0), Vector2f(0, 1));
 }
+	
 }//namespace maths

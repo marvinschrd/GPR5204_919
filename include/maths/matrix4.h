@@ -22,49 +22,40 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include <array>
+
 #include "maths/vector3.h"
 #include "maths/vector4.h"
 
 namespace maths
 {
-struct Matrix4f
+class Matrix4f
 {
-    union
-    {
-        struct
-        {
-            Vector4f v1;
-            Vector4f v2;
-            Vector4f v3;
-            Vector4f v4;
-        };
+public:
 
-        Vector4f matrix[4]{};
-    };
+    Matrix4f() = default;
 
-    Matrix4f() {}
+    Matrix4f(const Vector4f v1, const Vector4f v2, const Vector4f v3, const Vector4f v4);
 
-    Matrix4f(const Vector4f v1, const Vector4f v2, const Vector4f v3, const Vector4f v4) : v1(v1), v2(v2), v3(v3), v4(v4) {}
+    Vector4f& operator[](size_t index) { return matrix_[index]; }
 
-    Vector4f& operator[](size_t index) { return matrix[index]; }
+    const Vector4f& operator[](size_t index) const { return matrix_[index]; }
     
     Matrix4f operator+(const Matrix4f& rhs) const;
 
-    void operator+=(const Matrix4f& rhs);
+    Matrix4f& operator+=(const Matrix4f& rhs);
 
     Matrix4f operator-(const Matrix4f& rhs) const;
 
-    void operator-=(const Matrix4f& rhs);
+    Matrix4f& operator-=(const Matrix4f& rhs);
 
     Matrix4f operator*(const Matrix4f& rhs) const;
 
-    void operator*=(const Matrix4f& rhs);
+    Matrix4f& operator*=(const Matrix4f& rhs);
 
     Vector4f operator*(const Vector4f& rhs) const;
 
-    void operator*=(const Vector4f& rhs);
-
-    void operator*=(const float& scalar);
+    Matrix4f& operator*=(const float& scalar);
 
     float GetCofactor(int row, int column) const;
 
@@ -85,6 +76,11 @@ struct Matrix4f
     static Matrix4f ScalingMatrix(Vector3f axisValues);
 
     static Matrix4f TranslationMatrix(Vector3f axisValues);
+
+private:
+
+    std::array<Vector4f, 4> matrix_;
+    int size_ = 4;
 };
 	
 }//namespace maths

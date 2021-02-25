@@ -22,46 +22,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include <array>
+
 #include "maths/vector2.h"
 
 namespace maths
 {
-struct Matrix2f
+class Matrix2f
 {
-    union 
-    {
-        struct
-        {
-            Vector2f v1;
-            Vector2f v2;
-        };
-
-        Vector2f matrix[2]{};
-    };
+public:
     
-    Matrix2f() {}
+    Matrix2f() = default;
 
-    Matrix2f(const Vector2f v1, const Vector2f v2) : v1(v1), v2(v2) {}
+    Matrix2f(const Vector2f v1, const Vector2f v2);
 
-    Vector2f& operator[](size_t index) { return matrix[index]; }
+    Vector2f& operator[](size_t index) { return matrix_[index]; }
+
+    const Vector2f& operator[](size_t index) const { return matrix_[index]; }
 
     Matrix2f operator+(const Matrix2f& rhs) const;
 
-    void operator+=(const Matrix2f& rhs);
+    Matrix2f& operator+=(const Matrix2f& rhs);
 
     Matrix2f operator-(const Matrix2f& rhs) const;
 
-    void operator-=(const Matrix2f& rhs);
+    Matrix2f& operator-=(const Matrix2f& rhs);
 
     Matrix2f operator*(const Matrix2f& rhs) const;
 
-    void operator*=(const Matrix2f& rhs);
+    Matrix2f& operator*=(const Matrix2f& rhs);
 
-    void operator*=(const float& scalar);
+    Matrix2f& operator*=(const float& scalar);
 
     Vector2f operator*(const Vector2f& rhs) const;
-
-    void operator*=(const Vector2f& rhs);
 
     float Determinant() const;
 
@@ -70,5 +63,10 @@ struct Matrix2f
     Matrix2f Transpose() const;
 
     static Matrix2f Identity();
+
+private:
+
+    std::array<Vector2f, 2> matrix_;
+    int size_ = 2;
 };
 }//namespace maths

@@ -29,98 +29,106 @@ SOFTWARE.
 
 namespace maths
 {
-Matrix3f Matrix3f::operator+(const Matrix3f& rhs) const
-{
-	float m00 = matrix[0][0] + rhs.matrix[0][0];
-	float m10 = matrix[1][0] + rhs.matrix[1][0];
-	float m20 = matrix[2][0] + rhs.matrix[2][0];
-	float m01 = matrix[0][1] + rhs.matrix[0][1];
-	float m11 = matrix[1][1] + rhs.matrix[1][1];
-	float m21 = matrix[2][1] + rhs.matrix[2][1];
-	float m02 = matrix[0][2] + rhs.matrix[0][2];
-	float m12 = matrix[1][2] + rhs.matrix[1][2];
-	float m22 = matrix[2][2] + rhs.matrix[2][2];
-	return Matrix3f(Vector3f(m00, m01,m20), Vector3f(m10, m11,m12),Vector3f(m20,m21,m22));
+Matrix3f::Matrix3f(const Vector3f v1, const Vector3f v2, const Vector3f v3) {
+	
+	matrix_[0] = v1;
+	matrix_[1] = v2;
+	matrix_[2] = v3;
 }
-void Matrix3f::operator+=(const Matrix3f& rhs)
-{
-	float m00 = matrix[0][0] + rhs.matrix[0][0];
-	float m10 = matrix[1][0] + rhs.matrix[1][0];
-	float m20 = matrix[2][0] + rhs.matrix[2][0];
-	float m01 = matrix[0][1] + rhs.matrix[0][1];
-	float m11 = matrix[1][1] + rhs.matrix[1][1];
-	float m21 = matrix[2][1] + rhs.matrix[2][1];
-	float m02 = matrix[0][2] + rhs.matrix[0][2];
-	float m12 = matrix[1][2] + rhs.matrix[1][2];
-	float m22 = matrix[2][2] + rhs.matrix[2][2];
+Matrix3f Matrix3f::operator+(const Matrix3f& rhs) const {
+	
+	float m00 = matrix_[0][0] + rhs[0][0];
+	float m10 = matrix_[1][0] + rhs[1][0];
+	float m20 = matrix_[2][0] + rhs[2][0];
+	float m01 = matrix_[0][1] + rhs[0][1];
+	float m11 = matrix_[1][1] + rhs[1][1];
+	float m21 = matrix_[2][1] + rhs[2][1];
+	float m02 = matrix_[0][2] + rhs[0][2];
+	float m12 = matrix_[1][2] + rhs[1][2];
+	float m22 = matrix_[2][2] + rhs[2][2];
+	return Matrix3f(Vector3f(m00, m01,m02), Vector3f(m10, m11,m12),Vector3f(m20,m21,m22));
 }
-Matrix3f Matrix3f::operator-(const Matrix3f& rhs) const
-{
-	float m00 = matrix[0][0] - rhs.matrix[0][0];
-	float m10 = matrix[1][0] - rhs.matrix[1][0];
-	float m20 = matrix[2][0] - rhs.matrix[2][0];
-	float m01 = matrix[0][1] - rhs.matrix[0][1];
-	float m11 = matrix[1][1] - rhs.matrix[1][1];
-	float m21 = matrix[2][1] - rhs.matrix[2][1];
-	float m02 = matrix[0][2] - rhs.matrix[0][2];
-	float m12 = matrix[1][2] - rhs.matrix[1][2];
-	float m22 = matrix[2][2] - rhs.matrix[2][2];
-	return Matrix3f(Vector3f(m00, m01, m20), Vector3f(m10, m11, m12), Vector3f(m20, m21, m22));
+Matrix3f& Matrix3f::operator+=(const Matrix3f& rhs) {
+	
+	float m00 = matrix_[0][0] + rhs[0][0];
+	float m10 = matrix_[1][0] + rhs[1][0];
+	float m20 = matrix_[2][0] + rhs[2][0];
+	float m01 = matrix_[0][1] + rhs[0][1];
+	float m11 = matrix_[1][1] + rhs[1][1];
+	float m21 = matrix_[2][1] + rhs[2][1];
+	float m02 = matrix_[0][2] + rhs[0][2];
+	float m12 = matrix_[1][2] + rhs[1][2];
+	float m22 = matrix_[2][2] + rhs[2][2];
+
+	return *this;
 }
-void Matrix3f::operator-=(const Matrix3f& rhs)
-{
-	float m00 = matrix[0][0] - rhs.matrix[0][0];
-	float m10 = matrix[1][0] - rhs.matrix[1][0];
-	float m20 = matrix[2][0] - rhs.matrix[2][0];
-	float m01 = matrix[0][1] - rhs.matrix[0][1];
-	float m11 = matrix[1][1] - rhs.matrix[1][1];
-	float m21 = matrix[2][1] - rhs.matrix[2][1];
-	float m02 = matrix[0][2] - rhs.matrix[0][2];
-	float m12 = matrix[1][2] - rhs.matrix[1][2];
-	float m22 = matrix[2][2] - rhs.matrix[2][2];
+Matrix3f Matrix3f::operator-(const Matrix3f& rhs) const {
+	
+	float m00 = matrix_[0][0] - rhs[0][0];
+	float m10 = matrix_[1][0] - rhs[1][0];
+	float m20 = matrix_[2][0] - rhs[2][0];
+	float m01 = matrix_[0][1] - rhs[0][1];
+	float m11 = matrix_[1][1] - rhs[1][1];
+	float m21 = matrix_[2][1] - rhs[2][1];
+	float m02 = matrix_[0][2] - rhs[0][2];
+	float m12 = matrix_[1][2] - rhs[1][2];
+	float m22 = matrix_[2][2] - rhs[2][2];
+	return Matrix3f(Vector3f(m00, m01, m02), Vector3f(m10, m11, m12), Vector3f(m20, m21, m22));
 }
-Matrix3f Matrix3f::operator*(const Matrix3f& rhs) const
-{
+Matrix3f& Matrix3f::operator-=(const Matrix3f& rhs) {
+	
+	float m00 = matrix_[0][0] - rhs[0][0];
+	float m10 = matrix_[1][0] - rhs[1][0];
+	float m20 = matrix_[2][0] - rhs[2][0];
+	float m01 = matrix_[0][1] - rhs[0][1];
+	float m11 = matrix_[1][1] - rhs[1][1];
+	float m21 = matrix_[2][1] - rhs[2][1];
+	float m02 = matrix_[0][2] - rhs[0][2];
+	float m12 = matrix_[1][2] - rhs[1][2];
+	float m22 = matrix_[2][2] - rhs[2][2];
+
+	return *this;
+}
+Matrix3f Matrix3f::operator*(const Matrix3f& rhs) const {
+	
 	return Matrix3f();
 }
-void Matrix3f::operator*=(const Matrix3f& rhs)
-{
+Matrix3f& Matrix3f::operator*=(const Matrix3f& rhs) {
+	
+	return *this;
 }
-Vector3f Matrix3f::operator*(const Vector3f& rhs) const
-{
+Vector3f Matrix3f::operator*(const Vector3f& rhs) const {
+	
 	return Vector3f();
 }
-void Matrix3f::operator*=(const Vector3f& rhs)
-{
-}
-void Matrix3f::operator*=(const float& scalar)
-{
-	int size = 3;
-	for (int i = 0; i < size; ++i)
+Matrix3f& Matrix3f::operator*=(const float& scalar) {
+	
+	for (int i = 0; i < size_; ++i)
 	{
-		for (int j = 0; j < size; ++j)
+		for (int j = 0; j < size_; ++j)
 		{
-			matrix[i][j] *= scalar;
+			matrix_[i][j] *= scalar;
 		}
 	}
+
+	return *this;
 }
-float Matrix3f::GetCofactor(const int row, const int column) const
-{
-	const int size = 3;
+float Matrix3f::GetCofactor(const int row, const int column) const {
+	
 	const float sign = (column + row) % 2 == 0 ? 1.0f : -1.0f;
 	Matrix2f tmp_mat;
 	int k = 0;
 	int l = 0;
 	
-	for (int i = 0; i < size; ++i)
+	for (int i = 0; i < size_; ++i)
 	{
-		for (int j = 0; j < size; ++j)
+		for (int j = 0; j < size_; ++j)
 		{
 			if(i != column && j != row)
 			{
-				tmp_mat.matrix[k][l++] = matrix[i][j];
+				tmp_mat[k][l++] = matrix_[i][j];
 
-				if(l == size -1)
+				if(l == size_ -1)
 				{
 					l = 0;
 					k++;
@@ -133,16 +141,16 @@ float Matrix3f::GetCofactor(const int row, const int column) const
 	
 	return sign * tmp_det;
 }
-float Matrix3f::Determinant() const
-{
-	const float det = matrix[0][0] * GetCofactor(0, 0)
-					+ matrix[0][1] * GetCofactor(1, 0)
-					+ matrix[0][2] * GetCofactor(2, 0);
+float Matrix3f::Determinant() const {
+	
+	const float det = matrix_[0][0] * GetCofactor(0, 0)
+					+ matrix_[0][1] * GetCofactor(1, 0)
+					+ matrix_[0][2] * GetCofactor(2, 0);
 	
 	return det;
 }
-Matrix3f Matrix3f::Inverse() const
-{
+Matrix3f Matrix3f::Inverse() const {
+	
 	assert(Determinant() != 0.0f);
 	
 	if(IsOrthogonal())
@@ -155,73 +163,70 @@ Matrix3f Matrix3f::Inverse() const
 	
 	return tmp_mat;
 }
-Matrix3f Matrix3f::Transpose() const
-{
-	return Matrix3f(Vector3f(matrix[0][0], matrix[1][0], matrix[2][0]), 
-					Vector3f(matrix[0][1], matrix[1][1], matrix[2][1]), 
-					Vector3f(matrix[0][2], matrix[1][2], matrix[2][2]));
+Matrix3f Matrix3f::Transpose() const {
+	
+	return Matrix3f(Vector3f(matrix_[0][0], matrix_[1][0], matrix_[2][0]),
+					Vector3f(matrix_[0][1], matrix_[1][1], matrix_[2][1]),
+					Vector3f(matrix_[0][2], matrix_[1][2], matrix_[2][2]));
 }
-Matrix3f Matrix3f::Adjoint() const
-{
-	int size = 3;
+Matrix3f Matrix3f::Adjoint() const {
 	
 	Matrix3f tmp_mat;
 
-	for (int i = 0; i < size; ++i)
+	for (int i = 0; i < size_; ++i)
 	{
-		for (int j = 0; j < size; ++j)
+		for (int j = 0; j < size_; ++j)
 		{
-			tmp_mat.matrix[i][j] = GetCofactor(j, i);
+			tmp_mat[i][j] = GetCofactor(j, i);
 		}
 	}
 	
 	return tmp_mat.Transpose();
 }
-bool Matrix3f::IsOrthogonal() const
-{
-	int size = 3;
+bool Matrix3f::IsOrthogonal() const {
+	
 	int nb_identical_elements = 0;
 	Matrix3f mult_mat_tranpose;
 	
-	for (int i = 0; i < size; ++i)
+	for (int i = 0; i < size_; ++i)
 	{
-		for (int j = 0; j < size; ++j)
+		for (int j = 0; j < size_; ++j)
 		{
-			mult_mat_tranpose.matrix[i][j] = matrix[i][j];
+			mult_mat_tranpose[i][j] = matrix_[i][j];
 		}
 	}
 
 	mult_mat_tranpose *= Transpose();
 
-	for (int i = 0; i < size; ++i)
+	for (int i = 0; i < size_; ++i)
 	{
-		for (int j = 0; j < size; ++j)
+		for (int j = 0; j < size_; ++j)
 		{
-			if(mult_mat_tranpose.matrix[i][j] == Identity().matrix[i][j])
+			if(mult_mat_tranpose[i][j] == Identity()[i][j])
 			{
 				nb_identical_elements++;
 			}
 		}
 	}
 	
-	return nb_identical_elements == size * size? true : false;
+	return nb_identical_elements == size_ * size_ ? true : false;
 }
-Matrix3f Matrix3f::Identity()
-{
+Matrix3f Matrix3f::Identity() {
+	
 	return Matrix3f(Vector3f(1, 0, 0), Vector3f(0, 1, 0), Vector3f(0, 0, 1));
 }
-Matrix3f Matrix3f::RotationMatrix(radian_t angle)
-{
+Matrix3f Matrix3f::RotationMatrix(radian_t angle) {
+	
 	return Matrix3f(Vector3f(cos(angle), -sin(angle), 0),
 					Vector3f(sin(angle), cos(angle), 0), 
 					Vector3f(0, 0, 1));
 }
-Matrix3f Matrix3f::ScalingMatrix(Vector2f axisValues)
-{
+Matrix3f Matrix3f::ScalingMatrix(Vector2f axisValues) {
+	
 	return Matrix3f(Vector3f(axisValues.x, 0, 0), Vector3f(0, axisValues.y, 0), Vector3f(0, 0, 1));
 }
-Matrix3f Matrix3f::TranslationMatrix(Vector2f axisValues)
-{
+Matrix3f Matrix3f::TranslationMatrix(Vector2f axisValues) {
+	
 	return Matrix3f(Vector3f(1, 0, axisValues.x), Vector3f(0, 1, axisValues.y), Vector3f(0, 0, 1));
 }
 	
