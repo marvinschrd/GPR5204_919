@@ -24,6 +24,7 @@ SOFTWARE.
 
 #include "maths/aabb3.h"
 #include "maths/sphere.h"
+#include <algorithm>
 
 namespace maths {
 
@@ -59,6 +60,77 @@ bool ContainSphere(const Sphere& a, const Sphere& b) {
 	const float v2 = a.radius();
 
 	return (v1 < v2);
+}
+
+bool AABBOverlapSphere(const AABB3& a, const Sphere& b) {
+    // Vector from a to b absolute
+    Vector3f n = b.center() - a.center();
+    n = Vector3f(abs(n.x), abs(n.y), abs(n.z));
+
+    // Closest point on a to center b
+    Vector3f closest = n;
+
+    // Calculate half extents along each axis
+    float x_extent = (a.top_right().x - a.bottom_left().x) / 2;
+    float y_extent = (a.top_right().y - a.bottom_left().y) / 2;
+    float z_extent = (a.top_right().z - a.bottom_left().z) / 2;
+    Vector3f aabb_center = a.center();
+
+    // Clamp point to edges of AABB
+    closest.x = std::clamp(closest.x, aabb_center.x - x_extent,
+                           aabb_center.x + x_extent);
+    closest.y = std::clamp(closest.y, aabb_center.y - y_extent,
+                           aabb_center.y + y_extent);
+    closest.z = std::clamp(closest.z, aabb_center.z - z_extent,
+                           aabb_center.z + z_extent);
+
+    // Circle is inside the AABB, so we need to clamp the spheres center to the
+    // closest edge
+    if (n == closest && a.center() != b.center()) {
+        return true;
+    }
+
+    Vector3f normal = n - closest;
+    float d = normal.SqrMagnitude();
+    float radius = b.radius();
+    // Check which is larger
+    if (radius > x_extent) {
+        if (SphereContainAABB(b, a)) return false;
+    } else {
+        if (AABBContainSphere(b, a)) return false;
+    }
+
+    return d < (radius * radius);
+}
+
+bool SphereContainAABB(const Sphere& sphere, const AABB3& aabb) {
+    float distance = 0;
+
+    float x_max = std::abs(sphere.center().x - aabb.top_right().x);
+    float x_min = std::abs(sphere.center().x - aabb.bottom_left().x);
+    distance += std::powf(std::max(x_max, x_min), 2);
+
+    float y_max = std::abs(sphere.center().y - aabb.top_right().y);
+    float y_min = std::abs(sphere.center().y - aabb.bottom_left().y);
+    distance += std::powf(std::max(y_max, y_min), 2);
+
+    float z_max = std::abs(sphere.center().z - aabb.top_right().z);
+    float z_min = std::abs(sphere.center().z - aabb.bottom_left().z);
+    distance += std::powf(std::max(y_max, y_min), 2);
+
+    if (distance < sphere.radius() * sphere.radius()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool AABBContainSphere(const Sphere& sphere, const AABB3& aabb) {
+    const AABB3 sphereAABB =
+        AABB3(sphere.center() + Vector3f(sphere.radius(), sphere.radius(), sphere.radius()),
+              sphere.center() - Vector3f(sphere.radius(), sphere.radius(), sphere.radius()));
+
+    return Contain(aabb, sphereAABB);
 }
 	
 }  // namespace maths
