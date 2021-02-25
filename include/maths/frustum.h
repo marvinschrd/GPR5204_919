@@ -37,7 +37,7 @@ public:
 	
 	void calculate_frustum(Vector3f direction, Vector3f position, Vector3f right, 
 		Vector3f up, float near_plane_distance, float far_plane_distance, 
-		radian_t angle, float ratio);
+		degree_t fov_x, radian_t fov_y);
 	
 	bool contains(const Sphere& sphere);
 	bool contains(const AABB3& aabb);

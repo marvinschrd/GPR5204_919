@@ -1,4 +1,3 @@
-#include "..\..\include\maths\frustum.h"
 /*
 MIT License
 
@@ -23,11 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include "maths/frustum.h"
+
 namespace maths {
-	void Frustum::calculate_frustum(Vector3f direction, Vector3f position, Vector3f right, Vector3f up, float near_plane_distance, float far_plane_distance, radian_t angle, float ratio)
+	void Frustum::calculate_frustum(Vector3f direction, Vector3f position, Vector3f right, Vector3f up, float near_plane_distance, float far_plane_distance, degree_t fov_x, radian_t fov_y)
 	{
-		degree_t fov_x = angle;
-		degree_t fov_y = fov_x * ratio;
 		float near_plane_height = sin(fov_x / 2) * near_plane_distance * 2;
 		float near_plane_width = sin(fov_y / 2) * near_plane_distance * 2;
 		float far_plane_height = sin(fov_x / 2) * far_plane_distance * 2;
@@ -65,7 +64,6 @@ namespace maths {
 			{
 				return true;
 			}
-				
 		}
 		return true;
 	}
@@ -94,7 +92,7 @@ namespace maths {
 				if (planes_[i].distance(aabbBounds[j]) > max)
 					max = planes_[i].distance(aabbBounds[j]);
 			}
-			if (max < 0.0f) //On the outside of the axis
+			if (max < 0.0f)
 				return false;
 		}
 		return true;
