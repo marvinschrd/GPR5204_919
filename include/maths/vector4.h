@@ -26,91 +26,67 @@ SOFTWARE.
 #include <cmath>
 #include <maths/angle.h>
 
-namespace maths
-{
+namespace maths {
 /**
  *  \brief Class used to represent a 4D vector.
  */
-class Vector4f
-{
+class Vector4f {
 public:
-	union
-	{
-		struct
-		{
-			float x;
-			float y;
-			float z;
-			float w;
-		};
-		float coord[4]{};
-	};
+    union {
+        struct {
+            float x;
+            float y;
+            float z;
+            float w;
+        };
 
-	Vector4f() : x(0), y(0), z(0), w(1) {}
+        float coord[4]{};
+    };
 
-	Vector4f(float x, float y, float z, float w);
+    Vector4f()
+        : x(0),
+          y(0),
+          z(0),
+          w(1) {
+    }
 
-	Vector4f operator+(const Vector4f rhs) const
-	{
-		return { x + rhs.x, y + rhs.y, z + rhs.z, w + rhs.w };
-	}
+    Vector4f(float x, float y, float z, float w);
 
-	Vector4f& operator+=(Vector4f rhs);
+    Vector4f operator+(const Vector4f& rhs) const;
 
-	Vector4f operator-(const Vector4f rhs) const
-	{
-		return { x - rhs.x, y - rhs.y, z - rhs.z, w - rhs.w };
-	}
+    Vector4f& operator+=(const Vector4f& rhs);
 
-	Vector4f& operator-=(Vector4f rhs);
+    Vector4f operator-(const Vector4f& rhs) const;
 
-	Vector4f operator*(const float scalar) const
-	{
-		return { x * scalar, y * scalar, z * scalar, w * scalar };
-	}
+    Vector4f& operator-=(const Vector4f& rhs);
 
-	Vector4f& operator*=(float scalar);
+    Vector4f operator*(float scalar) const;
 
-	Vector4f operator/(const float scalar) const
-	{
-		return { x / scalar, y / scalar, z / scalar, w / scalar };
-	}
+    Vector4f& operator*=(float scalar);
 
-	Vector4f& operator/=(float scalar);
+    Vector4f operator/(float scalar) const;
 
-	float Dot(const Vector4f v2) const
-	{
-		return { x * v2.x + y * v2.y + z * v2.z + w * v2.w };
-	}
+    Vector4f& operator/=(float scalar);
 
-	static float Dot(const Vector4f v1, const Vector4f v2)
-	{
-		return { v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w };
-	}
+    float Dot(const Vector4f& v2) const;
 
-	float Magnitude() const
-	{
-		return std::sqrt(x * x + y * y + z * z + w * w);
-	}
+    static float Dot(const Vector4f& v1, const Vector4f& v2);
 
-	float SqrMagnitude() const { return { x * x + y * y + z * z + w * w }; }
+    float Magnitude() const;
 
-	const float& operator[](size_t component) const { return coord[component];}
+    float SqrMagnitude() const;
 
-	float& operator[](size_t component) { return coord[component]; }
+    // Allows to read value at index.
+    float operator[](std::size_t index) const { return coord[index]; }
+    // Allows to write value at index.
+    float& operator[](std::size_t index) { return coord[index]; }
 
-	Vector4f Normalized() const;
+    Vector4f Normalized() const;
 
-	void Normalize();
+    void Normalize();
 
-	Vector4f Lerp(const Vector4f v2, const float t) const
-	{
-		return *this + (v2 - *this) * t;
-	}
+    Vector4f Lerp(const Vector4f& v2, float t) const;
 
-	static Vector4f Lerp(const Vector4f v1, const Vector4f v2, const float t)
-	{
-		return  v1 + (v2 - v1) * t;
-	}
+    static Vector4f Lerp(const Vector4f& v1, const Vector4f& v2, float t);
 };
-}
+}// namespace maths

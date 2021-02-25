@@ -24,63 +24,101 @@ SOFTWARE.
 
 #include <maths/vector4.h>
 
-namespace maths
-{
-Vector4f::Vector4f(float x, float y, float z, float w) : x(x), y(y), z(z), w(w)
-{
+namespace maths {
+Vector4f::Vector4f(float x, float y, float z, float w)
+    : x(x),
+      y(y),
+      z(z),
+      w(w) {
 }
 
-Vector4f& Vector4f::operator+=(const Vector4f rhs)
-{
-	x += rhs.x;
-	y += rhs.y;
-	z += rhs.z;
-	w += rhs.w;
-	return *this;
+Vector4f Vector4f::operator+(const Vector4f& rhs) const {
+    return {x + rhs.x, y + rhs.y, z + rhs.z, w + rhs.w};
 }
 
-Vector4f& Vector4f::operator-=(const Vector4f rhs)
-{
-	x -= rhs.x;
-	y -= rhs.y;
-	z -= rhs.z;
-	w -= rhs.w;
-	return *this;
+Vector4f& Vector4f::operator+=(const Vector4f& rhs) {
+    x += rhs.x;
+    y += rhs.y;
+    z += rhs.z;
+    w += rhs.w;
+    return *this;
 }
 
-Vector4f& Vector4f::operator*=(const float scalar)
-{
-	x *= scalar;
-	y *= scalar;
-	z *= scalar;
-	w *= scalar;
-	return *this;
+Vector4f Vector4f::operator-(const Vector4f& rhs) const {
+    return {x - rhs.x, y - rhs.y, z - rhs.z, w - rhs.w};
 }
 
-Vector4f& Vector4f::operator/=(const float scalar)
-{
-	x /= scalar;
-	y /= scalar;
-	z /= scalar;
-	w /= scalar;
-	return *this;
+Vector4f& Vector4f::operator-=(const Vector4f& rhs) {
+    x -= rhs.x;
+    y -= rhs.y;
+    z -= rhs.z;
+    w -= rhs.w;
+    return *this;
 }
 
-Vector4f Vector4f::Normalized() const
-{
-	const float magnitude = Vector4f::Magnitude();
-	return { x / magnitude,
-			 y / magnitude,
-			 z / magnitude,
-			 w / magnitude };
+Vector4f Vector4f::operator*(const float scalar) const {
+    return {x * scalar, y * scalar, z * scalar, w * scalar};
 }
 
-void Vector4f::Normalize()
-{
-	const float magnitude = Vector4f::Magnitude();
-	x /= magnitude;
-	y /= magnitude;
-	z /= magnitude;
-	w /= magnitude;
+Vector4f& Vector4f::operator*=(const float scalar) {
+    x *= scalar;
+    y *= scalar;
+    z *= scalar;
+    w *= scalar;
+    return *this;
 }
-}// namespace maths
+
+Vector4f Vector4f::operator/(const float scalar) const {
+    return {x / scalar, y / scalar, z / scalar, w / scalar};
+}
+
+Vector4f& Vector4f::operator/=(const float scalar) {
+    x /= scalar;
+    y /= scalar;
+    z /= scalar;
+    w /= scalar;
+    return *this;
+}
+
+float Vector4f::Dot(const Vector4f& v2) const {
+    return Dot(*this, v2);
+}
+
+float Vector4f::Dot(const Vector4f& v1, const Vector4f& v2) {
+    return {v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w};
+}
+
+float Vector4f::Magnitude() const {
+    return std::sqrt(x * x + y * y + z * z + w * w);
+}
+
+float Vector4f::SqrMagnitude() const {
+    return {x * x + y * y + z * z + w * w};
+}
+
+Vector4f Vector4f::Normalized() const {
+    const float magnitude = Magnitude();
+
+    return {x / magnitude,
+            y / magnitude,
+            z / magnitude,
+            w / magnitude};
+}
+
+void Vector4f::Normalize() {
+    const float magnitude = Magnitude();
+
+    x /= magnitude;
+    y /= magnitude;
+    z /= magnitude;
+    w /= magnitude;
+}
+
+Vector4f Vector4f::Lerp(const Vector4f& v2, const float t) const {
+    return Lerp(*this, v2, t);
+}
+
+Vector4f Vector4f::Lerp(const Vector4f& v1, const Vector4f& v2, const float t) {
+    return v1 + (v2 - v1) * t;
+}
+} // namespace maths

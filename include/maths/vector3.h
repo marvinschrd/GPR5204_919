@@ -23,110 +23,80 @@ SOFTWARE.
 */
 
 #pragma once
-#include <cmath>
 #include <maths/angle.h>
 
-namespace maths
-{
+namespace maths {
 /**
  *  \brief Class used to represent a 3D vector.
  */
-class Vector3f
-{
+class Vector3f {
 public:
-	union
-	{
-		struct
-		{
-			float x;
-			float y;
-			float z;
-		};
-		float coord[3]{};
-	};
+    union {
+        struct {
+            float x;
+            float y;
+            float z;
+        };
 
-	Vector3f() : x(0), y(0), z(0){}
+        float coord[3]{};
+    };
 
-	Vector3f(float x, float y, float z);
+    Vector3f()
+        : x(0),
+          y(0),
+          z(0) {
+    }
 
-	Vector3f operator+(const Vector3f rhs) const
-	{
-		return {x + rhs.x, y + rhs.y, z + rhs.z};
-	}
+    Vector3f(float x, float y, float z);
 
-	Vector3f& operator+=(Vector3f rhs);
+    Vector3f operator+(const Vector3f& rhs) const;
 
-	Vector3f operator-(const Vector3f rhs) const
-	{
-		return {x - rhs.x, y - rhs.y, z - rhs.z};
-	}
+    Vector3f& operator+=(const Vector3f& rhs);
 
-	Vector3f& operator-=(Vector3f rhs);
+    Vector3f operator-(const Vector3f& rhs) const;
 
-	Vector3f operator*(const float scalar) const
-	{
-		return {x * scalar, y * scalar, z * scalar};
-	}
+    Vector3f& operator-=(const Vector3f& rhs);
 
-	Vector3f& operator*=(float scalar);
+    Vector3f operator*(float scalar) const;
 
-	Vector3f operator/(const float scalar) const
-	{
-		return {x / scalar, y / scalar, z / scalar};
-	}
+    Vector3f& operator*=(float scalar);
 
-	Vector3f& operator/=(float scalar);
+    Vector3f operator/(float scalar) const;
 
-	float Dot(const Vector3f v2) const
-	{
-		return x * v2.x + y * v2.y + z * v2.z;
-	}
+    Vector3f& operator/=(float scalar);
 
-	static float Dot(const Vector3f v1, const Vector3f v2)
-	{
-		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
-	}
+    float Dot(const Vector3f& v2) const;
 
-	Vector3f Cross(const Vector3f v2) const
-	{
-		return {y * v2.z - z * v2.y,
-				z * v2.x - x * v2.z,
-				x * v2.y - y * v2.x };
-	}
+    static float Dot(const Vector3f& v1, const Vector3f& v2);
 
-	static Vector3f Cross(const Vector3f v1, const Vector3f v2)
-	{
-		return {v1.y * v2.z - v1.z * v2.y,
-				v1.z * v2.x - v1.x * v2.z,
-				v1.x * v2.y - v1.y * v2.x };
-	}
+    Vector3f Cross(const Vector3f& v2) const;
 
-	float Magnitude() const { return std::sqrt(x * x + y * y + z * z); }
+    static Vector3f Cross(const Vector3f& v1, const Vector3f& v2);
 
-	float SqrMagnitude() const { return x * x + y * y + z * z; }
+    float Magnitude() const;
 
-	radian_t AngleBetween(const Vector3f v2) const;
+    float SqrMagnitude() const;
 
-	static radian_t AngleBetween(const Vector3f v1, const Vector3f v2);
+    radian_t AngleBetween(const Vector3f& v2) const;
 
-	const float operator[](size_t component) const { return coord[component]; }
+    static radian_t AngleBetween(const Vector3f& v1, const Vector3f& v2);
 
-	float& operator[](size_t component) { return coord[component]; }
+    // Allows to read value at index.
 
-	Vector3f Normalized() const;
+    float operator[](std::size_t index) const { return coord[index]; }
 
-	void Normalize();
+    // Allows to write value at index.
 
-	Vector3f Lerp(const Vector3f v2, const float t) const
-	{
-		return *this + (v2 - *this) * t;
-	}
+    float& operator[](std::size_t index) { return coord[index]; }
 
-	static Vector3f Lerp(const Vector3f v1, const Vector3f v2, const float t)
-	{
-		return  v1 + (v2 - v1) * t;
-	}
+    Vector3f Normalized() const;
 
-	Vector3f Slerp(Vector3f v2, const float t) const;
+    void Normalize();
+
+    Vector3f Lerp(const Vector3f& v2, float t) const;
+
+    static Vector3f Lerp(const Vector3f& v1, const Vector3f& v2, float t);
+
+    Vector3f Slerp(Vector3f& v2, float t) const;
 };
-}// namespace maths
+} // namespace maths
