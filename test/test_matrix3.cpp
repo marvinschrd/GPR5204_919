@@ -158,7 +158,7 @@ TEST(Maths, Matrix3f_RotationMatrix) {
 	EXPECT_EQ(a[0][2], 0);
 	EXPECT_EQ(a[1][0], 0);
 	EXPECT_EQ(a[1][1], 1);
-	EXPECT_EQ(a.[1][2], 0);
+	EXPECT_EQ(a[1][2], 0);
 	EXPECT_EQ(a[2][0], 0);
 	EXPECT_EQ(a[2][1], 0);
 	EXPECT_EQ(a[2][2], 1);
