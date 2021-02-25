@@ -173,6 +173,16 @@ TEST(Maths, Vector4f_DotProduct) {
               c.x * d.x + c.y * d.y + c.z * d.z + c.w * d.w);
 }
 
+TEST(Maths, Vector4f_SubscriptOperator) {
+    const maths::Vector4f a{0.0f, 3.0f, 2.0f, 1.0f};
+
+    // Test operator[].
+    EXPECT_EQ(a[0], 0.0f);
+    EXPECT_EQ(a[1], 3.0f);
+    EXPECT_EQ(a[2], 2.0f);
+    EXPECT_EQ(a[3], 1.0f);
+}
+
 TEST(Maths, Vector4f_Normalize) {
     const maths::Vector4f a{0.0f, 3.0f, 2.0f, 1.0f};
     const maths::Vector4f b = a.Normalized();

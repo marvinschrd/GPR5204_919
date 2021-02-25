@@ -90,10 +90,10 @@ public:
     static radian_t AngleBetween(const Vector3f& v1, const Vector3f& v2);
 
     // Allows to read value at index.
-    float operator[](std::size_t index) const { return coord[index]; }
+    float operator[](std::size_t index) const;
 
     // Allows to write value at index.
-    float& operator[](std::size_t index) { return coord[index]; }
+    float& operator[](std::size_t index);
 
     Vector3f Normalized() const;
 

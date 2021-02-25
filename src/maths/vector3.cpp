@@ -24,6 +24,7 @@ SOFTWARE.
 
 #include "maths/vector3.h"
 #include "maths/angle.h"
+#include "maths/maths_utils.h"
 #include <cmath>
 
 namespace maths {
@@ -78,11 +79,11 @@ Vector3f& Vector3f::operator/=(const float scalar) {
 }
 
 bool Vector3f::operator==(const Vector3f& rhs) const {
-    return x == rhs.x && y == rhs.y && z == rhs.z;
+    return Equal(x, rhs.x) && Equal(y, rhs.y) && Equal(z, rhs.z);
 }
 
 bool Vector3f::operator!=(const Vector3f& rhs) const {
-    return x != rhs.x || y != rhs.y || z != rhs.z;
+    return !Equal(x, rhs.x) || !Equal(y, rhs.y) || !Equal(z, rhs.z);
 }
 
 // This function does the Dot product of three vectors.
@@ -128,10 +129,20 @@ radian_t Vector3f::AngleBetween(const Vector3f& v1, const Vector3f& v2) {
     return {maths::acos(dot / (otherMagnitude1 * otherMagnitude2))};
 }
 
+// Allows to read value at index.
+float Vector3f::operator[](std::size_t index) const {
+    return coord[index];
+}
+
+// Allows to write value at index.
+float& Vector3f::operator[](std::size_t index) {
+    return coord[index];
+}
+
 Vector3f Vector3f::Normalized() const {
     const float magnitude = Magnitude();
 
-    if(magnitude == 0) {
+    if (Equal(magnitude, 0)) {
         return Vector3f(0, 0, 0);
     }
 
