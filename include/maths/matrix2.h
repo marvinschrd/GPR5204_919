@@ -62,6 +62,8 @@ public:
 
     Matrix2f Transpose() const;
 
+    bool IsOrthogonal() const;
+
     static Matrix2f Identity();
 
 private:

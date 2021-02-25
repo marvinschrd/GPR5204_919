@@ -57,7 +57,6 @@ TEST(Maths, Matrix4f_GetCofactor) {
 	EXPECT_EQ(a.GetCofactor(3, 2), -4);
 	EXPECT_EQ(a.GetCofactor(3, 3), -4);
 }
-
 TEST(Maths, Matrix4f_Determinant) {
 	
 	const Matrix4f a = Matrix4f(Vector4f(1, 1, 1, -1),
@@ -68,7 +67,6 @@ TEST(Maths, Matrix4f_Determinant) {
 	//Test determinant
 	EXPECT_EQ(a.Determinant(), -16);
 }
-
 TEST(Maths, Matrix4f_Inverse) {
 	
 	const Matrix4f a = Matrix4f(Vector4f(1, 1, 1, -1),
@@ -96,13 +94,12 @@ TEST(Maths, Matrix4f_Inverse) {
 	EXPECT_EQ(tmp_inverse[3][2], 0.25f);
 	EXPECT_EQ(tmp_inverse[3][3], 0.25f);
 }
-
 TEST(Maths, Matrix4f_Transpose) {
 	
 	const Matrix4f a = Matrix4f(Vector4f(0, 1, 2, 3),
 								Vector4f(4, 5, 6, 7),
 								Vector4f(8, 9, 10, 11),
-								Vector4f(12, 13, 14, 15));;
+								Vector4f(12, 13, 14, 15));
 
 	//Test transpose
 	Matrix4f tmp_transpose = a.Transpose();
@@ -124,7 +121,6 @@ TEST(Maths, Matrix4f_Transpose) {
 	EXPECT_EQ(tmp_transpose[3][2], 11);
 	EXPECT_EQ(tmp_transpose[3][3], 15);
 }
-
 TEST(Maths, Matrix4f_Adjoint)
 {
 	const Matrix4f a = Matrix4f(Vector4f(1, 1, 1, -1),
@@ -152,19 +148,17 @@ TEST(Maths, Matrix4f_Adjoint)
 	EXPECT_EQ(tmp_adjoint[3][2], -4);
 	EXPECT_EQ(tmp_adjoint[3][3], -4);
 }
-
 TEST(Maths, Matrix4f_IsOrthogonal) {
 	
-	const Matrix4f a = Matrix4f(Vector4f(1, 1, 1, -1),
-								Vector4f(1, 1, -1, 1),
-								Vector4f(1, -1, 1, 1),
-								Vector4f(-1, 1, 1, 1));
+	const Matrix4f a = Matrix4f(Vector4f(0, 1, 2, 3),
+								Vector4f(4, 5, 6, 7),
+								Vector4f(8, 9, 10, 11),
+								Vector4f(12, 13, 14, 15));
 
 	//Test if matrix is orthogonal
 	EXPECT_EQ(a.IsOrthogonal(), false);
 	EXPECT_EQ(Matrix4f::Identity().IsOrthogonal(), true);
 }
-
 TEST(Maths, Matrix4f_Identity) {
 	
 	const Matrix4f i = Matrix4f::Identity();
@@ -187,7 +181,6 @@ TEST(Maths, Matrix4f_Identity) {
 	EXPECT_EQ(i[3][2], 0);
 	EXPECT_EQ(i[3][3], 1);
 }
-
 TEST(Maths, Matrix4f_RotationMatrix) {
 	
 	radian_t angle{ 0.0f };
@@ -252,7 +245,6 @@ TEST(Maths, Matrix4f_RotationMatrix) {
 	EXPECT_EQ(a_z[3][2], 0);
 	EXPECT_EQ(a_z[3][3], 1);
 }
-
 TEST(Maths, Matrix4f_ScalingMatrix) {
 	
 	const Matrix4f a = Matrix4f::ScalingMatrix(Vector3f(1, 1, 1));
@@ -275,7 +267,6 @@ TEST(Maths, Matrix4f_ScalingMatrix) {
 	EXPECT_EQ(a[3][2], 0);
 	EXPECT_EQ(a[3][3], 1);
 }
-
 TEST(Maths, Matrix4f_TranslationMatrix) {
 	
 	const Matrix4f a = Matrix4f::TranslationMatrix(Vector3f(1, 1, 1));

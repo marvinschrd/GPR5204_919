@@ -49,7 +49,6 @@ TEST(Maths, Matrix3f_GetCofactor) {
 	EXPECT_EQ(a.GetCofactor(2, 1), -2);
 	EXPECT_EQ(a.GetCofactor(2, 2), -8);
 }
-
 TEST(Maths, Matrix3f_Determinant) {
 	
 	const Matrix3f a = Matrix3f(Vector3f(1, 2, 1), 
@@ -59,27 +58,25 @@ TEST(Maths, Matrix3f_Determinant) {
 	//Test determinant
 	EXPECT_EQ(a.Determinant(), -4);
 }
-
 TEST(Maths, Matrix3f_Inverse) {
 	
-	const Matrix3f a = Matrix3f(Vector3f(0, 1, -3),
-								Vector3f(-3, -4, 4), 
-								Vector3f(-2, -2, 1));
+	const Matrix3f a = Matrix3f(Vector3f(3, 2, 1),
+								Vector3f(1, -2, 2),
+								Vector3f(-1, 0, -1));
 
 	//Test inverse
-	maths::Matrix3f tmp_inverse = a.Inverse();
+	Matrix3f tmp_inverse = a.Inverse();
 	
-	EXPECT_EQ(tmp_inverse[0][0], 4);
-	EXPECT_EQ(tmp_inverse[0][1], 5);
-	EXPECT_EQ(tmp_inverse[0][2], -8);
-	EXPECT_EQ(tmp_inverse[1][0], -5);
-	EXPECT_EQ(tmp_inverse[1][1], -6);
-	EXPECT_EQ(tmp_inverse[1][2], 9);
-	EXPECT_EQ(tmp_inverse[2][0], -2);
-	EXPECT_EQ(tmp_inverse[2][1], -2);
-	EXPECT_EQ(tmp_inverse[2][2], 3);
+	EXPECT_EQ(tmp_inverse[0][0], 1);
+	EXPECT_EQ(tmp_inverse[0][1], 1);
+	EXPECT_EQ(tmp_inverse[0][2], 3);
+	EXPECT_EQ(tmp_inverse[1][0], -0.5f);
+	EXPECT_EQ(tmp_inverse[1][1], -1);
+	EXPECT_EQ(tmp_inverse[1][2], -2.5f);
+	EXPECT_EQ(tmp_inverse[2][0], -1);
+	EXPECT_EQ(tmp_inverse[2][1], -1);
+	EXPECT_EQ(tmp_inverse[2][2], -4);
 }
-
 TEST(Maths, Matrix3f_Transpose) {
 	
 	const Matrix3f a = Matrix3f(Vector3f(0, 1, 2),
@@ -99,7 +96,6 @@ TEST(Maths, Matrix3f_Transpose) {
 	EXPECT_EQ(tmp_transpose[2][1], 5);
 	EXPECT_EQ(tmp_transpose[2][2], 8);
 }
-
 TEST(Maths, Matrix3f_Adjoint) {
 	
 	const Matrix3f a = Matrix3f(Vector3f(3, 2, 1),
@@ -119,18 +115,16 @@ TEST(Maths, Matrix3f_Adjoint) {
 	EXPECT_EQ(tmp_adjoint[2][1], -2);
 	EXPECT_EQ(tmp_adjoint[2][2], -8);
 }
-
 TEST(Maths, Matrix3f_IsOrthogonal) {
 	
-	const Matrix3f a = Matrix3f(Vector3f(0, 1, -3), 
-								Vector3f(-3, -4, 4), 
-								Vector3f(-2, -2, 1));
+	const Matrix3f a = Matrix3f(Vector3f(0, 1, 2), 
+								Vector3f(3, 4, 5), 
+								Vector3f(6, 7, 8));
 
 	//Test if matrix is orthogonal
 	EXPECT_EQ(a.IsOrthogonal(), false);
 	EXPECT_EQ(Matrix3f::Identity().IsOrthogonal(), true);
 }
-
 TEST(Maths, Matrix3f_Identity) {
 	
 	const Matrix3f i = Matrix3f::Identity();
@@ -146,7 +140,6 @@ TEST(Maths, Matrix3f_Identity) {
 	EXPECT_EQ(i[2][1], 0);
 	EXPECT_EQ(i[2][2], 1);
 }
-
 TEST(Maths, Matrix3f_RotationMatrix) {
 	
 	radian_t angle { 0.0f };
@@ -163,7 +156,6 @@ TEST(Maths, Matrix3f_RotationMatrix) {
 	EXPECT_EQ(a[2][1], 0);
 	EXPECT_EQ(a[2][2], 1);
 }
-
 TEST(Maths, Matrix3f_ScalingMatrix) {
 	
 	const Matrix3f a = Matrix3f::ScalingMatrix(Vector2f(1, 1));
@@ -179,7 +171,6 @@ TEST(Maths, Matrix3f_ScalingMatrix) {
 	EXPECT_EQ(a[2][1], 0);
 	EXPECT_EQ(a[2][2], 1);
 }
-
 TEST(Maths, Matrix3f_TranslationMatrix) {
 	
 	const Matrix3f a = Matrix3f::TranslationMatrix(Vector2f(1, 1));

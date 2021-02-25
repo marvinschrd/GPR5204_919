@@ -189,9 +189,10 @@ Matrix4f Matrix4f::Inverse() const {
 	{
 		return Transpose();
 	}
+	
 	Matrix4f tmp_mat = Adjoint();
 
-	tmp_mat *= (1 / Determinant());
+	tmp_mat *= (1.0f / Determinant());
 
 	return tmp_mat;
 }
@@ -218,31 +219,7 @@ Matrix4f Matrix4f::Adjoint() const {
 }
 bool Matrix4f::IsOrthogonal() const {
 	
-	int nb_identical_elements = 0;
-	Matrix4f mult_mat_tranpose;
-
-	for (int i = 0; i < size_; ++i)
-	{
-		for (int j = 0; j < size_; ++j)
-		{
-			mult_mat_tranpose[i][j] = matrix_[i][j];
-		}
-	}
-
-	mult_mat_tranpose *= Transpose();
-
-	for (int i = 0; i < size_; ++i)
-	{
-		for (int j = 0; j < size_; ++j)
-		{
-			if (mult_mat_tranpose[i][j] == Identity()[i][j])
-			{
-				nb_identical_elements++;
-			}
-		}
-	}
-
-	return nb_identical_elements == size_ * size_ ? true : false;
+	return Determinant() == 1.0f;
 }
 Matrix4f Matrix4f::Identity() {
 	

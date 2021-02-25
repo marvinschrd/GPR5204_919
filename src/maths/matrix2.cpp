@@ -119,6 +119,10 @@ Matrix2f Matrix2f::Transpose() const {
 	
 	return Matrix2f(Vector2f(matrix_[0][0], matrix_[1][0]), Vector2f(matrix_[0][1], matrix_[1][1]));
 }
+bool Matrix2f::IsOrthogonal() const {
+
+	return Determinant() == 1.0f;
+}
 Matrix2f Matrix2f::Identity() {
 	
 	return Matrix2f(Vector2f(1, 0), Vector2f(0, 1));

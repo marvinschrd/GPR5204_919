@@ -152,15 +152,16 @@ float Matrix3f::Determinant() const {
 Matrix3f Matrix3f::Inverse() const {
 	
 	assert(Determinant() != 0.0f);
-	
-	if(IsOrthogonal())
+
+	if (IsOrthogonal())
 	{
 		return Transpose();
 	}
+
 	Matrix3f tmp_mat = Adjoint();
 
-	tmp_mat *= (1 / Determinant());
-	
+	tmp_mat *= (1.0f / Determinant());
+
 	return tmp_mat;
 }
 Matrix3f Matrix3f::Transpose() const {
@@ -185,31 +186,7 @@ Matrix3f Matrix3f::Adjoint() const {
 }
 bool Matrix3f::IsOrthogonal() const {
 	
-	int nb_identical_elements = 0;
-	Matrix3f mult_mat_tranpose;
-	
-	for (int i = 0; i < size_; ++i)
-	{
-		for (int j = 0; j < size_; ++j)
-		{
-			mult_mat_tranpose[i][j] = matrix_[i][j];
-		}
-	}
-
-	mult_mat_tranpose *= Transpose();
-
-	for (int i = 0; i < size_; ++i)
-	{
-		for (int j = 0; j < size_; ++j)
-		{
-			if(mult_mat_tranpose[i][j] == Identity()[i][j])
-			{
-				nb_identical_elements++;
-			}
-		}
-	}
-	
-	return nb_identical_elements == size_ * size_ ? true : false;
+	return Determinant() == 1.0f;
 }
 Matrix3f Matrix3f::Identity() {
 	

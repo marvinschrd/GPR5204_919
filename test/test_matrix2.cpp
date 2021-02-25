@@ -70,7 +70,6 @@ TEST(Maths, Matrix2f_Determinant) {
 	const float det = A.Determinant();
 	EXPECT_EQ(det, -5);
 }
-
 TEST(Maths, Matrix2f_Inverse) {
 	
 	const Matrix2f A = Matrix2f(Vector2f(1, 2), Vector2f(1, 3));
@@ -84,7 +83,6 @@ TEST(Maths, Matrix2f_Inverse) {
 	EXPECT_EQ(inverseA[1][0], -2);
 	EXPECT_EQ(inverseA[1][1], 1);
 }
-
 TEST(Maths, Matrix2f_Transpose) {
 	
 	Matrix2f a = Matrix2f(maths::Vector2f(3, -1), maths::Vector2f(-2, 1));
@@ -97,7 +95,14 @@ TEST(Maths, Matrix2f_Transpose) {
 	EXPECT_EQ(transposeA[1][0], -1);
 	EXPECT_EQ(transposeA[1][1], 1);
 }
+TEST(Maths, Matrix2f_IsOrthogonal) {
 
+	const Matrix2f a = Matrix2f(Vector2f(0, 1), Vector2f(2, 3));
+
+	//Test if matrix is orthogonal
+	EXPECT_EQ(a.IsOrthogonal(), false);
+	EXPECT_EQ(Matrix2f::Identity().IsOrthogonal(), true);
+}
 TEST(Maths, Matrix2f_Identity) {
 	
 	Matrix2f I = Matrix2f::Identity();
