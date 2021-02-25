@@ -31,7 +31,124 @@ SOFTWARE.
 #include "maths/matrix4.h"
 
 namespace maths {
-	
+
+
+TEST(Maths, Matrix3f_Addition)
+{
+	Matrix3f a = Matrix3f(Vector3f(1, 2, 1), Vector3f(3, 1, 1), Vector3f(1, 1, 1));
+	Matrix3f b = Matrix3f(Vector3f(3, 2, 1), Vector3f(1, 1, 2), Vector3f(1, 2, 1));
+
+	//Test addition (+)
+	Matrix3f x = a + b;
+
+	EXPECT_EQ(x[0][0], 4);
+	EXPECT_EQ(x[0][1], 4);
+	EXPECT_EQ(x[0][2], 2);
+	EXPECT_EQ(x[1][0], 4);
+	EXPECT_EQ(x[1][1], 2);
+	EXPECT_EQ(x[1][2], 3);
+	EXPECT_EQ(x[2][0], 2);
+	EXPECT_EQ(x[2][1], 3);
+	EXPECT_EQ(x[2][2], 2);
+
+	//Test addition (+=)
+	a += b;
+
+	EXPECT_EQ(a[0][0], 4);
+	EXPECT_EQ(a[0][1], 4);
+	EXPECT_EQ(a[0][2], 2);
+	EXPECT_EQ(a[1][0], 4);
+	EXPECT_EQ(a[1][1], 2);
+	EXPECT_EQ(a[1][2], 3);
+	EXPECT_EQ(a[2][0], 2);
+	EXPECT_EQ(a[2][1], 3);
+	EXPECT_EQ(a[2][2], 2);
+}
+
+TEST(Maths, Matrix3f_Substraction)
+{
+	Matrix3f a = Matrix3f(Vector3f(1, 2, 1), Vector3f(3, 1, 1), Vector3f(1, 1, 1));
+	Matrix3f b = Matrix3f(Vector3f(3, 2, 1), Vector3f(1, 1, 2), Vector3f(1, 2, 1));
+
+	//Test substraction (-)
+	Matrix3f x = a - b;
+
+	EXPECT_EQ(x[0][0], -2);
+	EXPECT_EQ(x[0][1], 0);
+	EXPECT_EQ(x[0][2], 0);
+	EXPECT_EQ(x[1][0], 2);
+	EXPECT_EQ(x[1][1], 0);
+	EXPECT_EQ(x[1][2], -1);
+	EXPECT_EQ(x[2][0], 0);
+	EXPECT_EQ(x[2][1], -1);
+	EXPECT_EQ(x[2][2], 0);
+
+	//Test substraction (-=)
+	a -= b;
+
+	EXPECT_EQ(a[0][0], -2);
+	EXPECT_EQ(a[0][1], 0);
+	EXPECT_EQ(a[0][2], 0);
+	EXPECT_EQ(a[1][0], 2);
+	EXPECT_EQ(a[1][1], 0);
+	EXPECT_EQ(a[1][2], -1);
+	EXPECT_EQ(a[2][0], 0);
+	EXPECT_EQ(a[2][1], -1);
+	EXPECT_EQ(a[2][2], 0);
+}
+
+TEST(Maths, Matrix3f_Multiplication)
+{
+	Matrix3f a = Matrix3f(Vector3f(1, 2, 1), Vector3f(3, 1, 1), Vector3f(1, 1, 1));
+	Matrix3f b = Matrix3f(Vector3f(3, 2, 1), Vector3f(1, 1, 2), Vector3f(1, 2, 1));
+
+	//Test multiplication (*)
+	Matrix3f x = a * b;
+
+	EXPECT_EQ(x[0][0], 10);
+	EXPECT_EQ(x[0][1], 9);
+	EXPECT_EQ(x[0][2], 6);
+	EXPECT_EQ(x[1][0], 6);
+	EXPECT_EQ(x[1][1], 5);
+	EXPECT_EQ(x[1][2], 4);
+	EXPECT_EQ(x[2][0], 8);
+	EXPECT_EQ(x[2][1], 5);
+	EXPECT_EQ(x[2][2], 4);
+
+	//Test multiplication (*=)
+	a *= b;
+
+	EXPECT_EQ(a[0][0], 10);
+	EXPECT_EQ(a[0][1], 9);
+	EXPECT_EQ(a[0][2], 6);
+	EXPECT_EQ(a[1][0], 6);
+	EXPECT_EQ(a[1][1], 5);
+	EXPECT_EQ(a[1][2], 4);
+	EXPECT_EQ(a[2][0], 8);
+	EXPECT_EQ(a[2][1], 5);
+	EXPECT_EQ(a[2][2], 4);
+
+	//Test multiplication by vector (Matrix2f * Vector2f)
+	Vector3f v = Vector3f(1, 2, 1);
+	Vector3f c = b * v;
+
+	EXPECT_EQ(c.x, 6);
+	EXPECT_EQ(c.y, 6);
+	EXPECT_EQ(c.z, 6);
+
+	//Test multiplication by scalar (Matrix2f *= float)
+	b *= 2;
+
+	EXPECT_EQ(b[0][0], 6);
+	EXPECT_EQ(b[0][1], 4);
+	EXPECT_EQ(b[0][2], 2);
+	EXPECT_EQ(b[1][0], 2);
+	EXPECT_EQ(b[1][1], 2);
+	EXPECT_EQ(b[1][2], 4);
+	EXPECT_EQ(b[2][0], 2);
+	EXPECT_EQ(b[2][1], 4);
+	EXPECT_EQ(b[2][2], 2);
+}
 TEST(Maths, Matrix3f_GetCofactor) {
 	
 	const Matrix3f a = Matrix3f(Vector3f(3, 2, 1),

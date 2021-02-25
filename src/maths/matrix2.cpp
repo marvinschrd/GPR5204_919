@@ -50,10 +50,7 @@ Matrix2f Matrix2f::operator+(const Matrix2f& rhs) const {
 }
 Matrix2f& Matrix2f::operator+=(const Matrix2f& rhs) {
 	
-	matrix_[0][0] += rhs[0][0];
-	matrix_[0][1] += rhs[0][1];
-	matrix_[1][0] += rhs[1][0];
-	matrix_[1][1] += rhs[1][1];
+	*this = *this + rhs;
 
 	return *this;
 }
@@ -68,29 +65,23 @@ Matrix2f Matrix2f::operator-(const Matrix2f& rhs) const {
 }
 Matrix2f& Matrix2f::operator-=(const Matrix2f& rhs) {
 	
-	matrix_[0][0] -= rhs[0][0];
-	matrix_[0][1] -= rhs[0][1];
-	matrix_[1][0] -= rhs[1][0];
-	matrix_[1][1] -= rhs[1][1];
+	*this = *this - rhs;
 
 	return *this;
 }
 Matrix2f Matrix2f::operator*(const Matrix2f& rhs) const {
 	
-	float m00 = (matrix_[0][0] * rhs[0][0]) + (matrix_[0][1] * rhs[1][0]);
-	float m01 = (matrix_[0][0] * rhs[0][1]) + (matrix_[0][1] * rhs[1][1]);
-	float m10 = (matrix_[1][0] * rhs[0][0]) + (matrix_[1][1] * rhs[1][0]);
-	float m11 = (matrix_[1][0] * rhs[0][1]) + (matrix_[1][1] * rhs[1][1]);
+	float m00 = (matrix_[0][0] * rhs[0][0]) + (matrix_[1][0] * rhs[0][1]);
+	float m01 = (matrix_[0][1] * rhs[0][0]) + (matrix_[1][1] * rhs[0][1]);
+	float m10 = (matrix_[0][0] * rhs[1][0]) + (matrix_[1][0] * rhs[1][1]);
+	float m11 = (matrix_[0][1] * rhs[1][0]) + (matrix_[1][1] * rhs[1][1]);
 
 	
 	return Matrix2f(Vector2f(m00, m01), Vector2f(m10, m11));
 }
 Matrix2f& Matrix2f::operator*=(const Matrix2f& rhs) {
 	
-	matrix_[0][0] = (matrix_[0][0] * rhs[0][0]) + (matrix_[0][1] * rhs[1][0]);
-	matrix_[0][1] = (matrix_[0][0] * rhs[0][1]) + (matrix_[0][1] * rhs[1][1]);
-	matrix_[1][0] = (matrix_[1][0] * rhs[0][0]) + (matrix_[1][1] * rhs[1][0]);
-	matrix_[1][1] = (matrix_[1][0] * rhs[0][1]) + (matrix_[1][1] * rhs[1][1]);
+	*this = *this * rhs;
 
 	return *this;
 }
@@ -105,7 +96,12 @@ Matrix2f& Matrix2f::operator*=(float scalar) {
 }
 Vector2f Matrix2f::operator*(Vector2f rhs) const {
 	
-	return Vector2f();
+	Vector2f tmp_vec;
+
+	tmp_vec.x = ((matrix_[0][0] * rhs.x) + (matrix_[1][0] * rhs.y));
+	tmp_vec.y = ((matrix_[0][1] * rhs.x) + (matrix_[1][1] * rhs.y));
+
+	return tmp_vec;
 }
 float Matrix2f::determinant() const {
 	

@@ -44,99 +44,77 @@ const Vector4f& Matrix4f::operator[](std::size_t index) const {
 }
 Matrix4f Matrix4f::operator+(const Matrix4f& rhs) const {
 	
-	float m00 = matrix_[0][0] + rhs[0][0];
-	float m10 = matrix_[1][0] + rhs[1][0];
-	float m20 = matrix_[2][0] + rhs[2][0];
-	float m30 = matrix_[3][0] + rhs[3][0];
-	float m01 = matrix_[0][1] + rhs[0][1];
-	float m11 = matrix_[1][1] + rhs[1][1];
-	float m21 = matrix_[2][1] + rhs[2][1];
-	float m31 = matrix_[3][1] + rhs[3][1];
-	float m02 = matrix_[0][2] + rhs[0][2];
-	float m12 = matrix_[1][2] + rhs[1][2];
-	float m22 = matrix_[2][2] + rhs[2][2];
-	float m32 = matrix_[3][1] + rhs[3][1];
-	float m03 = matrix_[0][3] + rhs[0][3];
-	float m13 = matrix_[1][3] + rhs[1][3];
-	float m23 = matrix_[2][3] + rhs[2][3];
-	float m33 = matrix_[3][3] + rhs[3][3];
+	Matrix4f tmp_mat;
 
-	return Matrix4f(Vector4f(m00, m01, m02,m03), Vector4f(m10, m11, m12, m13), Vector4f(m20, m21, m22,m23),Vector4f(m30,m31,m32,m33));
+	for (int i = 0; i < matrix_.size(); i++) {
+
+		for (int j = 0; j < matrix_.size(); j++) {
+
+			tmp_mat[i][j] = matrix_[i][j] + rhs[i][j];
+		}
+	}
+
+	return tmp_mat;
 }
 Matrix4f& Matrix4f::operator+=(const Matrix4f& rhs) {
 	
-	float m00 = matrix_[0][0] + rhs[0][0];
-	float m10 = matrix_[1][0] + rhs[1][0];
-	float m20 = matrix_[2][0] + rhs[2][0];
-	float m30 = matrix_[3][0] + rhs[3][0];
-	float m01 = matrix_[0][1] + rhs[0][1];
-	float m11 = matrix_[1][1] + rhs[1][1];
-	float m21 = matrix_[2][1] + rhs[2][1];
-	float m31 = matrix_[3][1] + rhs[3][1];
-	float m02 = matrix_[0][2] + rhs[0][2];
-	float m12 = matrix_[1][2] + rhs[1][2];
-	float m22 = matrix_[2][2] + rhs[2][2];
-	float m32 = matrix_[3][1] + rhs[3][1];
-	float m03 = matrix_[0][3] + rhs[0][3];
-	float m13 = matrix_[1][3] + rhs[1][3];
-	float m23 = matrix_[2][3] + rhs[2][3];
-	float m33 = matrix_[3][3] + rhs[3][3];
+	*this = *this + rhs;
 
 	return *this;
 }
 Matrix4f Matrix4f::operator-(const Matrix4f& rhs) const {
 	
-	float m00 = matrix_[0][0] - rhs[0][0];
-	float m10 = matrix_[1][0] - rhs[1][0];
-	float m20 = matrix_[2][0] - rhs[2][0];
-	float m30 = matrix_[3][0] - rhs[3][0];
-	float m01 = matrix_[0][1] - rhs[0][1];
-	float m11 = matrix_[1][1] - rhs[1][1];
-	float m21 = matrix_[2][1] - rhs[2][1];
-	float m31 = matrix_[3][1] - rhs[3][1];
-	float m02 = matrix_[0][2] - rhs[0][2];
-	float m12 = matrix_[1][2] - rhs[1][2];
-	float m22 = matrix_[2][2] - rhs[2][2];
-	float m32 = matrix_[3][1] - rhs[3][1];
-	float m03 = matrix_[0][3] - rhs[0][3];
-	float m13 = matrix_[1][3] - rhs[1][3];
-	float m23 = matrix_[2][3] - rhs[2][3];
-	float m33 = matrix_[3][3] - rhs[3][3];
-	
-	return Matrix4f(Vector4f(m00, m01, m02, m02), Vector4f(m10, m11, m12, m13), Vector4f(m20, m21, m22, m23), Vector4f(m30, m31, m32, m33));
+	Matrix4f tmp_mat;
+
+	for (int i = 0; i < matrix_.size(); i++) {
+
+		for (int j = 0; j < matrix_.size(); j++) {
+
+			tmp_mat[i][j] = matrix_[i][j] - rhs[i][j];
+		}
+	}
+
+	return tmp_mat;
 }
 Matrix4f& Matrix4f::operator-=(const Matrix4f& rhs) {
 	
-	float m00 = matrix_[0][0] - rhs[0][0];
-	float m10 = matrix_[1][0] - rhs[1][0];
-	float m20 = matrix_[2][0] - rhs[2][0];
-	float m30 = matrix_[3][0] - rhs[3][0];
-	float m01 = matrix_[0][1] - rhs[0][1];
-	float m11 = matrix_[1][1] - rhs[1][1];
-	float m21 = matrix_[2][1] - rhs[2][1];
-	float m31 = matrix_[3][1] - rhs[3][1];
-	float m02 = matrix_[0][2] - rhs[0][2];
-	float m12 = matrix_[1][2] - rhs[1][2];
-	float m22 = matrix_[2][2] - rhs[2][2];
-	float m32 = matrix_[3][1] - rhs[3][1];
-	float m03 = matrix_[0][3] - rhs[0][3];
-	float m13 = matrix_[1][3] - rhs[1][3];
-	float m23 = matrix_[2][3] - rhs[2][3];
-	float m33 = matrix_[3][3] - rhs[3][3];
+	*this = *this - rhs;
 
 	return *this;
 }
 Matrix4f Matrix4f::operator*(const Matrix4f& rhs) const {
 	
-	return Matrix4f();
+	Matrix4f tmp_mat;
+
+	for (int i = 0; i < matrix_.size(); i++) {
+
+		for (int j = 0; j < matrix_.size(); j++) {
+
+			for (int k = 0; k < matrix_.size(); k++) {
+
+				tmp_mat[j][i] += matrix_[k][i] * rhs[j][k];
+			}
+		}
+	}
+
+	return tmp_mat;
 }
 Matrix4f& Matrix4f::operator*=(const Matrix4f& rhs) {
 	
+	*this = *this * rhs;
+
 	return *this;
 }
 Vector4f Matrix4f::operator*(Vector4f rhs) const {
 	
-	return Vector4f();
+	Vector4f tmp_vec;
+
+	tmp_vec.x = ((matrix_[0][0] * rhs.x) + (matrix_[1][0] * rhs.y) + (matrix_[2][0] * rhs.z) + (matrix_[3][0] * rhs.w));
+	tmp_vec.y = ((matrix_[0][1] * rhs.x) + (matrix_[1][1] * rhs.y) + (matrix_[2][1] * rhs.z) + (matrix_[3][1] * rhs.w));
+	tmp_vec.z = ((matrix_[0][2] * rhs.x) + (matrix_[1][2] * rhs.y) + (matrix_[2][2] * rhs.z) + (matrix_[3][2] * rhs.w));
+	tmp_vec.w = ((matrix_[0][3] * rhs.x) + (matrix_[1][3] * rhs.y) + (matrix_[2][3] * rhs.z) + (matrix_[3][3] * rhs.w));
+
+	return tmp_vec;
 }
 Matrix4f& Matrix4f::operator*=(float scalar) {
 	
