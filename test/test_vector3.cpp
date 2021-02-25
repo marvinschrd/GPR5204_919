@@ -23,7 +23,6 @@ SOFTWARE.
 */
 
 #include <gtest/gtest.h>
-
 #include "maths/vector3.h"
 
 namespace maths {
@@ -186,6 +185,15 @@ TEST(Maths, Vector3f_AngleBetween) {
     EXPECT_EQ(maths::Vector3f::AngleBetween(a, b),
               maths::acos(maths::Vector3f::Dot(a, b) /
                   (a.Magnitude() * b.Magnitude())));
+}
+
+TEST(Maths, Vector3f_SubscriptOperator) {
+    const maths::Vector3f a{0.0f, 3.0f, 2.0f};
+
+    // Test operator[].
+    EXPECT_EQ(a[0], 0.0f);
+    EXPECT_EQ(a[1], 3.0f);
+    EXPECT_EQ(a[2], 2.0f);
 }
 
 TEST(Maths, Vector3f_Normalize) {

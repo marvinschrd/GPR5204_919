@@ -23,6 +23,7 @@ SOFTWARE.
 */
 
 #include "maths/vector4.h"
+#include "maths/maths_utils.h"
 
 namespace maths {
 Vector4f::Vector4f(float x, float y, float z, float w)
@@ -81,11 +82,13 @@ Vector4f& Vector4f::operator/=(const float scalar) {
 }
 
 bool Vector4f::operator==(const Vector4f& rhs) const {
-    return x == rhs.x && y == rhs.y && z == rhs.z && w == rhs.w;
+    return Equal(x, rhs.x) && Equal(y, rhs.y) &&
+           Equal(z, rhs.z) && Equal(w, rhs.w);
 }
 
 bool Vector4f::operator!=(const Vector4f& rhs) const {
-    return x != rhs.x || y != rhs.y || z != rhs.z || w != rhs.w;
+    return !Equal(x, rhs.x) || !Equal(y, rhs.y) ||
+           !Equal(z, rhs.z) || !Equal(w, rhs.w);
 }
 
 // This function does the Dot product of four vectors.
@@ -107,10 +110,20 @@ float Vector4f::SqrMagnitude() const {
     return {x * x + y * y + z * z + w * w};
 }
 
+// Allows to read value at index.
+float Vector4f::operator[](std::size_t index) const {
+    return coord[index];
+}
+
+// Allows to write value at index.
+float& Vector4f::operator[](std::size_t index) {
+    return coord[index];
+}
+
 Vector4f Vector4f::Normalized() const {
     const float magnitude = Magnitude();
 
-     if (magnitude == 0) {
+    if (Equal(magnitude, 0)) {
         return Vector4f(0, 0, 0, 0);
     }
 

@@ -26,106 +26,102 @@ SOFTWARE.
 
 namespace maths {
 
-	bool Ray3::intersect_sphere(HitInfo& info, Sphere& sphere) {
-		
-		Vector3f v = sphere.center() - origin_;
-		float d = v.Dot(unit_direction_);
-		if (d < 0)
-		{
-			return false;
-		}
+bool Ray3::IntersectSphere(const Sphere& sphere) {
 
-		float squaredDistance = v.Dot(v) - (d * d);
-		float radius2 = sphere.radius() * sphere.radius();
-		if (squaredDistance > radius2)
-		{
-			return false;
-		}
+    const Vector3f v = sphere.center() - origin_;
+    const float d = v.Dot(unit_direction_); // Distance to closest point to sphere center
+    float distance;
+    if (d < 0) {
+        return false;
+    }
 
-		auto q = std::sqrt(radius2 - squaredDistance);
+    const float squaredDistance = v.Dot(v) - (d * d); // squared Distance between closest point to sphere center
+    const float radius2 = sphere.radius() * sphere.radius();
+    if (squaredDistance > radius2) {
+        return false;
+    }
 
-		auto t0 = d + q;
-		auto t1 = d - q;
+    const auto q = std::sqrt(radius2 - squaredDistance);
 
-		bool hasHit = false;
-		float dis;
-		if (t0 >= 0) {
-			dis = t0;
-			hasHit = true;
-		}
+    const auto t0 = d + q;
+    const auto t1 = d - q;
 
-		if (t1 >= 0) {
-			if (!hasHit || t1 < dis) {
-				dis = t1;
-				hasHit = true;
-			}
-		}
+    bool hasHit = false;
+    if (t0 >= 0) {
+        distance = t0;
+        hasHit = true;
+    }
 
-		if (!hasHit) {
-			return false;
-		}
+    if (t1 >= 0) {
+        if (!hasHit || t1 < distance) {
+            distance = t1;
+            hasHit = true;
+        }
+    }
 
-		auto pt = origin_ + unit_direction_ * dis;
-		info.hit = true;
-		info.hitPoint = pt;
-		info.distance = dis;
+    if (!hasHit) {
+        return false;
+    }
 
-		return true;
-	}
+    // calculate the position where the ray hit
+    hit_position_ = origin_ + unit_direction_ * distance;
+    return true;
+}
 
-	bool Ray3::intersect_AABB3(HitInfo& info, AABB3 aabb) {
-		
-		Vector3f lb = aabb.bottom_left();
-		Vector3f rt = aabb.top_right();
-		Vector3f dirfrac;
+bool Ray3::IntersectAABB3(const AABB3& aabb) {
 
-		dirfrac.x = 1.0f / unit_direction().x;
-		dirfrac.y = 1.0f / unit_direction().y;
-		dirfrac.z = 1.0f / unit_direction().z;
-		// lb is the corner of AABB with minimal coordinates - left bottom, rt is maximal corner
-		float t1 = (lb.x - origin_.x) * dirfrac.x;
-		float t2 = (rt.x - origin_.x) * dirfrac.x;
-		float t3 = (lb.y - origin_.y) * dirfrac.y;
-		float t4 = (rt.y - origin_.y) * dirfrac.y;
-		float t5 = (lb.z - origin_.z) * dirfrac.z;
-		float t6 = (rt.z - origin_.z) * dirfrac.z;
+    const Vector3f lb = aabb.bottom_left();
+    const Vector3f rt = aabb.top_right();
+    Vector3f dirfrac;
+    float distance;
 
-		float tmin = std::max(std::max(std::min(t1, t2), std::min(t3, t4)), std::min(t5, t6));
-		float tmax = std::min(std::min(std::max(t1, t2), std::max(t3, t4)), std::max(t5, t6));
+    dirfrac.x = 1.0f / unit_direction().x;
+    dirfrac.y = 1.0f / unit_direction().y;
+    dirfrac.z = 1.0f / unit_direction().z;
+    // lb is the corner of AABB with minimal coordinates - left bottom, rt is maximal corner
+    const float t1 = (lb.x - origin_.x) * dirfrac.x;
+    const float t2 = (rt.x - origin_.x) * dirfrac.x;
+    const float t3 = (lb.y - origin_.y) * dirfrac.y;
+    const float t4 = (rt.y - origin_.y) * dirfrac.y;
+    const float t5 = (lb.z - origin_.z) * dirfrac.z;
+    const float t6 = (rt.z - origin_.z) * dirfrac.z;
 
-		// if tmax < 0, ray (line) is intersecting AABB, but the whole AABB is behind us
-		if (tmax < 0)
-		{
-			info.distance = tmax;
-			return false;
-		}
+    const float tmin = std::max(std::max(std::min(t1, t2), std::min(t3, t4)),
+                          std::min(t5, t6));
+    const float tmax = std::min(std::min(std::max(t1, t2), std::max(t3, t4)),
+                          std::max(t5, t6));
 
-		// if tmin > tmax, ray doesn't intersect AABB
-		if (tmin > tmax)
-		{
-			info.distance = tmax;
-			return false;
-		}
+    // if tmax < 0, ray is intersecting AABB, but the whole AABB is behind
+    if (tmax < 0) {
+        return false;
+    }
 
-		info.distance = tmin;
-		info.hitPoint = origin_ + direction_ * info.distance;
-		return true;
-	}
+    // if tmin > tmax, ray doesn't intersect AABB
+    if (tmin > tmax) {
+        return false;
+    }
 
-	bool Ray3::intersect_plane(HitInfo& info, Plane plane)
-	{
-		float s = direction_.Dot(plane.normal());
-		if(s >0)
-		{
-			return false;
-		}
-		float distance = (plane.distance(plane.point()) - origin_.Dot(plane.normal())) / s;
-		if(distance < 0)
-		{
-			return false;
-		}
-		info.hitPoint = origin_ + (direction_ * distance);
-		return true;
-	}
-	
+    distance = tmin;
+
+    // calculate the position where the ray hit
+    hit_position_ = origin_ + direction_ * distance;
+    return true;
+}
+
+bool Ray3::IntersectPlane(const Plane& plane) {
+    const float s = direction_.Dot(plane.normal());
+    if (s > 0) {
+        return false;
+    }
+    const float distance = (plane.Distance(plane.point()) - origin_.Dot(
+                          plane.normal())) / s;
+    if (distance < 0) {
+        return false;
+    }
+
+    // calculate the position where the ray hit
+    hit_position_ = origin_ + (direction_ * distance);
+    return true;
+}
+
 } // namespace maths

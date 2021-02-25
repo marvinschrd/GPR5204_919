@@ -83,10 +83,10 @@ public:
     float SqrMagnitude() const;
 
     // Allows to read value at index.
-    float operator[](std::size_t index) const { return coord[index]; }
+    float operator[](std::size_t index) const;
 
     // Allows to write value at index.
-    float& operator[](std::size_t index) { return coord[index]; }
+    float& operator[](std::size_t index);
 
     Vector4f Normalized() const;
 
@@ -97,4 +97,4 @@ public:
 
     static Vector4f Lerp(const Vector4f& v1, const Vector4f& v2, float t);
 };
-}// namespace maths
+} // namespace maths

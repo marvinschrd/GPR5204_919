@@ -26,147 +26,152 @@ SOFTWARE.
 
 #include "maths/ray2.h"
 #include "maths/ray3.h"
-#include "maths/aabb2.h"
-#include "maths/aabb3.h"
 
+namespace maths {
+ 
 TEST(Maths, Ray_PointInRay)
 {
-	maths::Vector2f a{ 1.0f,2.0f };
-	maths::Vector2f b{ 2.0f,3.0f };
-
-	maths::Ray2 r{ a,b };
+	// Test PointInRay Ray2
+	Vector2f a{ 1.0f,2.0f };
+	Vector2f b{ 2.0f,3.0f };
+	Ray2 ray{ a,b };
 	
 	float v = 2.0f;
 	
-	maths::Vector2f c = r.point_in_ray(v);
-	maths::Vector2f d = a + (b * v);
-	ASSERT_EQ(r.point_in_ray(v), d);
-	
+	Vector2f d = a + (b * v);
+	EXPECT_EQ(ray.PointInRay(v), d);
+
+	// Test PointInRay Ray3
+	Vector3f g{ 1.0f,2.0f,1.0f };
+	Vector3f h{ 2.0f,3.0f,1.0f };
+	Ray3 ray3{ g,h };
+
+	float v2 = 2.0f;
+
+	const Vector3f i = g + (h * v2);
+	const Vector3f k = ray3.PointInRay(v2);
+	EXPECT_EQ( k.x, i.x);
+	EXPECT_EQ(k.y, i.y);
+	EXPECT_EQ(k.z, i.z);
 }
 
-TEST(Maths, Ray_Intersect_AABB2)
+
+	
+TEST(Maths, Ray_IntersectAABB2)
 {
-	maths::Vector2f a{ -0.5f,-0.5f };
-	maths::Vector2f b{ 0.5f,0.5f };
+	Vector2f a{ -0.5f,-0.5f };
+	Vector2f b{ 0.5f,0.5f };
+	AABB2 aabb{ a,b };
 
-	maths::AABB2 aabb{ a,b };
-
-	maths::Vector2f origin{ -0.1f,-0.1f };
-	maths::Vector2f direction{ 1.0f,1.0f };
-
-	maths::Ray2 ray{ origin,direction };
+	Vector2f origin{ -0.1f,-0.1f };
+	Vector2f direction{ 1.0f,1.0f };
+	Ray2 ray{ origin,direction };
 
 	// inside intersection
-	ASSERT_TRUE(ray.intersect_AABB2(ray.info, aabb));
+	ASSERT_TRUE(ray.IntersectAABB2(aabb));
 
 	// basic intersection
-	origin = maths::Vector2f(-1.0f, -1.0f);
-	direction = maths::Vector2f(1.0f, 1.0f);
-	maths::Ray2 ray2{ origin,direction };
-	ASSERT_TRUE(ray2.intersect_AABB2(ray2.info,aabb));
+	origin = Vector2f(-1.0f, -1.0f);
+	direction = Vector2f(1.0f, 1.0f);
+	ray = Ray2 { origin,direction };
+	ASSERT_TRUE(ray.IntersectAABB2(aabb));
 	
 	// limit intersection
-	origin = maths::Vector2f(-0.5f, -1.5f);
-	maths::Ray2 ray3{ origin,direction };
-	ASSERT_TRUE(ray3.intersect_AABB2(ray3.info,aabb));
+	origin = Vector2f(-0.5f, -1.5f);
+	ray = Ray2 { origin,direction };
+	ASSERT_TRUE(ray.IntersectAABB2(aabb));
 
 	// no intersection
-	origin = maths::Vector2f(-0.5f, -2.0f);
-	maths::Ray2 ray4{ origin,direction };
-	ASSERT_FALSE(ray4.intersect_AABB2(ray4.info,aabb));
+	origin = Vector2f(-0.5f, -2.0f);
+	ray = Ray2 { origin,direction };
+	ASSERT_FALSE(ray.IntersectAABB2(aabb));
 
 	
 }
 
-TEST(Maths, Ray_intercept_ABB3)
+TEST(Maths, Ray_interceptABB3)
 {
-	maths::Vector3f a{ -0.5f,-0.5f,-0.5f };
-	maths::Vector3f b{ 0.5f,0.5f,0.5f };
+	Vector3f a{ -0.5f,-0.5f,-0.5f };
+	Vector3f b{ 0.5f,0.5f,0.5f };
+	AABB3 aabb{ a,b };
 
-	maths::AABB3 aabb{ a,b };
-
-	maths::Vector3f origin { -0.1f,-0.1f,-0.1f };
-	maths::Vector3f direction{ 1.0f,1.0f,1.0f };
-	
-	maths::Ray3 ray{ origin,direction};
+	Vector3f origin { -0.1f,-0.1f,-0.1f };
+	Vector3f direction{ 1.0f,1.0f,1.0f };
+	Ray3 ray{ origin,direction};
 	// inside intersection
-	ASSERT_TRUE(ray.intersect_AABB3(ray.info, aabb));
+	ASSERT_TRUE(ray.IntersectAABB3(aabb));
 	
-	origin = maths::Vector3f{ -1.0f,-1.0f,-1.0f };
-	ray = maths::Ray3{ origin, direction };
+	origin = Vector3f{ -1.0f,-1.0f,-1.0f };
+	ray = Ray3{ origin, direction };
 	// basic intersection
-	ASSERT_TRUE(ray.intersect_AABB3(ray.info, aabb));
+	ASSERT_TRUE(ray.IntersectAABB3(aabb));
 
-	origin = maths::Vector3f{ -0.5f,-1.5f,-1.5f };
-	ray = maths::Ray3{ origin, direction };
+	origin = Vector3f{ -0.5f,-1.5f,-1.5f };
+	ray = Ray3{ origin, direction };
 	// limit intersection
-	ASSERT_TRUE(ray.intersect_AABB3(ray.info,aabb));
+	ASSERT_TRUE(ray.IntersectAABB3(aabb));
 
-	origin = maths::Vector3f{ -0.5f, -2.0f, -2.0f };
-	ray = maths::Ray3{ origin, direction };
+	origin = Vector3f{ -0.5f, -2.0f, -2.0f };
+	ray = Ray3{ origin, direction };
 	// no intersection
-	ASSERT_FALSE(ray.intersect_AABB3(ray.info, aabb));
+	ASSERT_FALSE(ray.IntersectAABB3(aabb));
 }
 
-TEST(Maths, Ray_intersect_Circle)
+TEST(Maths, Ray_intersectCircle)
 {
-	maths::Vector2f center{ 0.0f,0.0f };
+	Vector2f center{ 0.0f,0.0f };
 	float radius = 1.0f;
+	Circle circle{ radius,center };
 
-	maths::Circle circle{ radius,center };
-
-	maths::Vector2f origin{ 0.0f,0.0f };
-	maths::Vector2f direction{ 1.0f,1.0f };
-
-	maths::Ray2 ray{ origin,direction };
+	Vector2f origin{ 0.0f,0.0f };
+	Vector2f direction{ 1.0f,1.0f };
+	Ray2 ray{ origin,direction };
 	// inside intersection
-	ASSERT_TRUE(ray.intersect_circle(ray.info, circle));
+	ASSERT_TRUE(ray.IntersectCircle(circle));
 	
-	origin = maths::Vector2f{ -1.0f,-1.0f };
-	ray = maths::Ray2{ origin,direction };
+	origin = Vector2f{ -1.0f,-1.0f };
+	ray = Ray2{ origin,direction };
 	// basic intersection
-	ASSERT_TRUE(ray.intersect_circle(ray.info, circle));
+	ASSERT_TRUE(ray.IntersectCircle(circle));
 
-	origin = maths::Vector2f{ -1.0f,-2.0f };
-	ray = maths::Ray2{ origin,direction };
+	origin = Vector2f{ -1.0f,-2.0f };
+	ray = Ray2{ origin,direction };
 	// limit intersection
-	ASSERT_TRUE(ray.intersect_circle(ray.info, circle));
+	ASSERT_TRUE(ray.IntersectCircle(circle));
 
-	origin = maths::Vector2f{ -1.0f,-2.5f };
-	ray = maths::Ray2{ origin,direction };
+	origin = Vector2f{ -1.0f,-2.5f };
+	ray = Ray2{ origin,direction };
 	// no intersection
-	ASSERT_FALSE(ray.intersect_circle(ray.info, circle));
+	ASSERT_FALSE(ray.IntersectCircle(circle));
 }
 
-TEST(Maths, Ray_intersect_Sphere)
+TEST(Maths, Ray_intersectSphere)
 {
-	maths::Vector3f center{ 0.0f,0.0f,0.0f };
+	Vector3f center{ 0.0f,0.0f,0.0f };
 	float radius = 1.0f;
+	Sphere sphere{ radius,center };
 
-	maths::Sphere sphere{ radius,center };
-
-	maths::Vector3f origin{ 0.0f,0.0f,0.0f };
-	maths::Vector3f direction{ 1.0f,1.0f,1.0f };
-
-	maths::Ray3 ray{ origin,direction };
+	Vector3f origin{ 0.0f,0.0f,0.0f };
+	Vector3f direction{ 1.0f,1.0f,1.0f };
+	Ray3 ray{ origin,direction };
 	// inside intersection
-	ASSERT_TRUE(ray.intersect_sphere(ray.info, sphere));
+	ASSERT_TRUE(ray.IntersectSphere(sphere));
 
-	origin = maths::Vector3f{ -1.0f,-1.0f,-1.0f };
-	ray = maths::Ray3{ origin,direction };
+	origin = Vector3f{ -1.0f,-1.0f,-1.0f };
+	ray = Ray3{ origin,direction };
 	// basic intersection
-	ASSERT_TRUE(ray.intersect_sphere(ray.info, sphere));
+	ASSERT_TRUE(ray.IntersectSphere(sphere));
 
-	origin = maths::Vector3f{ -1.0f,-1.0f,-2.0f };
-	ray = maths::Ray3{ origin,direction };
+	origin = Vector3f{ -1.0f,-1.0f,-2.0f };
+	ray = Ray3{ origin,direction };
 	// limit intersection
-	ASSERT_TRUE(ray.intersect_sphere(ray.info, sphere));
+	ASSERT_TRUE(ray.IntersectSphere(sphere));
 
-	origin = maths::Vector3f{ -1.0f,-3.0f,-2.0f };
-	ray = maths::Ray3{ origin,direction };
+	origin = Vector3f{ -1.0f,-3.0f,-2.0f };
+	ray = Ray3{ origin,direction };
 	// no intersection
-	ASSERT_FALSE(ray.intersect_sphere(ray.info, sphere));
-	
+	ASSERT_FALSE(ray.IntersectSphere(sphere));
 }
 
+} // namespace maths
 

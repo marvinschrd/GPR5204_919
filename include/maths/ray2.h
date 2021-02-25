@@ -27,47 +27,35 @@ SOFTWARE.
 #include "maths/aabb2.h"
 
 namespace maths {
-	
-class Ray2	{
+
+class Ray2 {
 public:
-	Ray2() = default;
-	Ray2(Vector2f& origin,Vector2f& direction) : origin_(origin), direction_(direction) {}
-	
-	struct HitInfo
-	{
-		HitInfo()
-		{
-			reset();
-		}
+    Ray2() = default;
 
-		void reset()
-		{
-			distance = std::numeric_limits<float>::infinity();
-			hit = false;
-		}
+    Ray2(Vector2f& origin, Vector2f& direction)
+        : origin_(origin),
+          direction_(direction) {
+    }
 
-		Vector2f hitPoint;
-		Vector2f hitNormal;
-		float distance;
-		bool hit;
-	};
-	HitInfo info;
-	
-	Vector2f point_in_ray(float value) const {
-		return { origin_ + direction_ * value };
-	}
-	
-	Vector2f origin() const { return origin_; }
-	Vector2f direction() const { return direction_; }
-	Vector2f unit_direction() const { return  unit_direction_; }
-	
-	bool intersect_circle(HitInfo &info, Circle &circle);
-	bool intersect_AABB2(HitInfo &info, AABB2 aabb);
-	
+    // Return a point along the ray from a given value
+    Vector2f PointInRay(float value) const {
+        return {origin_ + direction_ * value};
+    }
+
+    Vector2f origin() const { return origin_; }
+    Vector2f direction() const { return direction_; }
+    Vector2f unit_direction() const { return unit_direction_; }
+
+    // Return true if ray intersect a circle
+    bool IntersectCircle(const Circle& circle);
+    //Return true if ray intersect AABB
+    bool IntersectAABB2(const AABB2& aabb);
+
 private:
-	Vector2f origin_ = {};
-	Vector2f direction_ = {};
-	Vector2f unit_direction_ = direction_.Normalized();
+    Vector2f origin_ = {};
+    Vector2f direction_ = {};
+    Vector2f unit_direction_ = direction_.Normalized();
+    Vector2f hit_position_;
 };
-	
+
 } // namespace maths
