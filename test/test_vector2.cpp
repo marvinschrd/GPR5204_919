@@ -94,6 +94,22 @@ TEST(Maths, Vector2f_DivisionByScalar) {
     EXPECT_EQ(e.y, d.y / b);
 }
 
+TEST(Maths, Vector2f_Equal) {
+    const Vector2f a{ 2.0f, 3.0f };
+    const Vector2f b = a;
+
+    //Test operator == .
+    EXPECT_TRUE(a.operator==(b));
+}
+
+TEST(Maths, Vector2f_NotEqual) {
+    const Vector2f a{ 2.0f, 3.0f };
+    const Vector2f b{ 1.0f, 4.0f };
+
+    //Test operator != .
+    EXPECT_TRUE(a.operator!=(b));
+}
+
 TEST(Maths, Vector2f_Magnitude) {
     const Vector2f a{2.0f, 3.0f};
     const float b = 4;
