@@ -31,17 +31,83 @@ namespace maths
 {
 Matrix4f Matrix4f::operator+(const Matrix4f& rhs) const
 {
-	return Matrix4f();
+	float m00 = matrix[0][0] + rhs.matrix[0][0];
+	float m10 = matrix[1][0] + rhs.matrix[1][0];
+	float m20 = matrix[2][0] + rhs.matrix[2][0];
+	float m30 = matrix[3][0] + rhs.matrix[3][0];
+	float m01 = matrix[0][1] + rhs.matrix[0][1];
+	float m11 = matrix[1][1] + rhs.matrix[1][1];
+	float m21 = matrix[2][1] + rhs.matrix[2][1];
+	float m31 = matrix[3][1] + rhs.matrix[3][1];
+	float m02 = matrix[0][2] + rhs.matrix[0][2];
+	float m12 = matrix[1][2] + rhs.matrix[1][2];
+	float m22 = matrix[2][2] + rhs.matrix[2][2];
+	float m32 = matrix[3][1] + rhs.matrix[3][1];
+	float m03 = matrix[0][3] + rhs.matrix[0][3];
+	float m13 = matrix[1][3] + rhs.matrix[1][3];
+	float m23 = matrix[2][3] + rhs.matrix[2][3];
+	float m33 = matrix[3][3] + rhs.matrix[3][3];
+
+
+	return Matrix4f(Vector4f(m00, m01, m20,m30), Vector4f(m10, m11, m12, m13), Vector4f(m20, m21, m22,m23),Vector4f(m30,m31,m32,m33));
 }
 void Matrix4f::operator+=(const Matrix4f& rhs)
 {
+	float m00 = matrix[0][0] + rhs.matrix[0][0];
+	float m10 = matrix[1][0] + rhs.matrix[1][0];
+	float m20 = matrix[2][0] + rhs.matrix[2][0];
+	float m30 = matrix[3][0] + rhs.matrix[3][0];
+	float m01 = matrix[0][1] + rhs.matrix[0][1];
+	float m11 = matrix[1][1] + rhs.matrix[1][1];
+	float m21 = matrix[2][1] + rhs.matrix[2][1];
+	float m31 = matrix[3][1] + rhs.matrix[3][1];
+	float m02 = matrix[0][2] + rhs.matrix[0][2];
+	float m12 = matrix[1][2] + rhs.matrix[1][2];
+	float m22 = matrix[2][2] + rhs.matrix[2][2];
+	float m32 = matrix[3][1] + rhs.matrix[3][1];
+	float m03 = matrix[0][3] + rhs.matrix[0][3];
+	float m13 = matrix[1][3] + rhs.matrix[1][3];
+	float m23 = matrix[2][3] + rhs.matrix[2][3];
+	float m33 = matrix[3][3] + rhs.matrix[3][3];
 }
 Matrix4f Matrix4f::operator-(const Matrix4f& rhs) const
 {
-	return Matrix4f();
+	float m00 = matrix[0][0] - rhs.matrix[0][0];
+	float m10 = matrix[1][0] - rhs.matrix[1][0];
+	float m20 = matrix[2][0] - rhs.matrix[2][0];
+	float m30 = matrix[3][0] - rhs.matrix[3][0];
+	float m01 = matrix[0][1] - rhs.matrix[0][1];
+	float m11 = matrix[1][1] - rhs.matrix[1][1];
+	float m21 = matrix[2][1] - rhs.matrix[2][1];
+	float m31 = matrix[3][1] - rhs.matrix[3][1];
+	float m02 = matrix[0][2] - rhs.matrix[0][2];
+	float m12 = matrix[1][2] - rhs.matrix[1][2];
+	float m22 = matrix[2][2] - rhs.matrix[2][2];
+	float m32 = matrix[3][1] - rhs.matrix[3][1];
+	float m03 = matrix[0][3] - rhs.matrix[0][3];
+	float m13 = matrix[1][3] - rhs.matrix[1][3];
+	float m23 = matrix[2][3] - rhs.matrix[2][3];
+	float m33 = matrix[3][3] - rhs.matrix[3][3];
+	return Matrix4f(Vector4f(m00, m01, m20, m30), Vector4f(m10, m11, m12, m13), Vector4f(m20, m21, m22, m23), Vector4f(m30, m31, m32, m33));
 }
 void Matrix4f::operator-=(const Matrix4f& rhs)
 {
+	float m00 = matrix[0][0] - rhs.matrix[0][0];
+	float m10 = matrix[1][0] - rhs.matrix[1][0];
+	float m20 = matrix[2][0] - rhs.matrix[2][0];
+	float m30 = matrix[3][0] - rhs.matrix[3][0];
+	float m01 = matrix[0][1] - rhs.matrix[0][1];
+	float m11 = matrix[1][1] - rhs.matrix[1][1];
+	float m21 = matrix[2][1] - rhs.matrix[2][1];
+	float m31 = matrix[3][1] - rhs.matrix[3][1];
+	float m02 = matrix[0][2] - rhs.matrix[0][2];
+	float m12 = matrix[1][2] - rhs.matrix[1][2];
+	float m22 = matrix[2][2] - rhs.matrix[2][2];
+	float m32 = matrix[3][1] - rhs.matrix[3][1];
+	float m03 = matrix[0][3] - rhs.matrix[0][3];
+	float m13 = matrix[1][3] - rhs.matrix[1][3];
+	float m23 = matrix[2][3] - rhs.matrix[2][3];
+	float m33 = matrix[3][3] - rhs.matrix[3][3];
 }
 Matrix4f Matrix4f::operator*(const Matrix4f& rhs) const
 {

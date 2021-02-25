@@ -31,17 +31,53 @@ namespace maths
 {
 Matrix3f Matrix3f::operator+(const Matrix3f& rhs) const
 {
-	return Matrix3f();
+	float m00 = matrix[0][0] + rhs.matrix[0][0];
+	float m10 = matrix[1][0] + rhs.matrix[1][0];
+	float m20 = matrix[2][0] + rhs.matrix[2][0];
+	float m01 = matrix[0][1] + rhs.matrix[0][1];
+	float m11 = matrix[1][1] + rhs.matrix[1][1];
+	float m21 = matrix[2][1] + rhs.matrix[2][1];
+	float m02 = matrix[0][2] + rhs.matrix[0][2];
+	float m12 = matrix[1][2] + rhs.matrix[1][2];
+	float m22 = matrix[2][2] + rhs.matrix[2][2];
+	return Matrix3f(Vector3f(m00, m01,m20), Vector3f(m10, m11,m12),Vector3f(m20,m21,m22));
 }
 void Matrix3f::operator+=(const Matrix3f& rhs)
 {
+	float m00 = matrix[0][0] + rhs.matrix[0][0];
+	float m10 = matrix[1][0] + rhs.matrix[1][0];
+	float m20 = matrix[2][0] + rhs.matrix[2][0];
+	float m01 = matrix[0][1] + rhs.matrix[0][1];
+	float m11 = matrix[1][1] + rhs.matrix[1][1];
+	float m21 = matrix[2][1] + rhs.matrix[2][1];
+	float m02 = matrix[0][2] + rhs.matrix[0][2];
+	float m12 = matrix[1][2] + rhs.matrix[1][2];
+	float m22 = matrix[2][2] + rhs.matrix[2][2];
 }
 Matrix3f Matrix3f::operator-(const Matrix3f& rhs) const
 {
-	return Matrix3f();
+	float m00 = matrix[0][0] - rhs.matrix[0][0];
+	float m10 = matrix[1][0] - rhs.matrix[1][0];
+	float m20 = matrix[2][0] - rhs.matrix[2][0];
+	float m01 = matrix[0][1] - rhs.matrix[0][1];
+	float m11 = matrix[1][1] - rhs.matrix[1][1];
+	float m21 = matrix[2][1] - rhs.matrix[2][1];
+	float m02 = matrix[0][2] - rhs.matrix[0][2];
+	float m12 = matrix[1][2] - rhs.matrix[1][2];
+	float m22 = matrix[2][2] - rhs.matrix[2][2];
+	return Matrix3f(Vector3f(m00, m01, m20), Vector3f(m10, m11, m12), Vector3f(m20, m21, m22));
 }
 void Matrix3f::operator-=(const Matrix3f& rhs)
 {
+	float m00 = matrix[0][0] - rhs.matrix[0][0];
+	float m10 = matrix[1][0] - rhs.matrix[1][0];
+	float m20 = matrix[2][0] - rhs.matrix[2][0];
+	float m01 = matrix[0][1] - rhs.matrix[0][1];
+	float m11 = matrix[1][1] - rhs.matrix[1][1];
+	float m21 = matrix[2][1] - rhs.matrix[2][1];
+	float m02 = matrix[0][2] - rhs.matrix[0][2];
+	float m12 = matrix[1][2] - rhs.matrix[1][2];
+	float m22 = matrix[2][2] - rhs.matrix[2][2];
 }
 Matrix3f Matrix3f::operator*(const Matrix3f& rhs) const
 {
