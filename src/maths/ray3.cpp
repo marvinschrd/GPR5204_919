@@ -111,5 +111,21 @@ namespace maths {
 		info.hitPoint = origin_ + direction_ * info.distance;
 		return true;
 	}
+
+	bool Ray3::intersect_plane(HitInfo& info, Plane plane)
+	{
+		float s = direction_.Dot(plane.normal());
+		if(s >0)
+		{
+			return false;
+		}
+		float distance = (plane.distance(plane.point()) - origin_.Dot(plane.normal())) / s;
+		if(distance < 0)
+		{
+			return false;
+		}
+		info.hitPoint = origin_ + (direction_ * distance);
+		return true;
+	}
 	
 } // namespace maths

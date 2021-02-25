@@ -25,33 +25,34 @@ SOFTWARE.
 
 #include "maths/sphere.h"
 #include "maths/aabb3.h"
+#include "maths/plane.h"
 
 namespace maths {
+	
+struct HitInfo
+{
+	HitInfo()
+	{
+		reset();
+	}
+
+	void reset()
+	{
+		distance = std::numeric_limits<float>::infinity();
+		hit = false;
+	}
+
+	Vector3f hitPoint;
+	Vector3f hitNormal;
+	float distance;
+	bool hit;
+	};
 
 class Ray3 {
 public:
 	Ray3() = default;
-	Ray3(Vector3f& origin, maths::Vector3f& direction) : origin_(origin), direction_(direction) {}
+	Ray3(Vector3f& origin, Vector3f& direction) : origin_(origin), direction_(direction) {}
 
-	struct HitInfo
-	{
-		HitInfo()
-		{
-			reset();
-		}
-
-		void reset()
-		{
-			distance = std::numeric_limits<float>::infinity();
-			hit = false;
-		}
-
-		Vector3f hitPoint;
-		Vector3f hitNormal;
-		float distance;
-		bool hit;
-
-	};
 	HitInfo info;
 
 	Vector3f point_in_ray(float value) const {
@@ -64,6 +65,7 @@ public:
 
 	bool intersect_sphere(HitInfo& info, Sphere& sphere);
 	bool intersect_AABB3(HitInfo& info, AABB3 aabb);
+	bool intersect_plane(HitInfo& info, Plane plane);
 
 private:
 	Vector3f origin_ = {};

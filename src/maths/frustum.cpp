@@ -1,4 +1,3 @@
-#include "..\..\include\maths\frustum.h"
 /*
 MIT License
 
@@ -23,68 +22,92 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include "maths/frustum.h"
+
 namespace maths {
-	
-	bool Contains(Frustum& frustum, const Sphere& sphere)
+	void Frustum::calculate_frustum(Vector3f direction, Vector3f position, Vector3f right, Vector3f up, float near_plane_distance, float far_plane_distance, degree_t fov_x, radian_t fov_y)
 	{
-		return false;
+		float near_plane_height = sin(fov_x / 2) * near_plane_distance * 2;
+		float near_plane_width = sin(fov_y / 2) * near_plane_distance * 2;
+		float far_plane_height = sin(fov_x / 2) * far_plane_distance * 2;
+		float far_plane_width = sin(fov_y / 2) * far_plane_distance * 2;
+
+		Vector3f near_point = direction.Normalized() * near_plane_distance;
+		Vector3f normal = direction.Normalized();
+		Vector3f normal2 = Vector3f{ (-1) * normal.x, (-1) * normal.y, (-1) * normal.z };
+		Vector3f far_point = direction.Normalized() * far_plane_distance;
+		planes_[NEAR] = Plane{ near_point, normal };
+		planes_[FAR] = Plane{ far_point, normal2};
+		
+		Vector3f ntr = planes_[0].point() + up * near_plane_height + right * near_plane_width;
+		Vector3f nbr = planes_[0].point() - up * near_plane_height + right * near_plane_width;
+		Vector3f nbl = planes_[0].point() - up * near_plane_height - right * near_plane_width;
+		Vector3f ftr = planes_[1].point()+ up * far_plane_height + right * far_plane_width;
+		Vector3f ftl = planes_[1].point() + up * far_plane_height - right * far_plane_width;
+		Vector3f fbl = planes_[1].point()- up * far_plane_height - right * far_plane_width;
+
+		planes_[RIGHT] = Plane{ ntr,nbr,ftr };
+		planes_[LEFT] = Plane(ftl, fbl, nbl);
+		planes_[TOP] = Plane(ntr, ftr, ftl);
+		planes_[BOTTOM] = Plane(nbr, nbl, fbl);
 	}
-	
-	bool Contains(Frustum& frustum, const AABB3& aabb)
+	bool Frustum::contains(const Sphere& sphere)
 	{
-		return false;
-	}
-	
-	bool Contains(Frustum& frustum, const Vector3f& point)
-	{
-		return false;
-	}
-	
-	void Frustum::normalize_plane(Plane& plane)
-	{
-		float distance = sqrtf(plane.a * plane.a + plane.b * plane.b + plane.c * plane.c);
-		plane.a /= distance;
-		plane.b /= distance;
-		plane.c /= distance;
+		float distance;
+		for (int i = 0; i < 6; i++) {
+			distance = planes_[i].distance(sphere.center());
+			if (distance < -sphere.radius())
+			{
+				return false;
+			}
+			else if (distance < sphere.radius())
+			{
+				return true;
+			}
+		}
+		return true;
 	}
 
-	void Frustum::calcluate_frustum_planes()
+	bool Frustum::contains(const AABB3& aabb)
 	{
-		planes_[0].a = viewProjection_.v1.w + viewProjection_.v1.z;
-		planes_[0].b = viewProjection_.v2.w + viewProjection_.v2.z;
-		planes_[0].c = viewProjection_.v3.w + viewProjection_.v3.z;
-		planes_[0].d = viewProjection_.v4.w + viewProjection_.v4.z;
-		normalize_plane(planes_[0]);
+		std::array<Vector3f, 8> aabbBounds;
 
-		planes_[1].a = viewProjection_.v1.w - viewProjection_.v1.z;
-		planes_[1].b = viewProjection_.v2.w - viewProjection_.v2.z;
-		planes_[1].c = viewProjection_.v3.w - viewProjection_.v3.z;
-		planes_[1].d = viewProjection_.v4.w - viewProjection_.v4.z;
-		normalize_plane(planes_[1]);
+		aabbBounds[0] = aabb.bottom_left();
+		aabbBounds[1] = Vector3f(aabb.bottom_left().x, aabb.bottom_left().y, aabb.top_right().z);
+		aabbBounds[2] = Vector3f(aabb.bottom_left().x, aabb.top_right().y, aabb.bottom_left().z);
+		aabbBounds[3] = Vector3f(aabb.bottom_left().x, aabb.top_right().y, aabb.top_right().z);
+		aabbBounds[4] = Vector3f(aabb.top_right().x, aabb.bottom_left().y, aabb.bottom_left().z);
+		aabbBounds[5] = Vector3f(aabb.top_right().x, aabb.bottom_left().y, aabb.top_right().z);
+		aabbBounds[6] = Vector3f(aabb.top_right().x, aabb.top_right().y, aabb.bottom_left().z);
+		aabbBounds[7] = aabb.top_right();
 
-		planes_[2].a = viewProjection_.v1.w + viewProjection_.v1.x;
-		planes_[2].b = viewProjection_.v2.w + viewProjection_.v2.x;
-		planes_[2].c = viewProjection_.v3.w + viewProjection_.v3.x;
-		planes_[2].d = viewProjection_.v4.w + viewProjection_.v4.x;
-		normalize_plane(planes_[2]);
+		for (int i = 0; i < 6; i++)
+		{
+			float min = planes_[i].distance(aabbBounds[0]);
+			float max = min;
+			for (int j = 1; j < 8; j++)
+			{
+				if (planes_[i].distance(aabbBounds[j]) < min)
+					min = planes_[i].distance(aabbBounds[j]);
+				if (planes_[i].distance(aabbBounds[j]) > max)
+					max = planes_[i].distance(aabbBounds[j]);
+			}
+			if (max < 0.0f)
+				return false;
+		}
+		return true;
+	}
 
-		planes_[3].a = viewProjection_.v1.w - viewProjection_.v1.x;
-		planes_[3].b = viewProjection_.v2.w - viewProjection_.v2.x;
-		planes_[3].c = viewProjection_.v3.w - viewProjection_.v3.x;
-		planes_[3].d = viewProjection_.v4.w - viewProjection_.v4.x;
-		normalize_plane(planes_[3]);
-
-		planes_[4].a = viewProjection_.v1.w - viewProjection_.v1.y;
-		planes_[4].b = viewProjection_.v2.w - viewProjection_.v2.y;
-		planes_[4].c = viewProjection_.v3.w - viewProjection_.v3.y;
-		planes_[4].d = viewProjection_.v4.w - viewProjection_.v4.y;
-		normalize_plane(planes_[4]);
-
-		planes_[5].a = viewProjection_.v1.w + viewProjection_.v1.y;
-		planes_[5].b = viewProjection_.v2.w + viewProjection_.v2.y;
-		planes_[5].c = viewProjection_.v3.w + viewProjection_.v3.y;
-		planes_[5].d = viewProjection_.v4.w + viewProjection_.v4.y;
-		normalize_plane(planes_[5]);
+	bool Frustum::contains( const Vector3f& point)
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			if (planes_[i].distance(point) < 0.0f)
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
 } // namespace maths

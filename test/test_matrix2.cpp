@@ -30,80 +30,88 @@ SOFTWARE.
 #include "maths/matrix3.h"
 #include "maths/matrix4.h"
 
-
-//TEST(Maths, Matrix2f_operatorAddition)
+namespace maths {
+	
+//TEST(Maths, Matrix2f_Addition)
 //{
-//	const maths::Matrix2f A = maths::Matrix2f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
-//	const maths::Matrix2f B = maths::Matrix2f(maths::Vector2f(3, 2), maths::Vector2f(1, 1));
+//	const Matrix2f A = Matrix2f(maths::Vector2f(1, 2), Vector2f(3, 1));
+//	const Matrix2f B = Matrix2f(maths::Vector2f(3, 2), Vector2f(1, 1));
 //
-//	const maths::Matrix2f X = A + B;
+//	const Matrix2f X = A + B;
 //
 //	EXPECT_EQ(A + B, X);
 //}
 //
-//TEST(Maths, Matrix2f_operatorSubstraction)
+//TEST(Maths, Matrix2f_Substraction)
 //{
-//	const maths::Matrix2f A = maths::Matrix2f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
-//	const maths::Matrix2f B = maths::Matrix2f(maths::Vector2f(3, 2), maths::Vector2f(1, 1));
+//	const Matrix2f A = Matrix2f(maths::Vector2f(1, 2), Vector2f(3, 1));
+//	const Matrix2f B = Matrix2f(maths::Vector2f(3, 2), Vector2f(1, 1));
 //
-//	const maths::Matrix2f X = A - B;
+//	const Matrix2f X = A - B;
 //
 //	EXPECT_EQ(A - B, X);
 //}
 //
-//TEST(Maths, Matrix2f_operatorMultiplication)
+//TEST(Maths, Matrix2f_Multiplication)
 //{
-//	const maths::Matrix2f A = maths::Matrix2f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
-//	const maths::Matrix2f B = maths::Matrix2f(maths::Vector2f(3, 2), maths::Vector2f(1, 1));
+//	const Matrix2f A = Matrix2f(maths::Vector2f(1, 2), Vector2f(3, 1));
+//	const Matrix2f B = Matrix2f(maths::Vector2f(3, 2), Vector2f(1, 1));
 //
-//	const maths::Matrix2f X = A * B;
+//	const Matrix2f X = A * B;
 //
 //	EXPECT_EQ(A * B, X);
 //}
 
-TEST(Maths, Matrix2f_Determinant)
-{
-	const maths::Matrix2f A = maths::Matrix2f(maths::Vector2f(1, 2), maths::Vector2f(3, 1));
+TEST(Maths, Matrix2f_Determinant) {
+	
+	const Matrix2f A = Matrix2f(Vector2f(1, 2), Vector2f(3, 1));
 
 	//Test determinant
-	const float det = A.Determinant();
+	const float det = A.determinant();
 	EXPECT_EQ(det, -5);
 }
-
-TEST(Maths, Matrix2f_Inverse)
-{
-	const maths::Matrix2f A = maths::Matrix2f(maths::Vector2f(1, 2), maths::Vector2f(1, 3));
+TEST(Maths, Matrix2f_Inverse) {
+	
+	const Matrix2f A = Matrix2f(Vector2f(1, 2), Vector2f(1, 3));
 
 	//Test inverse
-	const maths::Matrix2f inverseA = A.Inverse();
-	maths::Matrix2f testInverse = maths::Matrix2f(maths::Vector2f(3, -1), maths::Vector2f(-2, 1));
+	const Matrix2f inverseA = A.Inverse();
+	Matrix2f testInverse = Matrix2f(Vector2f(3, -1), Vector2f(-2, 1));
 
-	EXPECT_EQ(inverseA.matrix[0][0], 3);
-	EXPECT_EQ(inverseA.matrix[0][1], -1);
-	EXPECT_EQ(inverseA.matrix[1][0], -2);
-	EXPECT_EQ(inverseA.matrix[1][1], 1);
+	EXPECT_EQ(inverseA[0][0], 3);
+	EXPECT_EQ(inverseA[0][1], -1);
+	EXPECT_EQ(inverseA[1][0], -2);
+	EXPECT_EQ(inverseA[1][1], 1);
 }
-
-TEST(Maths, Matrix2f_Transpose)
-{
-	maths::Matrix2f a = maths::Matrix2f(maths::Vector2f(3, -1), maths::Vector2f(-2, 1));
+TEST(Maths, Matrix2f_Transpose) {
+	
+	Matrix2f a = Matrix2f(maths::Vector2f(3, -1), maths::Vector2f(-2, 1));
 
 	//Test transpose
-	maths::Matrix2f transposeA = a.Transpose();
+	Matrix2f transposeA = a.Transpose();
 	
-	EXPECT_EQ(transposeA.matrix[0][0], 3);
-	EXPECT_EQ(transposeA.matrix[0][1], -2);
-	EXPECT_EQ(transposeA.matrix[1][0], -1);
-	EXPECT_EQ(transposeA.matrix[1][1], 1);
+	EXPECT_EQ(transposeA[0][0], 3);
+	EXPECT_EQ(transposeA[0][1], -2);
+	EXPECT_EQ(transposeA[1][0], -1);
+	EXPECT_EQ(transposeA[1][1], 1);
 }
+TEST(Maths, Matrix2f_IsOrthogonal) {
 
-TEST(Maths, Matrix2f_Identity)
-{
-	maths::Matrix2f I = maths::Matrix2f::Identity();
+	const Matrix2f a = Matrix2f(Vector2f(0, 1), Vector2f(2, 3));
+
+	//Test if matrix is orthogonal
+	EXPECT_EQ(a.IsOrthogonal(), false);
+	EXPECT_EQ(Matrix2f::identity().IsOrthogonal(), true);
+}
+TEST(Maths, Matrix2f_Identity) {
+	
+	Matrix2f I = Matrix2f::identity();
 
 	//Test identity
-	EXPECT_EQ(I.matrix[0][0], 1);
-	EXPECT_EQ(I.matrix[0][1], 0);
-	EXPECT_EQ(I.matrix[1][0], 0);
-	EXPECT_EQ(I.matrix[1][1], 1);
+	EXPECT_EQ(I[0][0], 1);
+	EXPECT_EQ(I[0][1], 0);
+	EXPECT_EQ(I[1][0], 0);
+	EXPECT_EQ(I[1][1], 1);
 }
+
+}//namespace maths

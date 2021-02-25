@@ -22,30 +22,33 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <array>
 
-#include "maths/matrix4.h"
-#include "maths/sphere.h"
-#include "maths/aabb3.h"
-#include "maths/plane.h"
-
-namespace maths {
+#include "maths/vector3.h"
+namespace maths
+{
 	
-class Frustum {
+class Plane {
+
 public:
-	Frustum() = default;
+	Plane() = default;
+	Plane(Vector3f& point,Vector3f& normal) : point_(point), normal_(normal) {}
+	Plane(Vector3f a, Vector3f b, Vector3f c) : point_(a), normal_(calculate_normal_from_points(a,b,c)) {}
+
+	float distance( const Vector3f& point) const {
+		return {Vector3f::Dot(point - point_, normal_) };
+	}
+	Vector3f calculate_normal_from_points(Vector3f a, Vector3f b, Vector3f c) {
+		Vector3f v_a = a - b;
+		Vector3f v_b = c - b;
+		return { Vector3f::Cross(v_a,v_b).Normalized() };
+		
+	}
 	
-	void calculate_frustum(Vector3f direction, Vector3f position, Vector3f right, 
-		Vector3f up, float near_plane_distance, float far_plane_distance, 
-		degree_t fov_x, radian_t fov_y);
-	
-	bool contains(const Sphere& sphere);
-	bool contains(const AABB3& aabb);
-	bool contains(const Vector3f& point);
-	
+	Vector3f point() const { return { point_ }; }
+	Vector3f normal() const { return { normal_ }; }
 private:
-	std::array<Plane, 6> planes_;
-	enum Planes {NEAR, FAR, LEFT, RIGHT, TOP, BOTTOM};
-};
-	
+	Vector3f point_;
+	Vector3f normal_;
+	};
+
 } // namespace maths
