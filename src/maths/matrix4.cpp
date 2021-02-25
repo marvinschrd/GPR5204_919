@@ -242,7 +242,7 @@ Matrix4f Matrix4f::identity() {
 }
 Matrix4f Matrix4f::rotationMatrix(radian_t angle, char axis) {
 	
-	if(axis != 'x' || axis != 'y' || axis != 'z') {
+	if(axis != 'x' && axis != 'y' && axis != 'z') {
 		
 		return Matrix4f(Vector4f(0, 0, 0, 0),
 						Vector4f(0, 0, 0, 0),
