@@ -32,35 +32,86 @@ SOFTWARE.
 
 namespace maths {
 	
-//TEST(Maths, Matrix2f_Addition)
-//{
-//	const Matrix2f A = Matrix2f(maths::Vector2f(1, 2), Vector2f(3, 1));
-//	const Matrix2f B = Matrix2f(maths::Vector2f(3, 2), Vector2f(1, 1));
-//
-//	const Matrix2f X = A + B;
-//
-//	EXPECT_EQ(A + B, X);
-//}
-//
-//TEST(Maths, Matrix2f_Substraction)
-//{
-//	const Matrix2f A = Matrix2f(maths::Vector2f(1, 2), Vector2f(3, 1));
-//	const Matrix2f B = Matrix2f(maths::Vector2f(3, 2), Vector2f(1, 1));
-//
-//	const Matrix2f X = A - B;
-//
-//	EXPECT_EQ(A - B, X);
-//}
-//
-//TEST(Maths, Matrix2f_Multiplication)
-//{
-//	const Matrix2f A = Matrix2f(maths::Vector2f(1, 2), Vector2f(3, 1));
-//	const Matrix2f B = Matrix2f(maths::Vector2f(3, 2), Vector2f(1, 1));
-//
-//	const Matrix2f X = A * B;
-//
-//	EXPECT_EQ(A * B, X);
-//}
+TEST(Maths, Matrix2f_Addition)
+{
+	Matrix2f a = Matrix2f(Vector2f(1, 2), Vector2f(3, 1));
+	Matrix2f b = Matrix2f(Vector2f(3, 2), Vector2f(1, 1));
+
+	//Test addition (+)
+	Matrix2f x = a + b;
+
+	EXPECT_EQ(x[0][0], 4);
+	EXPECT_EQ(x[0][1], 4);
+	EXPECT_EQ(x[1][0], 4);
+	EXPECT_EQ(x[1][1], 2);
+
+	//Test addition (+=)
+	a += b;
+
+	EXPECT_EQ(a[0][0], 4);
+	EXPECT_EQ(a[0][1], 4);
+	EXPECT_EQ(a[1][0], 4);
+	EXPECT_EQ(a[1][1], 2);
+}
+
+TEST(Maths, Matrix2f_Substraction)
+{
+	Matrix2f a = Matrix2f(Vector2f(1, 2), Vector2f(3, 1));
+	Matrix2f b = Matrix2f(Vector2f(3, 2), Vector2f(1, 1));
+
+	//Test substraction (-)
+	Matrix2f x = a - b;
+
+	EXPECT_EQ(x[0][0], -2);
+	EXPECT_EQ(x[0][1], 0);
+	EXPECT_EQ(x[1][0], 2);
+	EXPECT_EQ(x[1][1], 0);
+
+	//Test substraction (-=)
+	a -= b;
+
+	EXPECT_EQ(a[0][0], -2);
+	EXPECT_EQ(a[0][1], 0);
+	EXPECT_EQ(a[1][0], 2);
+	EXPECT_EQ(a[1][1], 0);
+}
+
+TEST(Maths, Matrix2f_Multiplication)
+{
+	Matrix2f a = Matrix2f(Vector2f(1, 2), Vector2f(3, 1));
+	Matrix2f b = Matrix2f(Vector2f(3, 2), Vector2f(1, 1));
+
+	//Test multiplication (*)
+	Matrix2f x = a * b;
+
+	EXPECT_EQ(x[0][0], 9);
+	EXPECT_EQ(x[0][1], 8);
+	EXPECT_EQ(x[1][0], 4);
+	EXPECT_EQ(x[1][1], 3);
+
+	//Test multiplication (*=)
+	a *= b;
+
+	EXPECT_EQ(a[0][0], 9);
+	EXPECT_EQ(a[0][1], 8);
+	EXPECT_EQ(a[1][0], 4);
+	EXPECT_EQ(a[1][1], 3);
+
+	//Test multiplication by vector (Matrix2f * Vector2f)
+	Vector2f v = Vector2f(1, 2);
+	Vector2f c = b * v;
+	
+	EXPECT_EQ(c.x, 5);
+	EXPECT_EQ(c.y, 4);
+
+	//Test multiplication by scalar (Matrix2f *= float)
+	b *= 2;
+
+	EXPECT_EQ(b[0][0], 6);
+	EXPECT_EQ(b[0][1], 4);
+	EXPECT_EQ(b[1][0], 2);
+	EXPECT_EQ(b[1][1], 2);
+}
 
 TEST(Maths, Matrix2f_Determinant) {
 	

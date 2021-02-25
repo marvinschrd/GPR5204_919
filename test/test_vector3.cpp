@@ -24,9 +24,9 @@ SOFTWARE.
 
 #include <gtest/gtest.h>
 
-#include <maths/vector3.h>
+#include "maths/vector3.h"
 
-namespace tests {
+namespace maths {
 TEST(Maths, Vector3f_Addition) {
     const maths::Vector3f a{2.0f, 3.0f, 1.0f};
     const maths::Vector3f b{1.0f, 4.0f, 3.0f};
@@ -256,5 +256,4 @@ TEST(Maths, Vector3f_Slerp) {
     EXPECT_TRUE(std::abs(d.y - b.y) < threshold);
     EXPECT_TRUE(std::abs(d.z - b.z) < threshold);
 }
-} // namespace tests
-
+} // namespace maths

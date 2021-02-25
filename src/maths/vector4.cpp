@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include <maths/vector4.h>
+#include "maths/vector4.h"
 
 namespace maths {
 Vector4f::Vector4f(float x, float y, float z, float w)
@@ -80,11 +80,11 @@ Vector4f& Vector4f::operator/=(const float scalar) {
     return *this;
 }
 
-bool Vector4f::operator==(Vector4f& rhs) const {
+bool Vector4f::operator==(const Vector4f& rhs) const {
     return x == rhs.x && y == rhs.y && z == rhs.z && w == rhs.w;
 }
 
-bool Vector4f::operator!=(Vector4f& rhs) const {
+bool Vector4f::operator!=(const Vector4f& rhs) const {
     return x != rhs.x || y != rhs.y || z != rhs.z || w != rhs.w;
 }
 

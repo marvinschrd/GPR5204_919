@@ -31,7 +31,192 @@ SOFTWARE.
 #include "maths/matrix4.h"
 
 namespace maths {
+
+TEST(Maths, Matrix4f_Addition)
+{
+	Matrix4f a = Matrix4f(Vector4f(1, 2, 1, 3), 
+						Vector4f(3, 1, 1, 2), 
+						Vector4f(1, 1, 1, 2), 
+						Vector4f(1, 1, 1, 1));
+	Matrix4f b = Matrix4f(Vector4f(3, 2, 1, 2), 
+						Vector4f(1, 1, 2, 1), 
+						Vector4f(1, 2, 1, 4), 
+						Vector4f(1, 1, 1, 1));
+
+	//Test addition (+)
+	Matrix4f x = a + b;
+
+	EXPECT_EQ(x[0][0], 4);
+	EXPECT_EQ(x[0][1], 4);
+	EXPECT_EQ(x[0][2], 2);
+	EXPECT_EQ(x[0][3], 5);
+	EXPECT_EQ(x[1][0], 4);
+	EXPECT_EQ(x[1][1], 2);
+	EXPECT_EQ(x[1][2], 3);
+	EXPECT_EQ(x[1][3], 3);
+	EXPECT_EQ(x[2][0], 2);
+	EXPECT_EQ(x[2][1], 3);
+	EXPECT_EQ(x[2][2], 2);
+	EXPECT_EQ(x[2][3], 6);
+	EXPECT_EQ(x[3][0], 2);
+	EXPECT_EQ(x[3][1], 2);
+	EXPECT_EQ(x[3][2], 2);
+	EXPECT_EQ(x[3][3], 2);
+
+	//Test addition (+=)
+	a += b;
+
+	EXPECT_EQ(a[0][0], 4);
+	EXPECT_EQ(a[0][1], 4);
+	EXPECT_EQ(a[0][2], 2);
+	EXPECT_EQ(a[0][3], 5);
+	EXPECT_EQ(a[1][0], 4);
+	EXPECT_EQ(a[1][1], 2);
+	EXPECT_EQ(a[1][2], 3);
+	EXPECT_EQ(a[1][3], 3);
+	EXPECT_EQ(a[2][0], 2);
+	EXPECT_EQ(a[2][1], 3);
+	EXPECT_EQ(a[2][2], 2);
+	EXPECT_EQ(a[2][3], 6);
+	EXPECT_EQ(a[3][0], 2);
+	EXPECT_EQ(a[3][1], 2);
+	EXPECT_EQ(a[3][2], 2);
+	EXPECT_EQ(a[3][3], 2);
+}
+
+TEST(Maths, Matrix4f_Substraction)
+{
+	Matrix4f a = Matrix4f(Vector4f(1, 2, 1, 3),
+						Vector4f(3, 1, 1, 2),
+						Vector4f(1, 1, 1, 2),
+						Vector4f(1, 1, 1, 1));
+	Matrix4f b = Matrix4f(Vector4f(3, 2, 1, 2),
+						Vector4f(1, 1, 2, 1),
+						Vector4f(1, 2, 1, 4),
+						Vector4f(1, 1, 1, 1));
+
+	//Test substraction (-)
+	Matrix4f x = a - b;
+
+	EXPECT_EQ(x[0][0], -2);
+	EXPECT_EQ(x[0][1], 0);
+	EXPECT_EQ(x[0][2], 0);
+	EXPECT_EQ(x[0][3], 1);
+	EXPECT_EQ(x[1][0], 2);
+	EXPECT_EQ(x[1][1], 0);
+	EXPECT_EQ(x[1][2], -1);
+	EXPECT_EQ(x[1][3], 1);
+	EXPECT_EQ(x[2][0], 0);
+	EXPECT_EQ(x[2][1], -1);
+	EXPECT_EQ(x[2][2], 0);
+	EXPECT_EQ(x[2][3], -2);
+	EXPECT_EQ(x[3][0], 0);
+	EXPECT_EQ(x[3][1], 0);
+	EXPECT_EQ(x[3][2], 0);
+	EXPECT_EQ(x[3][3], 0);
+
+	//Test substraction (-=)
+	a -= b;
+
+	EXPECT_EQ(a[0][0], -2);
+	EXPECT_EQ(a[0][1], 0);
+	EXPECT_EQ(a[0][2], 0);
+	EXPECT_EQ(a[0][3], 1);
+	EXPECT_EQ(a[1][0], 2);
+	EXPECT_EQ(a[1][1], 0);
+	EXPECT_EQ(a[1][2], -1);
+	EXPECT_EQ(a[1][3], 1);
+	EXPECT_EQ(a[2][0], 0);
+	EXPECT_EQ(a[2][1], -1);
+	EXPECT_EQ(a[2][2], 0);
+	EXPECT_EQ(a[2][3], -2);
+	EXPECT_EQ(a[3][0], 0);
+	EXPECT_EQ(a[3][1], 0);
+	EXPECT_EQ(a[3][2], 0);
+	EXPECT_EQ(a[3][3], 0);
+}
+
+TEST(Maths, Matrix4f_Multiplication)
+{
+	Matrix4f a = Matrix4f(Vector4f(2, 2, 1, 3),
+						Vector4f(3, 1, 1, 2),
+						Vector4f(1, 1, 1, 2),
+						Vector4f(1, 1, 1, 1));
 	
+	Matrix4f b = Matrix4f(Vector4f(3, 2, 1, 2),
+						Vector4f(1, 1, 2, 1),
+						Vector4f(1, 2, 1, 4),
+						Vector4f(1, 1, 1, 1));
+
+	//Test multiplication (*)
+	Matrix4f x = a * b;
+
+	EXPECT_EQ(x[0][0], 15);
+	EXPECT_EQ(x[0][1], 11);
+	EXPECT_EQ(x[0][2], 8);
+	EXPECT_EQ(x[0][3], 18);
+	EXPECT_EQ(x[1][0], 8);
+	EXPECT_EQ(x[1][1], 6);
+	EXPECT_EQ(x[1][2], 5);
+	EXPECT_EQ(x[1][3], 11);
+	EXPECT_EQ(x[2][0], 13);
+	EXPECT_EQ(x[2][1], 9);
+	EXPECT_EQ(x[2][2], 8);
+	EXPECT_EQ(x[2][3], 14);
+	EXPECT_EQ(x[3][0], 7);
+	EXPECT_EQ(x[3][1], 5);
+	EXPECT_EQ(x[3][2], 4);
+	EXPECT_EQ(x[3][3], 9);
+
+	//Test multiplication (*=)
+	a *= b;
+
+	EXPECT_EQ(a[0][0], 15);
+	EXPECT_EQ(a[0][1], 11);
+	EXPECT_EQ(a[0][2], 8);
+	EXPECT_EQ(a[0][3], 18);
+	EXPECT_EQ(a[1][0], 8);
+	EXPECT_EQ(a[1][1], 6);
+	EXPECT_EQ(a[1][2], 5);
+	EXPECT_EQ(a[1][3], 11);
+	EXPECT_EQ(a[2][0], 13);
+	EXPECT_EQ(a[2][1], 9);
+	EXPECT_EQ(a[2][2], 8);
+	EXPECT_EQ(a[2][3], 14);
+	EXPECT_EQ(a[3][0], 7);
+	EXPECT_EQ(a[3][1], 5);
+	EXPECT_EQ(a[3][2], 4);
+	EXPECT_EQ(a[3][3], 9);
+
+	//Test multiplication by vector (Matrix2f * Vector2f)
+	Vector4f v = Vector4f(1, 2, 1, 2);
+	Vector4f c = b * v;
+
+	EXPECT_EQ(c.x, 8);
+	EXPECT_EQ(c.y, 8);
+	EXPECT_EQ(c.z, 8);
+	EXPECT_EQ(c.w, 10);
+
+	//Test multiplication by scalar (Matrix2f *= float)
+	b *= 2;
+
+	EXPECT_EQ(b[0][0], 6);
+	EXPECT_EQ(b[0][1], 4);
+	EXPECT_EQ(b[0][2], 2);
+	EXPECT_EQ(b[0][3], 4);
+	EXPECT_EQ(b[1][0], 2);
+	EXPECT_EQ(b[1][1], 2);
+	EXPECT_EQ(b[1][2], 4);
+	EXPECT_EQ(b[1][3], 2);
+	EXPECT_EQ(b[2][0], 2);
+	EXPECT_EQ(b[2][1], 4);
+	EXPECT_EQ(b[2][2], 2);
+	EXPECT_EQ(b[2][3], 8);
+	EXPECT_EQ(b[3][0], 2);
+	EXPECT_EQ(b[3][1], 2);
+	EXPECT_EQ(b[3][2], 2);
+	EXPECT_EQ(b[3][3], 2);
+}
 TEST(Maths, Matrix4f_GetCofactor) {
 	
 	const Matrix4f a = Matrix4f(Vector4f(1, 1, 1, -1),

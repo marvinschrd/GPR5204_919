@@ -24,9 +24,9 @@ SOFTWARE.
 
 #include <gtest/gtest.h>
 
-#include <maths/vector4.h>
+#include "maths/vector4.h"
 
-namespace tests {
+namespace maths {
 TEST(Maths, Vector4f_Addition) {
     const maths::Vector4f a{2.0f, 3.0f, 1.0f, 4.0f};
     const maths::Vector4f b{1.0f, 4.0f, 3.0f, 2.0f};
@@ -221,5 +221,4 @@ TEST(Maths, Vector4f_Lerp) {
     EXPECT_EQ(f.z, b.z);
     EXPECT_EQ(f.w, b.w);
 }
-} // namespace tests
-
+} // namespace maths

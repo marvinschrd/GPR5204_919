@@ -23,7 +23,7 @@ SOFTWARE.
 */
 
 #pragma once
-#include <maths/angle.h>
+#include "maths/angle.h"
 
 namespace maths {
 /**
@@ -65,9 +65,9 @@ public:
 
     Vector3f& operator/=(float scalar);
 
-    bool operator==(Vector3f& rhs) const;
+    bool operator==(const Vector3f& rhs) const;
 
-    bool operator!=(Vector3f& rhs) const;
+    bool operator!=(const Vector3f& rhs) const;
 
     // This function does the Dot product of three vectors.
     float Dot(const Vector3f& v2) const;

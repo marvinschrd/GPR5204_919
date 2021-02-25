@@ -43,69 +43,76 @@ const Vector3f& Matrix3f::operator[](size_t index) const {
 }
 Matrix3f Matrix3f::operator+(const Matrix3f& rhs) const {
 	
-	float m00 = matrix_[0][0] + rhs[0][0];
-	float m10 = matrix_[1][0] + rhs[1][0];
-	float m20 = matrix_[2][0] + rhs[2][0];
-	float m01 = matrix_[0][1] + rhs[0][1];
-	float m11 = matrix_[1][1] + rhs[1][1];
-	float m21 = matrix_[2][1] + rhs[2][1];
-	float m02 = matrix_[0][2] + rhs[0][2];
-	float m12 = matrix_[1][2] + rhs[1][2];
-	float m22 = matrix_[2][2] + rhs[2][2];
-	return Matrix3f(Vector3f(m00, m01,m02), Vector3f(m10, m11,m12),Vector3f(m20,m21,m22));
+	Matrix3f tmp_mat;
+
+	for (int i = 0; i < matrix_.size(); i++) {
+
+		for (int j = 0; j < matrix_.size(); j++) {
+
+			tmp_mat[i][j] = matrix_[i][j] + rhs[i][j];
+		}
+	}
+
+	return tmp_mat;
 }
 Matrix3f& Matrix3f::operator+=(const Matrix3f& rhs) {
-	
-	float m00 = matrix_[0][0] + rhs[0][0];
-	float m10 = matrix_[1][0] + rhs[1][0];
-	float m20 = matrix_[2][0] + rhs[2][0];
-	float m01 = matrix_[0][1] + rhs[0][1];
-	float m11 = matrix_[1][1] + rhs[1][1];
-	float m21 = matrix_[2][1] + rhs[2][1];
-	float m02 = matrix_[0][2] + rhs[0][2];
-	float m12 = matrix_[1][2] + rhs[1][2];
-	float m22 = matrix_[2][2] + rhs[2][2];
+
+	*this = *this + rhs;
 
 	return *this;
 }
 Matrix3f Matrix3f::operator-(const Matrix3f& rhs) const {
 	
-	float m00 = matrix_[0][0] - rhs[0][0];
-	float m10 = matrix_[1][0] - rhs[1][0];
-	float m20 = matrix_[2][0] - rhs[2][0];
-	float m01 = matrix_[0][1] - rhs[0][1];
-	float m11 = matrix_[1][1] - rhs[1][1];
-	float m21 = matrix_[2][1] - rhs[2][1];
-	float m02 = matrix_[0][2] - rhs[0][2];
-	float m12 = matrix_[1][2] - rhs[1][2];
-	float m22 = matrix_[2][2] - rhs[2][2];
-	return Matrix3f(Vector3f(m00, m01, m02), Vector3f(m10, m11, m12), Vector3f(m20, m21, m22));
+	Matrix3f tmp_mat;
+
+	for (int i = 0; i < matrix_.size(); i++) {
+
+		for (int j = 0; j < matrix_.size(); j++) {
+
+			tmp_mat[i][j] = matrix_[i][j] - rhs[i][j];
+		}
+	}
+
+	return tmp_mat;
 }
 Matrix3f& Matrix3f::operator-=(const Matrix3f& rhs) {
-	
-	float m00 = matrix_[0][0] - rhs[0][0];
-	float m10 = matrix_[1][0] - rhs[1][0];
-	float m20 = matrix_[2][0] - rhs[2][0];
-	float m01 = matrix_[0][1] - rhs[0][1];
-	float m11 = matrix_[1][1] - rhs[1][1];
-	float m21 = matrix_[2][1] - rhs[2][1];
-	float m02 = matrix_[0][2] - rhs[0][2];
-	float m12 = matrix_[1][2] - rhs[1][2];
-	float m22 = matrix_[2][2] - rhs[2][2];
+
+	*this = *this - rhs;
 
 	return *this;
 }
 Matrix3f Matrix3f::operator*(const Matrix3f& rhs) const {
 	
-	return Matrix3f();
+	Matrix3f tmp_mat;
+
+	for (int i = 0; i < matrix_.size(); i++) {
+
+		for (int j = 0; j < matrix_.size(); j++) {
+
+			for (int k = 0; k < matrix_.size(); k++) {
+
+				tmp_mat[j][i] += matrix_[k][i] * rhs[j][k];
+			}
+		}
+	}
+
+	return tmp_mat;
 }
 Matrix3f& Matrix3f::operator*=(const Matrix3f& rhs) {
 	
+	*this = *this * rhs;
+
 	return *this;
 }
 Vector3f Matrix3f::operator*(Vector3f rhs) const {
 	
-	return Vector3f();
+	Vector3f tmp_vec;
+
+	tmp_vec.x = ((matrix_[0][0] * rhs.x) + (matrix_[1][0] * rhs.y) + (matrix_[2][0] * rhs.z));
+	tmp_vec.y = ((matrix_[0][1] * rhs.x) + (matrix_[1][1] * rhs.y) + (matrix_[2][1] * rhs.z));
+	tmp_vec.z = ((matrix_[0][2] * rhs.x) + (matrix_[1][2] * rhs.y) + (matrix_[2][2] * rhs.z));
+
+	return tmp_vec;
 }
 Matrix3f& Matrix3f::operator*=(float scalar) {
 	
