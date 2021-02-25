@@ -30,8 +30,8 @@ SOFTWARE.
 #include "maths/matrix3.h"
 #include "maths/matrix4.h"
 
-namespace maths
-{
+namespace maths {
+	
 TEST(Maths, Matrix4f_GetCofactor) {
 	
 	const Matrix4f a = Matrix4f(Vector4f(1, 1, 1, -1),
@@ -40,22 +40,22 @@ TEST(Maths, Matrix4f_GetCofactor) {
 								Vector4f(-1, 1, 1, 1));
 
 	//Test cofactor
-	EXPECT_EQ(a.GetCofactor(0, 0), -4);
-	EXPECT_EQ(a.GetCofactor(0, 1), -4);
-	EXPECT_EQ(a.GetCofactor(0, 2), -4);
-	EXPECT_EQ(a.GetCofactor(0, 3), 4);
-	EXPECT_EQ(a.GetCofactor(1, 0), -4);
-	EXPECT_EQ(a.GetCofactor(1, 1), -4);
-	EXPECT_EQ(a.GetCofactor(1, 2), 4);
-	EXPECT_EQ(a.GetCofactor(1, 3), -4);
-	EXPECT_EQ(a.GetCofactor(2, 0), -4);
-	EXPECT_EQ(a.GetCofactor(2, 1), 4);
-	EXPECT_EQ(a.GetCofactor(2, 2), -4);
-	EXPECT_EQ(a.GetCofactor(2, 3), -4);
-	EXPECT_EQ(a.GetCofactor(3, 0), 4);
-	EXPECT_EQ(a.GetCofactor(3, 1), -4);
-	EXPECT_EQ(a.GetCofactor(3, 2), -4);
-	EXPECT_EQ(a.GetCofactor(3, 3), -4);
+	EXPECT_EQ(a.cofactor(0, 0), -4);
+	EXPECT_EQ(a.cofactor(0, 1), -4);
+	EXPECT_EQ(a.cofactor(0, 2), -4);
+	EXPECT_EQ(a.cofactor(0, 3), 4);
+	EXPECT_EQ(a.cofactor(1, 0), -4);
+	EXPECT_EQ(a.cofactor(1, 1), -4);
+	EXPECT_EQ(a.cofactor(1, 2), 4);
+	EXPECT_EQ(a.cofactor(1, 3), -4);
+	EXPECT_EQ(a.cofactor(2, 0), -4);
+	EXPECT_EQ(a.cofactor(2, 1), 4);
+	EXPECT_EQ(a.cofactor(2, 2), -4);
+	EXPECT_EQ(a.cofactor(2, 3), -4);
+	EXPECT_EQ(a.cofactor(3, 0), 4);
+	EXPECT_EQ(a.cofactor(3, 1), -4);
+	EXPECT_EQ(a.cofactor(3, 2), -4);
+	EXPECT_EQ(a.cofactor(3, 3), -4);
 }
 TEST(Maths, Matrix4f_Determinant) {
 	
@@ -65,7 +65,7 @@ TEST(Maths, Matrix4f_Determinant) {
 								Vector4f(-1, 1, 1, 1));
 
 	//Test determinant
-	EXPECT_EQ(a.Determinant(), -16);
+	EXPECT_EQ(a.determinant(), -16);
 }
 TEST(Maths, Matrix4f_Inverse) {
 	
@@ -129,7 +129,7 @@ TEST(Maths, Matrix4f_Adjoint)
 								Vector4f(-1, 1, 1, 1));
 
 	//Test adjoint
-	Matrix4f tmp_adjoint = a.Adjoint();
+	Matrix4f tmp_adjoint = a.adjoint();
 	
 	EXPECT_EQ(tmp_adjoint[0][0], -4);
 	EXPECT_EQ(tmp_adjoint[0][1], -4);
@@ -157,11 +157,11 @@ TEST(Maths, Matrix4f_IsOrthogonal) {
 
 	//Test if matrix is orthogonal
 	EXPECT_EQ(a.IsOrthogonal(), false);
-	EXPECT_EQ(Matrix4f::Identity().IsOrthogonal(), true);
+	EXPECT_EQ(Matrix4f::identity().IsOrthogonal(), true);
 }
 TEST(Maths, Matrix4f_Identity) {
 	
-	const Matrix4f i = Matrix4f::Identity();
+	const Matrix4f i = Matrix4f::identity();
 
 	//Test identity
 	EXPECT_EQ(i[0][0], 1);
@@ -186,7 +186,7 @@ TEST(Maths, Matrix4f_RotationMatrix) {
 	radian_t angle{ 0.0f };
 
 	//Test rotation matrix on x axis
-	const Matrix4f a_x = Matrix4f::RotationMatrix(angle, 'x');
+	const Matrix4f a_x = Matrix4f::rotationMatrix(angle, 'x');
 	
 	EXPECT_EQ(a_x[0][0], 0);
 	EXPECT_EQ(a_x[0][1], 1);
@@ -206,7 +206,7 @@ TEST(Maths, Matrix4f_RotationMatrix) {
 	EXPECT_EQ(a_x[3][3], 1);
 
 	//Test rotation matrix on y axis
-	const Matrix4f a_y = Matrix4f::RotationMatrix(angle, 'y');
+	const Matrix4f a_y = Matrix4f::rotationMatrix(angle, 'y');
 
 	EXPECT_EQ(a_y[0][0], 0);
 	EXPECT_EQ(a_y[0][1], 0);
@@ -226,7 +226,7 @@ TEST(Maths, Matrix4f_RotationMatrix) {
 	EXPECT_EQ(a_y[3][3], 1);
 
 	//Test rotation matrix on z axis
-	const Matrix4f a_z = Matrix4f::RotationMatrix(angle, 'z');
+	const Matrix4f a_z = Matrix4f::rotationMatrix(angle, 'z');
 
 	EXPECT_EQ(a_z[0][0], 1);
 	EXPECT_EQ(a_z[0][1], 0);
@@ -247,7 +247,7 @@ TEST(Maths, Matrix4f_RotationMatrix) {
 }
 TEST(Maths, Matrix4f_ScalingMatrix) {
 	
-	const Matrix4f a = Matrix4f::ScalingMatrix(Vector3f(1, 1, 1));
+	const Matrix4f a = Matrix4f::scalingMatrix(Vector3f(1, 1, 1));
 
 	//Test scaling matrix
 	EXPECT_EQ(a[0][0], 1);
@@ -269,7 +269,7 @@ TEST(Maths, Matrix4f_ScalingMatrix) {
 }
 TEST(Maths, Matrix4f_TranslationMatrix) {
 	
-	const Matrix4f a = Matrix4f::TranslationMatrix(Vector3f(1, 1, 1));
+	const Matrix4f a = Matrix4f::translationMatrix(Vector3f(1, 1, 1));
 
 	//Test translation matrix
 	EXPECT_EQ(a[0][0], 1);

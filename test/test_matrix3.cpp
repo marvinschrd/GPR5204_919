@@ -30,8 +30,8 @@ SOFTWARE.
 #include "maths/matrix3.h"
 #include "maths/matrix4.h"
 
-namespace maths
-{
+namespace maths {
+	
 TEST(Maths, Matrix3f_GetCofactor) {
 	
 	const Matrix3f a = Matrix3f(Vector3f(3, 2, 1),
@@ -39,15 +39,15 @@ TEST(Maths, Matrix3f_GetCofactor) {
 								Vector3f(-1, 0, -1));
 
 	//Test cofactor
-	EXPECT_EQ(a.GetCofactor(0, 0), 2);
-	EXPECT_EQ(a.GetCofactor(0, 1), 2);
-	EXPECT_EQ(a.GetCofactor(0, 2), 6);
-	EXPECT_EQ(a.GetCofactor(1, 0), -1);
-	EXPECT_EQ(a.GetCofactor(1, 1), -2);
-	EXPECT_EQ(a.GetCofactor(1, 2), -5);
-	EXPECT_EQ(a.GetCofactor(2, 0), -2);
-	EXPECT_EQ(a.GetCofactor(2, 1), -2);
-	EXPECT_EQ(a.GetCofactor(2, 2), -8);
+	EXPECT_EQ(a.cofactor(0, 0), 2);
+	EXPECT_EQ(a.cofactor(0, 1), 2);
+	EXPECT_EQ(a.cofactor(0, 2), 6);
+	EXPECT_EQ(a.cofactor(1, 0), -1);
+	EXPECT_EQ(a.cofactor(1, 1), -2);
+	EXPECT_EQ(a.cofactor(1, 2), -5);
+	EXPECT_EQ(a.cofactor(2, 0), -2);
+	EXPECT_EQ(a.cofactor(2, 1), -2);
+	EXPECT_EQ(a.cofactor(2, 2), -8);
 }
 TEST(Maths, Matrix3f_Determinant) {
 	
@@ -56,7 +56,7 @@ TEST(Maths, Matrix3f_Determinant) {
 								Vector3f(1, 1, 2));
 
 	//Test determinant
-	EXPECT_EQ(a.Determinant(), -4);
+	EXPECT_EQ(a.determinant(), -4);
 }
 TEST(Maths, Matrix3f_Inverse) {
 	
@@ -103,7 +103,7 @@ TEST(Maths, Matrix3f_Adjoint) {
 								Vector3f(-1, 0, -1));
 
 	//Test adjoint
-	Matrix3f tmp_adjoint = a.Adjoint();
+	Matrix3f tmp_adjoint = a.adjoint();
 	
 	EXPECT_EQ(tmp_adjoint[0][0], 2);
 	EXPECT_EQ(tmp_adjoint[0][1], 2);
@@ -123,11 +123,11 @@ TEST(Maths, Matrix3f_IsOrthogonal) {
 
 	//Test if matrix is orthogonal
 	EXPECT_EQ(a.IsOrthogonal(), false);
-	EXPECT_EQ(Matrix3f::Identity().IsOrthogonal(), true);
+	EXPECT_EQ(Matrix3f::identity().IsOrthogonal(), true);
 }
 TEST(Maths, Matrix3f_Identity) {
 	
-	const Matrix3f i = Matrix3f::Identity();
+	const Matrix3f i = Matrix3f::identity();
 
 	//Test identity
 	EXPECT_EQ(i[0][0], 1);
@@ -143,7 +143,7 @@ TEST(Maths, Matrix3f_Identity) {
 TEST(Maths, Matrix3f_RotationMatrix) {
 	
 	radian_t angle { 0.0f };
-	const Matrix3f a = Matrix3f::RotationMatrix(angle);
+	const Matrix3f a = Matrix3f::rotationMatrix(angle);
 
 	//Test rotation matrix
 	EXPECT_EQ(a[0][0], 1);
@@ -158,7 +158,7 @@ TEST(Maths, Matrix3f_RotationMatrix) {
 }
 TEST(Maths, Matrix3f_ScalingMatrix) {
 	
-	const Matrix3f a = Matrix3f::ScalingMatrix(Vector2f(1, 1));
+	const Matrix3f a = Matrix3f::scalingMatrix(Vector2f(1, 1));
 
 	//Test scaling matrix
 	EXPECT_EQ(a[0][0], 1);
@@ -173,7 +173,7 @@ TEST(Maths, Matrix3f_ScalingMatrix) {
 }
 TEST(Maths, Matrix3f_TranslationMatrix) {
 	
-	const Matrix3f a = Matrix3f::TranslationMatrix(Vector2f(1, 1));
+	const Matrix3f a = Matrix3f::translationMatrix(Vector2f(1, 1));
 
 	//Test translation matrix
 	EXPECT_EQ(a[0][0], 1);

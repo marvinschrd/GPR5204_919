@@ -29,17 +29,22 @@ SOFTWARE.
 
 namespace maths
 {
+//Class for column-based matrix 4x4
 class Matrix4f
 {
 public:
 
     Matrix4f() = default;
 
-    Matrix4f(const Vector4f v1, const Vector4f v2, const Vector4f v3, const Vector4f v4);
+    Matrix4f(const Vector4f& v1, const Vector4f& v2, const Vector4f& v3, const Vector4f& v4);
 
-    Vector4f& operator[](size_t index) { return matrix_[index]; }
+    Matrix4f(const std::array<Vector4f, 4>& matrix) : matrix_(matrix) {}
 
-    const Vector4f& operator[](size_t index) const { return matrix_[index]; }
+    //This operator will return the column Vector2f at this position in the matrix.
+    Vector4f& operator[](std::size_t index);
+
+    //This operator will return the column Vector2f at this position in the matrix.
+    const Vector4f& operator[](std::size_t index) const;
     
     Matrix4f operator+(const Matrix4f& rhs) const;
 
@@ -53,34 +58,43 @@ public:
 
     Matrix4f& operator*=(const Matrix4f& rhs);
 
-    Vector4f operator*(const Vector4f& rhs) const;
+    Vector4f operator*(Vector4f rhs) const;
 
-    Matrix4f& operator*=(const float& scalar);
+    Matrix4f& operator*=(float scalar);
 
-    float GetCofactor(int row, int column) const;
+    //This function returns the cofactor of the 3x3 matrix who can be used to find the determinant and adjoint matrix
+    float cofactor(int row, int column) const;
 
-    float Determinant() const;
+    //This function returns the determinant(float) of the 4x4 matrix
+    float determinant() const;
 
+    //This function returns the inverse matrix of the 4x4 matrix
     Matrix4f Inverse() const;
 
+    //This function transposes the 4x4 matrix
     Matrix4f Transpose() const;
 
-    Matrix4f Adjoint() const;
+    //This function returns the adjoint matrix which can be used to finc the inverse of a matrix
+    Matrix4f adjoint() const;
 
+    //This function returns true if the matrix's determinant is 1 and false otherwise
     bool IsOrthogonal() const;
 
-    static Matrix4f Identity();
+    //This function returns the identity matrix 4x4
+    static Matrix4f identity();
 
-    static Matrix4f RotationMatrix(radian_t angle, char axis);
+    //This function returns the rotation matrix 4x4 of the desired angle and given axis.
+    static Matrix4f rotationMatrix(radian_t angle, char axis);
 
-    static Matrix4f ScalingMatrix(Vector3f axisValues);
+    //This function returns the scaling matrix 4x4 of the desired scaling values for x, y and z axis.
+    static Matrix4f scalingMatrix(Vector3f axisValues);
 
-    static Matrix4f TranslationMatrix(Vector3f axisValues);
+    //This function returns the translation matrix 3x3 of the desired translation values for x, y and z axis.
+    static Matrix4f translationMatrix(Vector3f axisValues);
 
 private:
 
-    std::array<Vector4f, 4> matrix_;
-    int size_ = 4;
+    std::array<Vector4f, 4> matrix_ {};
 };
 	
 }//namespace maths

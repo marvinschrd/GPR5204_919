@@ -21,13 +21,22 @@ SOFTWARE.
 */
 
 #include "maths/matrix2.h"
+#include "maths/maths_utils.h"
 
-namespace maths
-{
-Matrix2f::Matrix2f(const Vector2f v1, const Vector2f v2) {
+namespace maths {
+	
+Matrix2f::Matrix2f(const Vector2f& v1, const Vector2f& v2) {
 	
 	matrix_[0] = v1;
 	matrix_[1] = v2;
+}
+Vector2f& Matrix2f::operator[](std::size_t index) {
+	
+	return matrix_[index];
+}
+const Vector2f& Matrix2f::operator[](std::size_t index) const {
+	
+	return matrix_[index];
 }
 Matrix2f Matrix2f::operator+(const Matrix2f& rhs) const {
 	
@@ -85,7 +94,7 @@ Matrix2f& Matrix2f::operator*=(const Matrix2f& rhs) {
 
 	return *this;
 }
-Matrix2f& Matrix2f::operator*=(const float& scalar) {
+Matrix2f& Matrix2f::operator*=(float scalar) {
 	
 	matrix_[0][0] *= scalar;
 	matrix_[0][1] *= scalar;
@@ -94,11 +103,11 @@ Matrix2f& Matrix2f::operator*=(const float& scalar) {
 
 	return *this;
 }
-Vector2f Matrix2f::operator*(const Vector2f& rhs) const {
+Vector2f Matrix2f::operator*(Vector2f rhs) const {
 	
 	return Vector2f();
 }
-float Matrix2f::Determinant() const {
+float Matrix2f::determinant() const {
 	
 	return (matrix_[0][0] * matrix_[1][1]) - (matrix_[0][1] * matrix_[1][0]);
 }
@@ -111,7 +120,7 @@ Matrix2f Matrix2f::Inverse() const {
 	inverse[1][0] = -matrix_[0][1];
 	inverse[1][1] = matrix_[0][0];
 
-	inverse *= 1/Determinant();
+	inverse *= 1/determinant();
 	
 	return inverse;
 }
@@ -121,9 +130,9 @@ Matrix2f Matrix2f::Transpose() const {
 }
 bool Matrix2f::IsOrthogonal() const {
 
-	return Determinant() == 1.0f;
+	return Equal(determinant(), 1.0f);
 }
-Matrix2f Matrix2f::Identity() {
+Matrix2f Matrix2f::identity() {
 	
 	return Matrix2f(Vector2f(1, 0), Vector2f(0, 1));
 }

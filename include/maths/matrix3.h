@@ -27,19 +27,24 @@ SOFTWARE.
 #include "maths/vector2.h"
 #include "maths/vector3.h"
 
-namespace maths
-{
-class Matrix3f
-{
+namespace maths {
+	
+//Class for column-based matrix 3x3
+class Matrix3f {
+	
 public:
 	
     Matrix3f() = default;
 
-    Matrix3f(const Vector3f v1, const Vector3f v2, const Vector3f v3);
+    Matrix3f(const Vector3f& v1, const Vector3f& v2, const Vector3f& v3);
 
-    Vector3f& operator[](size_t index) { return matrix_[index]; }
+    Matrix3f(const std::array<Vector3f, 3>& matrix) : matrix_(matrix) {}
 
-    const Vector3f& operator[](size_t index) const { return matrix_[index]; }
+    //This operator will return the column Vector2f at this position in the matrix.
+    Vector3f& operator[](size_t index);
+
+    //This operator will return the column Vector2f at this position in the matrix.
+    const Vector3f& operator[](size_t index) const;
     
     Matrix3f operator+(const Matrix3f& rhs) const;
 
@@ -53,34 +58,43 @@ public:
 
     Matrix3f& operator*=(const Matrix3f& rhs);
 
-    Vector3f operator*(const Vector3f& rhs) const;
+    Vector3f operator*(Vector3f rhs) const;
 
-    Matrix3f& operator*=(const float& scalar);
+    Matrix3f& operator*=(float scalar);
 
-    float GetCofactor(const int row, const int column) const;
+	//This function returns the cofactor of the 3x3 matrix which can be used to find the determinant and adjoint matrix.
+    float cofactor(int row, int column) const;
 
-    float Determinant() const;
+    //This function returns the determinant(float) of the 3x3 matrix.
+    float determinant() const;
 
+    //This function returns the inverse matrix of the 3x3 matrix.
     Matrix3f Inverse() const;
 
+    //This function transposes the 3x3 matrix.
     Matrix3f Transpose() const;
 
-    Matrix3f Adjoint() const;
+	//This function returns the adjoint matrix which can be used to find the inverse of a matrix.
+    Matrix3f adjoint() const;
 
+    //This function returns true if the matrix's determinant is 1 and false otherwise.
     bool IsOrthogonal() const;
 
-    static Matrix3f Identity();
+    //This function returns the identity matrix 3x3.
+    static Matrix3f identity();
 
-    static Matrix3f RotationMatrix(radian_t angle);
+    //This function returns the rotation matrix 3x3 of the desired angle.
+    static Matrix3f rotationMatrix(radian_t angle);
 
-    static Matrix3f ScalingMatrix(Vector2f axisValues);
+    //This function returns the scaling matrix 3x3 of the desired scaling values for x and y axis.
+    static Matrix3f scalingMatrix(Vector2f axisValues);
 
-    static Matrix3f TranslationMatrix(Vector2f axisValues);
+    //This function returns the translation matrix 3x3 of the desired translation values for x and y axis.
+    static Matrix3f translationMatrix(Vector2f axisValues);
 
 private:
 
-    std::array<Vector3f, 3> matrix_;
-    int size_ = 3;
+    std::array<Vector3f, 3> matrix_ {};
 };
 	
 }//namespace maths

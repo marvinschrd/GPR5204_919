@@ -30,8 +30,8 @@ SOFTWARE.
 #include "maths/matrix3.h"
 #include "maths/matrix4.h"
 
-namespace maths
-{
+namespace maths {
+	
 //TEST(Maths, Matrix2f_Addition)
 //{
 //	const Matrix2f A = Matrix2f(maths::Vector2f(1, 2), Vector2f(3, 1));
@@ -67,7 +67,7 @@ TEST(Maths, Matrix2f_Determinant) {
 	const Matrix2f A = Matrix2f(Vector2f(1, 2), Vector2f(3, 1));
 
 	//Test determinant
-	const float det = A.Determinant();
+	const float det = A.determinant();
 	EXPECT_EQ(det, -5);
 }
 TEST(Maths, Matrix2f_Inverse) {
@@ -101,11 +101,11 @@ TEST(Maths, Matrix2f_IsOrthogonal) {
 
 	//Test if matrix is orthogonal
 	EXPECT_EQ(a.IsOrthogonal(), false);
-	EXPECT_EQ(Matrix2f::Identity().IsOrthogonal(), true);
+	EXPECT_EQ(Matrix2f::identity().IsOrthogonal(), true);
 }
 TEST(Maths, Matrix2f_Identity) {
 	
-	Matrix2f I = Matrix2f::Identity();
+	Matrix2f I = Matrix2f::identity();
 
 	//Test identity
 	EXPECT_EQ(I[0][0], 1);

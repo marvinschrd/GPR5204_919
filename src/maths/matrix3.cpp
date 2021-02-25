@@ -21,19 +21,25 @@ SOFTWARE.
 */
 
 #include "maths/matrix3.h"
-
-#include <cassert>
-
 #include "maths/angle.h"
 #include "maths/matrix2.h"
+#include "maths/maths_utils.h"
 
-namespace maths
-{
-Matrix3f::Matrix3f(const Vector3f v1, const Vector3f v2, const Vector3f v3) {
+namespace maths {
+	
+Matrix3f::Matrix3f(const Vector3f& v1, const Vector3f& v2, const Vector3f& v3) {
 	
 	matrix_[0] = v1;
 	matrix_[1] = v2;
 	matrix_[2] = v3;
+}
+Vector3f& Matrix3f::operator[](size_t index) {
+	
+	return matrix_[index];
+}
+const Vector3f& Matrix3f::operator[](size_t index) const {
+	
+	return matrix_[index];
 }
 Matrix3f Matrix3f::operator+(const Matrix3f& rhs) const {
 	
@@ -97,39 +103,40 @@ Matrix3f& Matrix3f::operator*=(const Matrix3f& rhs) {
 	
 	return *this;
 }
-Vector3f Matrix3f::operator*(const Vector3f& rhs) const {
+Vector3f Matrix3f::operator*(Vector3f rhs) const {
 	
 	return Vector3f();
 }
-Matrix3f& Matrix3f::operator*=(const float& scalar) {
+Matrix3f& Matrix3f::operator*=(float scalar) {
 	
-	for (int i = 0; i < size_; ++i)
-	{
-		for (int j = 0; j < size_; ++j)
-		{
+	for (int i = 0; i < matrix_.size(); ++i) {
+		
+		for (int j = 0; j < matrix_.size(); ++j) {
+			
 			matrix_[i][j] *= scalar;
 		}
 	}
 
 	return *this;
 }
-float Matrix3f::GetCofactor(const int row, const int column) const {
+float Matrix3f::cofactor(int row, int column) const {
 	
-	const float sign = (column + row) % 2 == 0 ? 1.0f : -1.0f;
+	const float kSign = (column + row) % 2 == 0 ? 1.0f : -1.0f;
 	Matrix2f tmp_mat;
 	int k = 0;
 	int l = 0;
-	
-	for (int i = 0; i < size_; ++i)
-	{
-		for (int j = 0; j < size_; ++j)
-		{
-			if(i != column && j != row)
-			{
+
+	//This double loop takes the elements of the 3x3 matrix necessary for the cofactor and copy them into the 2x2 tmp_mat
+	for (int i = 0; i < matrix_.size(); ++i) {
+		
+		for (int j = 0; j < matrix_.size(); ++j) {
+			
+			if(i != column && j != row) {
+				
 				tmp_mat[k][l++] = matrix_[i][j];
 
-				if(l == size_ -1)
-				{
+				if(l == matrix_.size() -1) {
+					
 					l = 0;
 					k++;
 				}
@@ -137,30 +144,35 @@ float Matrix3f::GetCofactor(const int row, const int column) const {
 		}
 	}
 
-	const float tmp_det = tmp_mat.Determinant();
+	const float kTmpDet = tmp_mat.determinant();
 	
-	return sign * tmp_det;
+	return kSign * kTmpDet;
 }
-float Matrix3f::Determinant() const {
+float Matrix3f::determinant() const {
 	
-	const float det = matrix_[0][0] * GetCofactor(0, 0)
-					+ matrix_[0][1] * GetCofactor(1, 0)
-					+ matrix_[0][2] * GetCofactor(2, 0);
+	const float kDet = matrix_[0][0] * cofactor(0, 0)
+					+ matrix_[0][1] * cofactor(1, 0)
+					+ matrix_[0][2] * cofactor(2, 0);
 	
-	return det;
+	return kDet;
 }
 Matrix3f Matrix3f::Inverse() const {
-	
-	assert(Determinant() != 0.0f);
 
-	if (IsOrthogonal())
-	{
+	const float kDet = determinant();
+	
+	if(Equal(kDet, 0.0f)) {
+		
+		return *this;
+	}
+
+	if (IsOrthogonal()) {
+		
 		return Transpose();
 	}
 
-	Matrix3f tmp_mat = Adjoint();
+	Matrix3f tmp_mat = adjoint();
 
-	tmp_mat *= (1.0f / Determinant());
+	tmp_mat *= (1.0f / kDet);
 
 	return tmp_mat;
 }
@@ -170,15 +182,15 @@ Matrix3f Matrix3f::Transpose() const {
 					Vector3f(matrix_[0][1], matrix_[1][1], matrix_[2][1]),
 					Vector3f(matrix_[0][2], matrix_[1][2], matrix_[2][2]));
 }
-Matrix3f Matrix3f::Adjoint() const {
+Matrix3f Matrix3f::adjoint() const {
 	
 	Matrix3f tmp_mat;
 
-	for (int i = 0; i < size_; ++i)
-	{
-		for (int j = 0; j < size_; ++j)
-		{
-			tmp_mat[i][j] = GetCofactor(j, i);
+	for (int i = 0; i < matrix_.size(); ++i) {
+		
+		for (int j = 0; j < matrix_.size(); ++j) {
+			
+			tmp_mat[i][j] = cofactor(j, i);
 		}
 	}
 	
@@ -186,23 +198,23 @@ Matrix3f Matrix3f::Adjoint() const {
 }
 bool Matrix3f::IsOrthogonal() const {
 	
-	return Determinant() == 1.0f;
+	return Equal(determinant(),1.0f);
 }
-Matrix3f Matrix3f::Identity() {
+Matrix3f Matrix3f::identity() {
 	
 	return Matrix3f(Vector3f(1, 0, 0), Vector3f(0, 1, 0), Vector3f(0, 0, 1));
 }
-Matrix3f Matrix3f::RotationMatrix(radian_t angle) {
+Matrix3f Matrix3f::rotationMatrix(radian_t angle) {
 	
 	return Matrix3f(Vector3f(cos(angle), -sin(angle), 0),
 					Vector3f(sin(angle), cos(angle), 0), 
-					Vector3f(0, 0, 1));
+					Vector3f(0, 0, 1)); 
 }
-Matrix3f Matrix3f::ScalingMatrix(Vector2f axisValues) {
+Matrix3f Matrix3f::scalingMatrix(Vector2f axisValues) {
 	
 	return Matrix3f(Vector3f(axisValues.x, 0, 0), Vector3f(0, axisValues.y, 0), Vector3f(0, 0, 1));
 }
-Matrix3f Matrix3f::TranslationMatrix(Vector2f axisValues) {
+Matrix3f Matrix3f::translationMatrix(Vector2f axisValues) {
 	
 	return Matrix3f(Vector3f(1, 0, axisValues.x), Vector3f(0, 1, axisValues.y), Vector3f(0, 0, 1));
 }

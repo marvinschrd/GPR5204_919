@@ -26,19 +26,24 @@ SOFTWARE.
 
 #include "maths/vector2.h"
 
-namespace maths
-{
-class Matrix2f
-{
+namespace maths {
+	
+//Class for column-based matrix 2x2
+class Matrix2f {
+	
 public:
     
     Matrix2f() = default;
 
-    Matrix2f(const Vector2f v1, const Vector2f v2);
+    Matrix2f(const Vector2f& v1, const Vector2f& v2);
 
-    Vector2f& operator[](size_t index) { return matrix_[index]; }
+	Matrix2f(const std::array<Vector2f, 2>& matrix) : matrix_(matrix) {}
 
-    const Vector2f& operator[](size_t index) const { return matrix_[index]; }
+	//This operator will return the column Vector2f at this position in the matrix.
+    Vector2f& operator[](std::size_t index);
+
+    //This operator will return the column Vector2f at this position in the matrix.
+    const Vector2f& operator[](std::size_t index) const;
 
     Matrix2f operator+(const Matrix2f& rhs) const;
 
@@ -52,23 +57,27 @@ public:
 
     Matrix2f& operator*=(const Matrix2f& rhs);
 
-    Matrix2f& operator*=(const float& scalar);
+    Matrix2f& operator*=(float scalar);
 
-    Vector2f operator*(const Vector2f& rhs) const;
+    Vector2f operator*(Vector2f rhs) const;
 
-    float Determinant() const;
+	//This function returns the determinant(float) of the 2x2 matrix
+    float determinant() const;
 
+	//This function returns the inverse matrix of the 2x2 matrix
     Matrix2f Inverse() const;
 
+	//This function transposes the 2x2 matrix 
     Matrix2f Transpose() const;
 
+	//This function returns true if the matrix's determinant is 1 and false otherwise
     bool IsOrthogonal() const;
 
-    static Matrix2f Identity();
+	//This function returns the identity matrix 2x2
+    static Matrix2f identity();
 
 private:
 
-    std::array<Vector2f, 2> matrix_;
-    int size_ = 2;
+    std::array<Vector2f, 2> matrix_ {};
 };
 }//namespace maths
