@@ -34,13 +34,15 @@ namespace maths {
 class Frustum {
 public:
 	Frustum() = default;
-	
+	// Calculate frustum from the given informations from the camera each time it is called
 	void calculate_frustum(Vector3f direction, Vector3f position, Vector3f right, 
 		Vector3f up, float near_plane_distance, float far_plane_distance, 
 		degree_t fov_x, radian_t fov_y);
-	
+	// Check if a sphere is inside the frustum
 	bool contains(const Sphere& sphere);
+	// Check if a AABB is inside the frustum
 	bool contains(const AABB3& aabb);
+	// Check if a point is inside the frustum
 	bool contains(const Vector3f& point);
 	
 private:

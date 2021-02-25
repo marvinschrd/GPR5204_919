@@ -23,97 +23,86 @@ SOFTWARE.
 */
 #include "maths/ray2.h"
 
-namespace maths
-{
-	bool Ray2::intersect_circle(HitInfo& info, Circle& circle)
-	{
-		
-		Vector2f v = circle.center() - origin();
-		float d = v.Dot(unit_direction_);
-		if (d < 0)
-		{
-			return false;
-		}
+namespace maths {
 
-		float squaredDistance = v.Dot(v) - (d * d);
-		float radius2 = circle.radius() * circle.radius();
-		if (squaredDistance > radius2)
-		{
-			return false;
-		}
+bool Ray2::IntersectCircle(const Circle& circle) {
+    float distance;
+    Vector2f v = circle.center() - origin();
+    // Distance to closest point to sphere center
+    float d = v.Dot(unit_direction_);
 
-		auto q = std::sqrt(radius2 - squaredDistance);
+    if (d < 0) {
+        return false;
+    }
 
-		auto t0 = d + q;
-		auto t1 = d - q;
+    // squared Distance between closest point to sphere center
+    const float squaredDistance = v.Dot(v) - (d * d);
+    const float radius2 = circle.radius() * circle.radius();
+    if (squaredDistance > radius2) {
+        return false;
+    }
 
-		bool hasHit = false;
-		float dis;
-		if (t0 >= 0) {
-			dis = t0;
-			hasHit = true;
-			}
+    const auto q = std::sqrt(radius2 - squaredDistance);
 
-		if (t1 >= 0) {
-			if (!hasHit || t1 < dis) {
-				dis = t1;
-				hasHit = true;
-			}
-		}
+    const auto t0 = d + q;
+    const auto t1 = d - q;
 
-		if (!hasHit) {
-			return false;
-		}
+    bool hasHit = false;
+    if (t0 >= 0) {
+        distance = t0;
+        hasHit = true;
+    }
 
-		info.distance = dis;
-		auto pt = origin() + unit_direction_ * dis;
-		info.hit = true;
-		info.hitPoint = pt;
+    if (t1 >= 0) {
+        if (!hasHit || t1 < distance) {
+            distance = t1;
+            hasHit = true;
+        }
+    }
 
-		return true;
-	}
+    if (!hasHit) {
+        return false;
+    }
 
-		
+    // calculate the position where the ray hit
+    hit_position_ = origin() + unit_direction_ * distance;
+    return true;
+}
 
-	bool Ray2::intersect_AABB2(HitInfo & info, maths::AABB2 aabb)
-	{
-		Vector2f lb = aabb.bottom_left();
-		Vector2f rt = aabb.top_right();
-		Vector2f dirfrac;
 
-		dirfrac.x = 1.0f / direction_.x;
-		dirfrac.y = 1.0f / direction_.y;
+bool Ray2::IntersectAABB2(const AABB2& aabb) {
+    const Vector2f lb = aabb.bottom_left();
+    const Vector2f rt = aabb.top_right();
+    Vector2f dirfrac;
+    float distance;
 
-		// lb is the corner of AABB with minimal coordinates - left bottom, rt is maximal corner
+    dirfrac.x = 1.0f / direction_.x;
+    dirfrac.y = 1.0f / direction_.y;
 
-		float t1 = (lb.x - origin().x) * dirfrac.x;
-		float t2 = (rt.x - origin().x) * dirfrac.x;
-		float t3 = (lb.y - origin().y) * dirfrac.y;
-		float t4 = (rt.y - origin().y) * dirfrac.y;
+    // lb is the corner of AABB with minimal coordinates - left bottom, rt is top right
 
-		float tmin = std::max(std::min(t1, t2), std::min(t3, t4));
-		float tmax = std::min(std::max(t1, t2), std::max(t3, t4));
+    const float t1 = (lb.x - origin().x) * dirfrac.x;
+    const float t2 = (rt.x - origin().x) * dirfrac.x;
+    const float t3 = (lb.y - origin().y) * dirfrac.y;
+    const float t4 = (rt.y - origin().y) * dirfrac.y;
 
-		// if tmax < 0, ray (line) is intersecting AABB, but the whole AABB is behind us
-		if (tmax < 0)
-		{
-			info.distance = tmax;
-			return false;
-		}
+    float tmin = std::max(std::min(t1, t2), std::min(t3, t4));
+    float tmax = std::min(std::max(t1, t2), std::max(t3, t4));
 
-		// if tmin > tmax, ray doesn't intersect AABB
-		if (tmin > tmax)
-		{
-			info.distance = tmax;
-			return false;
-		}
+    // if tmax < 0, ray (line) is intersecting AABB, but the whole AABB is behind
+    if (tmax < 0) {
+        return false;
+    }
 
-		info.distance = tmin;
-		info.hitPoint = origin() + direction() * info.distance;
-		return true;
-	}
-	
+    // if tmin > tmax, ray doesn't intersect AABB
+    if (tmin > tmax) {
+        return false;
+    }
+
+    distance = tmin;
+    // calculate the position where the ray hit
+    hit_position_ = origin() + direction() * distance;
+    return true;
+}
+
 } // namespace maths
-
-
-

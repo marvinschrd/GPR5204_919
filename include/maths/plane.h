@@ -24,6 +24,7 @@ SOFTWARE.
 */
 
 #include "maths/vector3.h"
+
 namespace maths
 {
 	
@@ -31,17 +32,20 @@ class Plane {
 
 public:
 	Plane() = default;
-	Plane(Vector3f& point,Vector3f& normal) : point_(point), normal_(normal) {}
-	Plane(Vector3f a, Vector3f b, Vector3f c) : point_(a), normal_(calculate_normal_from_points(a,b,c)) {}
+	Plane(const Vector3f& point, const Vector3f& normal)
+	: point_(point), normal_(normal) {}
+	Plane(Vector3f a, Vector3f b, Vector3f c)
+	: point_(a), normal_(CalculateNormalFromPoints(a,b,c)) {}
 
-	float distance( const Vector3f& point) const {
+	float Distance( const Vector3f& point) const {
 		return {Vector3f::Dot(point - point_, normal_) };
 	}
-	Vector3f calculate_normal_from_points(Vector3f a, Vector3f b, Vector3f c) {
+
+	// calculate the normal of the plane based on the three points
+	Vector3f CalculateNormalFromPoints(Vector3f a, Vector3f b, Vector3f c) const {
 		Vector3f v_a = a - b;
 		Vector3f v_b = c - b;
 		return { Vector3f::Cross(v_a,v_b).Normalized() };
-		
 	}
 	
 	Vector3f point() const { return { point_ }; }
