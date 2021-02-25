@@ -26,11 +26,21 @@ SOFTWARE.
 
 namespace maths
 {
+Vector2f Vector2f::operator+(const Vector2f rhs) const
+{
+	return Vector2f(x + rhs.x, y + rhs.y);
+}
+	
 Vector2f& Vector2f::operator+=(const Vector2f rhs)
 {
 	x += rhs.x;
 	y += rhs.y;
 	return *this;
+}
+
+Vector2f Vector2f::operator-(const Vector2f rhs) const
+{
+	return Vector2f(x - rhs.x, y - rhs.y);
 }
 
 Vector2f& Vector2f::operator-=(const Vector2f rhs)
@@ -40,6 +50,11 @@ Vector2f& Vector2f::operator-=(const Vector2f rhs)
 	return *this;
 }
 
+Vector2f Vector2f::operator*(const float scalar) const
+{
+	return Vector2f(x * scalar, y * scalar);
+}
+
 Vector2f& Vector2f::operator*=(const float scalar)
 {
 	x *= scalar;
@@ -47,11 +62,44 @@ Vector2f& Vector2f::operator*=(const float scalar)
 	return *this;
 }
 
+Vector2f Vector2f::operator/(const float scalar) const
+{
+	return Vector2f(x / scalar, y / scalar);
+}
+
 Vector2f& Vector2f::operator/=(const float scalar)
 {
 	x /= scalar;
 	y /= scalar;
 	return *this;
+}
+
+bool Vector2f::operator==(const Vector2f rhs) const
+{
+	return x == rhs.x && y == rhs.y;
+}
+
+bool Vector2f::operator!=(const Vector2f rhs) const
+{
+	return x != rhs.x || y != rhs.y;
+}
+
+const float Vector2f::operator[](const size_t component) const
+{
+	return coord[component];
+}
+
+float& Vector2f::operator[](const size_t component) {return coord[component];}
+
+float Vector2f::Magnitude() const {return std::sqrt(x * x + y * y);}
+
+float Vector2f::SqrMagnitude() const {return x * x + y * y;}
+
+float Vector2f::Dot(const Vector2f v2) const {return x * v2.x + y * v2.y;}
+
+float Vector2f::Dot(const Vector2f v1, const Vector2f v2)
+{
+	return v1.x * v2.x + v1.y * v2.y;
 }
 
 Vector3f Vector2f::Cross(const Vector2f vec2) const
@@ -98,6 +146,16 @@ void Vector2f::Normalize()
 	const float magnitude = Magnitude();
 	x /= magnitude;
 	y /= magnitude;
+}
+
+Vector2f Vector2f::Lerp(const Vector2f v2, const float t) const
+{
+	return *this + (v2 - *this) * t;
+}
+
+Vector2f Vector2f::Lerp(const Vector2f v1, const Vector2f v2,
+	const float t) {
+	return v1 + (v2 - v1) * t;
 }
 
 Vector2f Vector2f::Slerp(Vector2f v2, const float t) const
