@@ -65,16 +65,24 @@ public:
 
     Vector3f& operator/=(float scalar);
 
+    bool operator==(Vector3f& rhs) const;
+
+    bool operator!=(Vector3f& rhs) const;
+
+    // This function does the Dot product of three vectors.
     float Dot(const Vector3f& v2) const;
 
     static float Dot(const Vector3f& v1, const Vector3f& v2);
 
+    // This function does the Cross product of three vectors.
     Vector3f Cross(const Vector3f& v2) const;
 
     static Vector3f Cross(const Vector3f& v1, const Vector3f& v2);
 
+    // This function calculates the norm.
     float Magnitude() const;
 
+    // This function calculates the squared length of a vector.
     float SqrMagnitude() const;
 
     radian_t AngleBetween(const Vector3f& v2) const;
@@ -82,21 +90,21 @@ public:
     static radian_t AngleBetween(const Vector3f& v1, const Vector3f& v2);
 
     // Allows to read value at index.
-
     float operator[](std::size_t index) const { return coord[index]; }
 
     // Allows to write value at index.
-
     float& operator[](std::size_t index) { return coord[index]; }
 
     Vector3f Normalized() const;
 
     void Normalize();
 
+    // The function Lerp linearly interpolates between two points.
     Vector3f Lerp(const Vector3f& v2, float t) const;
 
     static Vector3f Lerp(const Vector3f& v1, const Vector3f& v2, float t);
 
+    // The function Slerp spherically interpolates between two vectors.
     Vector3f Slerp(Vector3f& v2, float t) const;
 };
 } // namespace maths

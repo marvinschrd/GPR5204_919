@@ -80,6 +80,15 @@ Vector4f& Vector4f::operator/=(const float scalar) {
     return *this;
 }
 
+bool Vector4f::operator==(Vector4f& rhs) const {
+    return x == rhs.x && y == rhs.y && z == rhs.z && w == rhs.w;
+}
+
+bool Vector4f::operator!=(Vector4f& rhs) const {
+    return x != rhs.x || y != rhs.y || z != rhs.z || w != rhs.w;
+}
+
+// This function does the Dot product of four vectors.
 float Vector4f::Dot(const Vector4f& v2) const {
     return Dot(*this, v2);
 }
@@ -88,16 +97,22 @@ float Vector4f::Dot(const Vector4f& v1, const Vector4f& v2) {
     return {v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w};
 }
 
+// This function calculates the norm.
 float Vector4f::Magnitude() const {
     return std::sqrt(x * x + y * y + z * z + w * w);
 }
 
+// This function calculates the squared length of a vector.
 float Vector4f::SqrMagnitude() const {
     return {x * x + y * y + z * z + w * w};
 }
 
 Vector4f Vector4f::Normalized() const {
     const float magnitude = Magnitude();
+
+     if (magnitude == 0) {
+        return Vector4f(0, 0, 0, 0);
+    }
 
     return {x / magnitude,
             y / magnitude,
@@ -114,6 +129,7 @@ void Vector4f::Normalize() {
     w /= magnitude;
 }
 
+// The function Lerp linearly interpolates between two points.
 Vector4f Vector4f::Lerp(const Vector4f& v2, const float t) const {
     return Lerp(*this, v2, t);
 }

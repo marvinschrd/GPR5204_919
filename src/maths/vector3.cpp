@@ -77,6 +77,15 @@ Vector3f& Vector3f::operator/=(const float scalar) {
     return *this;
 }
 
+bool Vector3f::operator==(Vector3f& rhs) const {
+    return x == rhs.x && y == rhs.y && z == rhs.z;
+}
+
+bool Vector3f::operator!=(Vector3f& rhs) const {
+    return x != rhs.x || y != rhs.y || z != rhs.z;
+}
+
+// This function does the Dot product of three vectors.
 float Vector3f::Dot(const Vector3f& v2) const {
     return Dot(*this, v2);
 }
@@ -85,6 +94,7 @@ float Vector3f::Dot(const Vector3f& v1, const Vector3f& v2) {
     return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
 
+// This function does the Cross product of three vectors.
 Vector3f Vector3f::Cross(const Vector3f& v2) const {
     return Cross(*this, v2);
 }
@@ -97,10 +107,12 @@ Vector3f Vector3f::Cross(const Vector3f& v1, const Vector3f& v2) {
     };
 }
 
+// This function calculates the norm.
 float Vector3f::Magnitude() const {
     return std::sqrt(x * x + y * y + z * z);
 }
 
+// This function calculates the squared length of a vector.
 float Vector3f::SqrMagnitude() const {
     return x * x + y * y + z * z;
 }
@@ -118,16 +130,23 @@ radian_t Vector3f::AngleBetween(const Vector3f& v1, const Vector3f& v2) {
 
 Vector3f Vector3f::Normalized() const {
     const float magnitude = Magnitude();
+
+    if(magnitude == 0) {
+        return Vector3f(0, 0, 0);
+    }
+
     return {x / magnitude, y / magnitude, z / magnitude};
 }
 
 void Vector3f::Normalize() {
     const float magnitude = Magnitude();
+
     x /= magnitude;
     y /= magnitude;
     z /= magnitude;
 }
 
+// The function Lerp linearly interpolates between two points.
 Vector3f Vector3f::Lerp(const Vector3f& v2, const float t) const {
     return Lerp(*this, v2, t);
 }
@@ -136,15 +155,16 @@ Vector3f Vector3f::Lerp(const Vector3f& v1, const Vector3f& v2, const float t) {
     return v1 + (v2 - v1) * t;
 }
 
+// The function Slerp spherically interpolates between two vectors.
 Vector3f Vector3f::Slerp(Vector3f& v2, const float t) const {
     const float magnitude_v1 = Magnitude();
     const float magnitude_v2 = v2.Magnitude();
     const Vector3f v1 = *this / magnitude_v1;
     v2 /= magnitude_v2;
     float dot = Dot(v1, v2);
-    //Makes sure dot value cannot be under -1.
+    // Makes sure dot value cannot be under -1.
     dot = fmax(dot, -1.0f);
-    //Makes sure dot value cannot be over 1.
+    // Makes sure dot value cannot be over 1.
     dot = fmin(dot, 1.0f);
 
     const radian_t theta = maths::acos(dot) * t;

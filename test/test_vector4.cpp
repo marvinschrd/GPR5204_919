@@ -111,6 +111,28 @@ TEST(Maths, Vector4f_DivisionByScalar) {
     EXPECT_EQ(e.w, d.w / b);
 }
 
+TEST(Maths, Vector4f_Equal) {
+    const maths::Vector4f a{2.0f, 3.0f, 1.0f, 4.0f};
+
+    // Test operator ==.
+    const maths::Vector4f c = a;
+    EXPECT_TRUE(c.x == a.x);
+    EXPECT_TRUE(c.y == a.y);
+    EXPECT_TRUE(c.z == a.z);
+    EXPECT_TRUE(c.w == a.w);
+}
+
+TEST(Maths, Vector4f_NotEqual) {
+    const maths::Vector4f a{2.0f, 3.0f, 1.0f, 4.0f};
+    const maths::Vector4f b{1.0f, 4.0f, 3.0f, 2.0f};
+
+    // Test operator !=.
+    EXPECT_TRUE(b.x != a.x);
+    EXPECT_TRUE(b.y != a.y);
+    EXPECT_TRUE(b.z != a.z);
+    EXPECT_TRUE(b.w != a.w);
+}
+
 TEST(Maths, Vector4f_Magnitude) {
     const maths::Vector4f a{2.0f, 3.0f, 1.0f, 4.0f};
     const float b = 4.0f;

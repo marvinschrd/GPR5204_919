@@ -68,16 +68,24 @@ public:
 
     Vector4f& operator/=(float scalar);
 
+    bool operator==(Vector4f& rhs) const;
+
+    bool operator!=(Vector4f& rhs) const;
+
+    // This function does the Dot product of four vectors.
     float Dot(const Vector4f& v2) const;
 
     static float Dot(const Vector4f& v1, const Vector4f& v2);
 
+    // This function calculates the norm.
     float Magnitude() const;
 
+    // This function calculates the squared length of a vector.
     float SqrMagnitude() const;
 
     // Allows to read value at index.
     float operator[](std::size_t index) const { return coord[index]; }
+
     // Allows to write value at index.
     float& operator[](std::size_t index) { return coord[index]; }
 
@@ -85,6 +93,7 @@ public:
 
     void Normalize();
 
+    // The function Lerp linearly interpolates between two points.
     Vector4f Lerp(const Vector4f& v2, float t) const;
 
     static Vector4f Lerp(const Vector4f& v1, const Vector4f& v2, float t);
