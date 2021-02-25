@@ -23,8 +23,7 @@ SOFTWARE.
 */
 
 #pragma once
-#include <cmath>
-#include <maths/angle.h>
+#include "maths/angle.h"
 
 namespace maths {
 /**
@@ -68,9 +67,9 @@ public:
 
     Vector4f& operator/=(float scalar);
 
-    bool operator==(Vector4f& rhs) const;
+    bool operator==(const Vector4f& rhs) const;
 
-    bool operator!=(Vector4f& rhs) const;
+    bool operator!=(const Vector4f& rhs) const;
 
     // This function does the Dot product of four vectors.
     float Dot(const Vector4f& v2) const;

@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include <maths/vector3.h>
-#include <maths/angle.h>
+#include "maths/vector3.h"
+#include "maths/angle.h"
 #include <cmath>
 
 namespace maths {
@@ -77,11 +77,11 @@ Vector3f& Vector3f::operator/=(const float scalar) {
     return *this;
 }
 
-bool Vector3f::operator==(Vector3f& rhs) const {
+bool Vector3f::operator==(const Vector3f& rhs) const {
     return x == rhs.x && y == rhs.y && z == rhs.z;
 }
 
-bool Vector3f::operator!=(Vector3f& rhs) const {
+bool Vector3f::operator!=(const Vector3f& rhs) const {
     return x != rhs.x || y != rhs.y || z != rhs.z;
 }
 
