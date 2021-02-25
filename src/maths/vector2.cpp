@@ -110,6 +110,7 @@ Vector3f Vector2f::Cross(const Vector2f v1, const Vector2f v2) {
     return Vector3f(0, 0, v1.x * v2.y - v1.y * v2.x);
 }
 
+// This functions calculates the angle between two vectors.
 radian_t Vector2f::AngleBetween(const Vector2f v2) const {
     return AngleBetween(*this, v2);
 }
@@ -122,6 +123,7 @@ radian_t Vector2f::AngleBetween(const Vector2f v1, const Vector2f v2) {
     return angle;
 }
 
+// This functions make a vector have a magnitude of 1.
 Vector2f Vector2f::Normalized() const {
     const float magnitude = Magnitude();
     if (Equal(magnitude, 0)) {
@@ -144,16 +146,16 @@ Vector2f Vector2f::Lerp(const Vector2f v1, const Vector2f v2, const float t) {
     return v1 + (v2 - v1) * t;
 }
 
-//The function Slerp spherically interpolates between two vectors.
+// The function Slerp spherically interpolates between two vectors.
 Vector2f Vector2f::Slerp(Vector2f v2, const float t) const {
     const double v1_magnitude = Magnitude();
     const double v2_magnitude = v2.Magnitude();
     const Vector2f v1 = *this / v1_magnitude;
     v2 /= v2_magnitude;
     float dot = Dot(v1, v2);
-    //Makes sure dot value cannot be under -1
+    // Makes sure dot value cannot be under -1
     dot = fmax(dot, -1.0f);
-    //Makes sure dot value cannot be over 1
+    // Makes sure dot value cannot be over 1
     dot = fmin(dot, 1.0f);
 
     const radian_t theta = acos(dot) * t;
@@ -163,6 +165,7 @@ Vector2f Vector2f::Slerp(Vector2f v2, const float t) const {
     return new_vec * (v1_magnitude + (v2_magnitude - v1_magnitude) * t);
 }
 
+// The function rotate a vector depending on an angle.
 Vector2f Vector2f::Rotation(const radian_t angle) const {
     return Rotation(*this, angle);
 }
