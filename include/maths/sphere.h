@@ -25,6 +25,7 @@ SOFTWARE.
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "maths/vector3.h"
+#include "aabb3.h"
 
 namespace maths {
 class Sphere {

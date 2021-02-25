@@ -63,7 +63,6 @@ bool ContainCircle(const Circle& a, const Circle& b) {
 bool AABBOverlapCircle(const AABB2& a, const Circle& b) {
     // Vector from a to b absolute
     Vector2f n = b.center() - a.center();
-    n = Vector2f(abs(n.x), abs(n.y));
 
     // Closest point on a to center b
     Vector2f closest = n;
@@ -75,28 +74,14 @@ bool AABBOverlapCircle(const AABB2& a, const Circle& b) {
 
     // Clamp point to edges of AABB
     closest.x =
-        std::clamp(closest.x, aabb_center.x - x_extent,
-                   aabb_center.x + x_extent);
+        std::clamp(closest.x, - x_extent, + x_extent);
     closest.y =
-        std::clamp(closest.y, aabb_center.y - y_extent,
-                   aabb_center.y + y_extent);
+        std::clamp(closest.y, - y_extent, + y_extent);
 
-    // Circle is inside the AABB, so we need to clamp the circles center to the closest edge
-    if (n == closest && a.center() != b.center()) {
-        return true;
-    }
-
-    Vector2f normal = n - closest;
-    float d = normal.SqrMagnitude();
     float radius = b.radius();
-    // Check which is larger
-    if (radius > x_extent) {
-        if (CircleContainAABB(b, a)) return false;
-    } else {
-        if (AABBContainCircle(b, a)) return false;
-    }
-
-    return d < (radius * radius);
+    Vector2f difference = a.center() + closest;
+    closest = difference - b.center();
+    return closest.SqrMagnitude() <= (radius * radius);
 }
 
 bool CircleContainAABB(const Circle& circle, const AABB2& aabb) {
