@@ -23,54 +23,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "maths/sphere.h"
-#include "maths/aabb3.h"
-#include "maths/plane.h"
-
-namespace maths {
-	
-struct HitInfo
+#include "maths/vector3.h"
+namespace maths
 {
-	HitInfo()
-	{
-		reset();
-	}
+	
+class Plane {
 
-	void reset()
-	{
-		distance = std::numeric_limits<float>::infinity();
-		hit = false;
-	}
-
-	Vector3f hitPoint;
-	Vector3f hitNormal;
-	float distance;
-	bool hit;
-	};
-
-class Ray3 {
 public:
-	Ray3() = default;
-	Ray3(Vector3f& origin, Vector3f& direction) : origin_(origin), direction_(direction) {}
+	Plane() = default;
+	Plane(Vector3f& point,Vector3f& normal) : point_(point), normal_(normal) {}
+	Plane(Vector3f a, Vector3f b, Vector3f c) : point_(a), normal_(calculate_normal_from_points(a,b,c)) {}
 
-	HitInfo info;
-
-	Vector3f point_in_ray(float value) const {
-		return { origin_ + direction_ * value };
+	float distance( const Vector3f& point) const {
+		return {Vector3f::Dot(point - point_, normal_) };
 	}
-
-	Vector3f origin() const { return origin_; }
-	Vector3f direction() const { return direction_; }
-	Vector3f unit_direction() const { return unit_direction_; }
-
-	bool intersect_sphere(HitInfo& info, Sphere& sphere);
-	bool intersect_AABB3(HitInfo& info, AABB3 aabb);
-	bool intersect_plane(HitInfo& info, Plane plane);
-
+	Vector3f calculate_normal_from_points(Vector3f a, Vector3f b, Vector3f c) {
+		Vector3f v_a = a - b;
+		Vector3f v_b = c - b;
+		return { Vector3f::Cross(v_a,v_b).Normalized() };
+		
+	}
+	
+	Vector3f point() const { return { point_ }; }
+	Vector3f normal() const { return { normal_ }; }
 private:
-	Vector3f origin_ = {};
-	Vector3f direction_ = {};
-	Vector3f unit_direction_ = direction_.Normalized();
-};
+	Vector3f point_;
+	Vector3f normal_;
+	};
 
 } // namespace maths

@@ -22,35 +22,30 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+#include <array>
 
 #include "maths/matrix4.h"
 #include "maths/sphere.h"
 #include "maths/aabb3.h"
+#include "maths/plane.h"
 
 namespace maths {
-	
-struct Plane {
-	float a;
-	float b;
-	float c;
-	float d;
-};
 	
 class Frustum {
 public:
 	Frustum() = default;
-	Frustum(Matrix4f& viewProjection) : viewProjection_(viewProjection) {}
-
-	void normalize_plane(Plane& plane);
-	void calcluate_frustum_planes();
-
+	
+	void calculate_frustum(Vector3f direction, Vector3f position, Vector3f right, 
+		Vector3f up, float near_plane_distance, float far_plane_distance, 
+		radian_t angle, float ratio);
+	
+	bool contains(const Sphere& sphere);
+	bool contains(const AABB3& aabb);
+	bool contains(const Vector3f& point);
+	
 private:
-	Matrix4f viewProjection_;
-	Plane planes_[6];
+	std::array<Plane, 6> planes_;
+	enum Planes {NEAR, FAR, LEFT, RIGHT, TOP, BOTTOM};
 };
-
-bool Contains(Frustum &frustum, const Sphere &sphere);
-bool Contains(Frustum &frustum, const AABB3 &aabb);
-bool Contains(Frustum &frustum, const Vector3f &point);
 	
 } // namespace maths
