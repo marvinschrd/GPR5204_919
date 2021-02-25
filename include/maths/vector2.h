@@ -27,82 +27,79 @@ SOFTWARE.
 #include "maths/vector3.h"
 #include "maths/angle.h"
 
-namespace maths
-{
+namespace maths {
 /**
 * \brief Class used to represent a 2D vector.
 */
-class Vector2f
-{
+class Vector2f {
 public:
 
-	union
-	{
-		struct
-		{
-			float x;
-			float y;
-		};
+    union {
+        struct {
+            float x;
+            float y;
+        };
 
-		float coord[2]{};
-	};
+        float coord[2]{};
+    };
 
-	Vector2f() = default;
+    Vector2f() = default;
 
-	Vector2f(const float x, const float y) : x(x), y(y) {}
+    Vector2f(const float x, const float y) : x(x), y(y) {
+    }
 
-	Vector2f operator+(Vector2f rhs) const;
+    Vector2f operator+(Vector2f rhs) const;
 
-	Vector2f& operator+=(Vector2f rhs);
+    Vector2f& operator+=(Vector2f rhs);
 
-	Vector2f operator-(Vector2f rhs) const;
+    Vector2f operator-(Vector2f rhs) const;
 
-	Vector2f& operator-=(Vector2f rhs);
+    Vector2f& operator-=(Vector2f rhs);
 
-	Vector2f operator*(float scalar) const;
+    Vector2f operator*(float scalar) const;
 
-	Vector2f& operator*=(float scalar);
+    Vector2f& operator*=(float scalar);
 
-	Vector2f operator/(float scalar) const;
+    Vector2f operator/(float scalar) const;
 
-	Vector2f& operator/=(float scalar);
+    Vector2f& operator/=(float scalar);
 
-	bool operator==(Vector2f rhs) const;
+    bool operator==(Vector2f rhs) const;
 
-	bool operator!=(Vector2f rhs) const;
+    bool operator!=(Vector2f rhs) const;
 
-	const float operator[](size_t component) const;
+    const float operator[](size_t component) const;
 
-	float& operator[](size_t component);
+    float& operator[](size_t component);
 
-	float Magnitude() const;
+    float Magnitude() const;
 
-	float SqrMagnitude() const;
+    float SqrMagnitude() const;
 
-	float Dot(Vector2f v2) const;
+    float Dot(Vector2f v2) const;
 
-	static float Dot(Vector2f v1, Vector2f v2);
+    static float Dot(Vector2f v1, Vector2f v2);
 
-	Vector3f Cross(Vector2f vec2) const;
+    Vector3f Cross(Vector2f v2) const;
 
-	static Vector3f Cross(Vector2f vec1, Vector2f vec2);
+    static Vector3f Cross(Vector2f v1, Vector2f v2);
 
-	radian_t AngleBetween(Vector2f v2) const;
+    radian_t AngleBetween(Vector2f v2) const;
 
-	static radian_t AngleBetween(Vector2f v1, Vector2f v2);
+    static radian_t AngleBetween(Vector2f v1, Vector2f v2);
 
-	Vector2f Normalized() const;
+    Vector2f Normalized() const;
 
-	void Normalize();
+    void Normalize();
 
-	Vector2f Lerp(Vector2f v2, float t) const;
+    Vector2f Lerp(Vector2f v2, float t) const;
 
-	static Vector2f Lerp(Vector2f v1, Vector2f v2, float t);
+    static Vector2f Lerp(Vector2f v1, Vector2f v2, float t);
 
-	Vector2f Slerp(Vector2f v2, float t) const;
+    Vector2f Slerp(Vector2f v2, float t) const;
 
-	Vector2f Rotation(radian_t angle) const;
+    Vector2f Rotation(radian_t angle) const;
 
-	static Vector2f Rotation(Vector2f v1, radian_t angle);
+    static Vector2f Rotation(Vector2f v1, radian_t angle);
 };
 } // namespace maths
